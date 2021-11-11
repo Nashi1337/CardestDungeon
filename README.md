@@ -9,6 +9,7 @@
 | Working Title | Cardest Dungeon |
 | Final Title | `Edit me!` |
 | Student | Yannik Stamm, yannik.stamm@stud-mail.uni-wuerzburg.de, `s######` |
+| Student | Max Rogner, maximilian.rogner@stud-mail.uni-wuerzburg.de, `s432750` |
 | Target Platform(s) | `Edit me!` |
 | Start Date | 21.10.2019 |
 | Study Program | Games Engineering B.Sc.|
@@ -23,9 +24,9 @@
 
 ```
 RepositoryRoot/
-    ├── README.md           // This should reflect your project 
-    │                       //  accurately, so always merge infor- 
-    │                       //  mation from your concept paper 
+    ├── README.md           // This should reflect your project
+    │                       //  accurately, so always merge infor-
+    │                       //  mation from your concept paper
     │                       //  with the readme
     ├── builds/             // Archives (.zip) of built executables of your projects
     │                       //  including (non-standard) dependencies
@@ -78,8 +79,7 @@ This command creates the following entry in the *.gitattributes* file:
 Git LFS is installed on all Workstations in E37 and the GameLabs.
 For your private computer, you can [download Git LFS here](https://git-lfs.github.com/).
 
-#### Further Reading: 
+#### Further Reading:
 * [Epic on Git for Unreal](https://wiki.unrealengine.com/Git_source_control_(Tutorial)#Workarounds_for_dealing_with_binary_files_on_your_Git_repository)
 * [GitLFS](https://www.git-lfs.com)
 * [Git](https://www.git-scm.com)
-
