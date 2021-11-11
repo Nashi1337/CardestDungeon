@@ -6,9 +6,9 @@
 
 |  General Info  | |
 | ---|---|
-| Working Title | `Edit me!` |
+| Working Title | Cardest Dungeon |
 | Final Title | `Edit me!` |
-| Student | `Name`, `edit-me`@stud-mail.uni-wuerzburg.de, `s######` |
+| Student | Yannik Stamm, yannik.stamm@stud-mail.uni-wuerzburg.de, `s######` |
 | Target Platform(s) | `Edit me!` |
 | Start Date | 21.10.2019 |
 | Study Program | Games Engineering B.Sc.|
