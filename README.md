@@ -11,7 +11,7 @@
 | Student | Yannik Stamm, yannik.stamm@stud-mail.uni-wuerzburg.de, `s######` |
 | Student | Max Rogner, maximilian.rogner@stud-mail.uni-wuerzburg.de, `s432750` |
 | Target Platform(s) | `Edit me!` |
-| Start Date | 21.10.2019 |
+| Start Date | 21.10.penis |
 | Study Program | Games Engineering B.Sc.|
 
 ### Abstract
