@@ -11,7 +11,7 @@
 | Student | Yannik Stamm, yannik.stamm@stud-mail.uni-wuerzburg.de, `s######` |
 | Student | Max Rogner, maximilian.rogner@stud-mail.uni-wuerzburg.de, `s432750` |
 | Target Platform(s) | `Edit me!` |
-| Start Date | 21.10.penis |
+| Start Date | 21.10.20202020202 |
 | Study Program | Games Engineering B.Sc.|
 
 ### Abstract
@@ -24,9 +24,9 @@
 
 ```
 RepositoryRoot/
-    ├── README.md           // This should reflect your project
-    │                       //  accurately, so always merge infor-
-    │                       //  mation from your concept paper
+    ├── README.md           // This should reflect your project 
+    │                       //  accurately, so always merge infor- 
+    │                       //  mation from your concept paper 
     │                       //  with the readme
     ├── builds/             // Archives (.zip) of built executables of your projects
     │                       //  including (non-standard) dependencies
