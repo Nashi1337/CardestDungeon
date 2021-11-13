@@ -19,6 +19,6 @@ public class MapPiece : MonoBehaviour
 
     private void OnClick()
     {
-
+        Debug.LogError("Du wurdest angeklickt");
     }
 }
