@@ -35,9 +35,10 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+       rig.velocity = InputManager.CalculateMovement() * speed;
+
     }
 
     private void OnMove(Vector2 input)
@@ -56,5 +57,4 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
 }

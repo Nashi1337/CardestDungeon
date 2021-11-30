@@ -2,166 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class InputManager : MonoBehaviour
 {
-    public static InputManager Current { get { return current; } }
-
-    private static InputManager current = null;
-
-    [SerializeField]
-    private KeyCode[] forward;
-    [SerializeField]
-    private KeyCode[] backward;
-    [SerializeField]
-    private KeyCode[] left;
-    [SerializeField]
-    private KeyCode[] right;
-    [SerializeField]
-    private KeyCode[] action1;
-
-    public delegate void Vec2Input(Vector2 move);
-    public delegate void ActionInput();
-
-    public Vec2Input onMove;
-    public ActionInput onAction1Down;
-    public ActionInput onAction1Held;
-    public ActionInput onAction1Up;
-
-    private bool isAction1Down = false;
-
-    private void Awake()
-    {
-        if (current == null)
-        {
-            current = this;
-        }
-        else if (current != this)
-        {
-            throw new System.Exception("Es ist mehr als ein InputManager aktiv. Das sollte nicht sein!");
-            Destroy(this);
-        }
-    }
-
-    private void Update()
-    {
-        TryCallOnAction1();
-    }
-
-    private void FixedUpdate()
-    {
-        TryCallOnMove();
-    }
+    public static KeyCode forward = KeyCode.W;
+    public static KeyCode backward = KeyCode.S;
+    public static KeyCode left = KeyCode.A;
+    public static KeyCode right = KeyCode.D;
+    public static KeyCode map = KeyCode.M;
+    public static KeyCode inventory = KeyCode.I;
+    public static KeyCode cancel = KeyCode.B;
+    public static KeyCode action = KeyCode.Space;
 
     /// <summary>
-    /// Checks if there is a movement input and Calls OnMove, if there is one.
+    /// Calculates the movement by checking the forward, backward, left and right keys.
     /// </summary>
-    private void TryCallOnMove()
+    /// <returns>Returns a Vector2 which contains values for x and y between -1 and 1</returns>
+    public static Vector2 CalculateMovement()
     {
         Vector2 movement = new Vector2(0, 0);
-        //Falls eine Vorwärts Eingabe aktiv ist, addiere den movement Vektor mit (0, 1)
-        foreach (KeyCode key in forward)
-        {
-            if (Input.GetKey(key))
-            {
-                movement.y += 1;
-                break;
-            }
-        }
-        //Falls eine Rückwärts Eingabe aktiv ist, addiere den movement Vektor mit (0, -1)
-        foreach (KeyCode key in backward)
-        {
-            if (Input.GetKey(key))
-            {
-                movement.y -= 1;
-                break;
-            }
-        }
 
-        //Selbes Spiel mit links und rechts
-        foreach (KeyCode key in right)
-        {
-            if (Input.GetKey(key))
-            {
-                movement.x += 1;
-                break;
-            }
-        }
-
-        foreach (KeyCode key in left)
-        {
-            if (Input.GetKey(key))
-            {
-                movement.x -= 1;
-                break;
-            }
-        }
-
-        if (movement != default)
-        {
-            onMove?.Invoke(movement);
-        }
+        movement.y += Input.GetKey(forward) ? 1 : 0;
+        movement.y -= Input.GetKey(backward) ? 1 : 0;
+        movement.x += Input.GetKey(right) ? 1 : 0;
+        movement.x -= Input.GetKey(left) ? 1 : 0;
+        return movement;
     }
-
-    private void TryCallOnAction1()
-    {
-        if (!isAction1Down)
-        {
-            foreach (KeyCode key in action1)
-            {
-                if (Input.GetKeyDown(key))
-                {
-                    onAction1Down?.Invoke();
-                    isAction1Down = true;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            foreach (KeyCode key in action1)
-            {
-                if (Input.GetKeyUp(key))
-                {
-                    onAction1Up?.Invoke();
-                    isAction1Down = false;
-                    return;
-                }
-            }
-
-            //Fall Action1 gedrückt ist, und Action1 nicht losgelassen wurde
-            onAction1Held?.Invoke();
-        }
-    }
-
-    //private void TryCallOnAction1()
-    //{
-    //    if (!isAction1Down)
-    //    {
-    //        foreach (KeyCode key in action1)
-    //        {
-    //            if (Input.GetKeyDown(key))
-    //            {
-    //                onAction1Down?.Invoke();
-    //                isAction1Down = true;
-    //                break;
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        foreach (KeyCode key in action1)
-    //        {
-    //            if (Input.GetKeyUp(key))
-    //            {
-    //                onAction1Up?.Invoke();
-    //                isAction1Down = false;
-    //                return;
-    //            }
-    //        }
-
-    //        //Fall Action1 gedrückt ist, und Action1 nicht losgelassen wurde
-    //        onAction1Held?.Invoke();
-    //    }
-    //}
-
 }
