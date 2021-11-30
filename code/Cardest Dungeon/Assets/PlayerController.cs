@@ -11,10 +11,24 @@ public class PlayerController : MonoBehaviour
     public AudioClip test;
 
     public GameObject canvas;
+
+    public GameObject mapeditor;
     // Start is called before the first frame update
+
+    Transform[] allchildren;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        mapeditor = GameObject.Find("MapEditor");
+        allchildren = mapeditor.GetComponentsInChildren<Transform>();
+
+        //MapEditor and it's children are set false at the start of the game so that the M button action works
+        mapeditor.SetActive(false);
+        foreach (Transform child in allchildren)
+        {
+            child.gameObject.SetActive(mapeditor.activeSelf);
+            Debug.Log(child);
+        }
 
         InputManager.Current.onMove += OnMove;
         InputManager.Current.onAction1Down += OnAction1Down;
@@ -33,15 +47,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnAction1Down()
     {
-        Debug.Log("Action1 wurde gedrückt");
+        mapeditor.SetActive(!mapeditor.activeSelf);
 
-        var audio = gameObject.GetComponent<AudioSource>();
-        if (audio == null)
+        foreach (Transform child in allchildren)
         {
-            audio = gameObject.AddComponent<AudioSource>();
-            audio.clip = test;
+            child.gameObject.SetActive(mapeditor.activeSelf);
+            Debug.Log(child);
         }
-        audio.Play();
 
     }
+
 }
