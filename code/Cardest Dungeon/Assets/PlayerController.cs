@@ -68,9 +68,9 @@ public class PlayerController : MonoBehaviour
     {
         mapeditor.SetActive(!mapeditor.activeSelf);
 
-        foreach (Transform child in allchildren)
-        {
-            child.gameObject.SetActive(mapeditor.activeSelf);
-        }
+        //foreach (Transform child in allchildren)
+        //{
+        //    child.gameObject.SetActive(mapeditor.activeSelf);
+        //}
     }
 }
