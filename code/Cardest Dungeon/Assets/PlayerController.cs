@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float runningSpeed;
     private Rigidbody2D rig = default;
 
     public AudioClip test;
 
-    public GameObject canvas;
-
-    public GameObject mapeditor;
+    private GameObject mapeditor;
     // Start is called before the first frame update
 
     Transform[] allchildren;
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
         foreach (Transform child in allchildren)
         {
             child.gameObject.SetActive(mapeditor.activeSelf);
-            Debug.Log(child);
         }
 
         //InputManager.Current.onMove += OnMove;
@@ -37,8 +36,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       rig.velocity = InputManager.CalculateMovement() * speed;
-
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rig.velocity = InputManager.CalculateMovement() * runningSpeed;
+        }
+        else
+        {
+            rig.velocity = InputManager.CalculateMovement() * speed;
+        }
     }
 
     private void OnMove(Vector2 input)
