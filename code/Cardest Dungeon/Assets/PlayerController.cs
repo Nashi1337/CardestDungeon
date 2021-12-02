@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour
     private float runningSpeed;
     private Rigidbody2D rig = default;
 
+    private SpriteRenderer renderer;
+
     public AudioClip test;
+
+    //animator Variable um für den Player Animationen zu steuern
+    public Animator animator;
 
     private GameObject mapeditor;
     // Start is called before the first frame update
@@ -21,6 +26,7 @@ public class PlayerController : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         mapeditor = GameObject.Find("MapEditor");
         allchildren = mapeditor.GetComponentsInChildren<Transform>();
+        renderer = GetComponent < SpriteRenderer>();
 
         //MapEditor and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
@@ -28,9 +34,6 @@ public class PlayerController : MonoBehaviour
         {
             child.gameObject.SetActive(mapeditor.activeSelf);
         }
-
-        //InputManager.Current.onMove += OnMove;
-        //InputManager.Current.onAction1Down += OnAction1Down;
     }
 
     // Update is called once per frame
@@ -44,11 +47,17 @@ public class PlayerController : MonoBehaviour
         {
             rig.velocity = InputManager.CalculateMovement() * speed;
         }
-    }
+        //Der Parameter a_Speed ist wichtig für die Animation, bei einem Wert > 0.01 wird die walking Animation getriggert
+        animator.SetFloat("a_Speed", rig.velocity.magnitude);
 
-    private void OnMove(Vector2 input)
-    {
-        rig.velocity = input * speed;
+        if(rig.velocity.x < 0)
+        {
+            renderer.flipX = true;
+        }
+        else if(rig.velocity.x > 0)
+        {
+            renderer.flipX = false;
+        }
     }
 
     private void Update()
@@ -60,8 +69,9 @@ public class PlayerController : MonoBehaviour
             foreach (Transform child in allchildren)
             {
                 child.gameObject.SetActive(mapeditor.activeSelf);
-                Debug.Log(child);
             }
         }
+
+
     }
 }
