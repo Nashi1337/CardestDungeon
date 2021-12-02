@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2872941082599331135}
   - component: {fileID: 6371080687500580842}
   - component: {fileID: 8015246068624913248}
+  - component: {fileID: 1313012027907956051}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -75,9 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  runningSpeed: 0
   test: {fileID: 8300000, guid: 1c0d01a6ae1c87242ad3b08359d6ed92, type: 3}
-  canvas: {fileID: 0}
-  mapeditor: {fileID: 0}
+  animator: {fileID: 1313012027907956051}
 --- !u!50 &2872941082599331135
 Rigidbody2D:
   serializedVersion: 4
@@ -159,12 +160,31 @@ Animation:
   m_GameObject: {fileID: 3661738050438060402}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 456ad43481a3eb64c8c1e3f377f0e8fc, type: 2}
+  m_Animation: {fileID: 7400000, guid: ce792199971489a4b8efb9901257ad72, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!95 &1313012027907956051
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3661738050438060402}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30c68566b5fa1e94292655c80b74f086, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4493808055780887352
 GameObject:
   m_ObjectHideFlags: 0
