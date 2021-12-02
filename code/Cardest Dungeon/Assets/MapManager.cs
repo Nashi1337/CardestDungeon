@@ -39,23 +39,6 @@ public class MapManager : MonoBehaviour
         allMapPieces = FindObjectsOfType<MapPiece>();
     }
 
-    ///// <summary>
-    ///// Checks if the map piece at the given position is unlocked.
-    ///// </summary>
-    ///// <param name="position"></param>
-    ///// <returns>True, if a map piece at the given position was found. False, if no map piece at given position was found.</returns>
-    //public bool IsMapPieceUnlocked(Vector3 position)
-    //{
-    //    foreach(MapPiece mapPiece in allMapPieces)
-    //    {
-    //        if(mapPiece.transform.position == position && mapPiece.IsUnlocked)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
-
     /// <summary>
     /// Searches for the nearest map piece and returns it.
     /// </summary>
@@ -88,21 +71,24 @@ public class MapManager : MonoBehaviour
             return mapPiece;
         }
     }
+    /// <summary>
+    /// Swaps two map pieces with each other if they are both unlocked
+    /// </summary>
+    /// <param name="piece1"></param>
+    /// <param name="piece2"></param>
+    /// <returns></returns>
+    public bool SwapMapPieces(MapPiece piece1, MapPiece piece2)
+    {
+        if (piece1.IsUnlocked && piece2.IsUnlocked)
+        {
+            Vector3 piece1Pos = piece1.PositionBeforeDrag;
+            Vector3 piece1DungeonPos = piece1.DungeonPartPosition;
+            
+            piece1.ChangePosition(piece2.PositionBeforeDrag, piece2.DungeonPartPosition);
+            piece2.ChangePosition(piece1Pos, piece1DungeonPos);
 
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    ///// <param name="position"></param>
-    ///// <returns>Returns the MapPiece at given position or null if nothing was found.</returns>
-    //public MapPiece FindMapPiece(Vector3 position)
-    //{
-    //    foreach (MapPiece mapPiece in allMapPieces)
-    //    {
-    //        if (mapPiece.transform.position == position)
-    //        {
-    //            return mapPiece;
-    //        }
-    //    }
-    //    return null;
-    //}
+            return true;
+        }
+        return false;
+    }
 }
