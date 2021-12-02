@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(child);
         }
 
-        InputManager.Current.onMove += OnMove;
-        InputManager.Current.onAction1Down += OnAction1Down;
+        //InputManager.Current.onMove += OnMove;
+        //InputManager.Current.onAction1Down += OnAction1Down;
     }
 
     // Update is called once per frame
@@ -46,15 +46,17 @@ public class PlayerController : MonoBehaviour
         rig.velocity = input * speed;
     }
 
-    private void OnAction1Down()
+    private void Update()
     {
-        mapeditor.SetActive(!mapeditor.activeSelf);
-
-        foreach (Transform child in allchildren)
+        if (Input.GetKeyDown(InputManager.map))
         {
-            child.gameObject.SetActive(mapeditor.activeSelf);
-            Debug.Log(child);
-        }
+            mapeditor.SetActive(!mapeditor.activeSelf);
 
+            foreach (Transform child in allchildren)
+            {
+                child.gameObject.SetActive(mapeditor.activeSelf);
+                Debug.Log(child);
+            }
+        }
     }
 }
