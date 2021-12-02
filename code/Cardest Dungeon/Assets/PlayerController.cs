@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private float runningSpeed;
     private Rigidbody2D rig = default;
 
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriterRenderer;
 
     public AudioClip test;
 
@@ -26,14 +26,10 @@ public class PlayerController : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         mapeditor = GameObject.Find("MapEditor");
         allchildren = mapeditor.GetComponentsInChildren<Transform>();
-        renderer = GetComponent < SpriteRenderer>();
+        spriterRenderer = GetComponent < SpriteRenderer>();
 
         //MapEditor and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
-        foreach (Transform child in allchildren)
-        {
-            child.gameObject.SetActive(mapeditor.activeSelf);
-        }
     }
 
     // Update is called once per frame
@@ -52,11 +48,11 @@ public class PlayerController : MonoBehaviour
 
         if(rig.velocity.x < 0)
         {
-            renderer.flipX = true;
+            spriterRenderer.flipX = true;
         }
         else if(rig.velocity.x > 0)
         {
-            renderer.flipX = false;
+            spriterRenderer.flipX = false;
         }
     }
 
@@ -64,14 +60,17 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(InputManager.map))
         {
-            mapeditor.SetActive(!mapeditor.activeSelf);
-
-            foreach (Transform child in allchildren)
-            {
-                child.gameObject.SetActive(mapeditor.activeSelf);
-            }
+            ShowHideMap();
         }
+    }
 
+    private void ShowHideMap()
+    {
+        mapeditor.SetActive(!mapeditor.activeSelf);
 
+        foreach (Transform child in allchildren)
+        {
+            child.gameObject.SetActive(mapeditor.activeSelf);
+        }
     }
 }

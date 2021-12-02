@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  runningSpeed: 0
+  runningSpeed: 10
   test: {fileID: 8300000, guid: 1c0d01a6ae1c87242ad3b08359d6ed92, type: 3}
   animator: {fileID: 1313012027907956051}
 --- !u!50 &2872941082599331135

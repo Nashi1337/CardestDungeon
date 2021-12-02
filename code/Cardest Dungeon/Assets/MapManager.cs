@@ -20,13 +20,17 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private GameObject playerIcon;
+
     private Vector2Int playerPiece = default;
     private MapPiece[] allMapPieces = null;
     private static MapManager current = null;
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        FindAllMapPieces();
+        
     }
 
     // Update is called once per frame
@@ -35,14 +39,48 @@ public class MapManager : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        //Sollte das überhaupt hier sein? Oder Start
+        FindAllMapPieces();
+        player = GameObject.FindGameObjectWithTag("Player");
+        UpdatePlayerPiece();
+    }
+
     public void UpdatePlayerPiece()
     {
+        MapPiece closestPiece = FindClosestMapPieceByDungeon(player.transform.position);
 
+        playerIcon.transform.SetParent(closestPiece.transform, false);
     }
 
     private void FindAllMapPieces()
     {
         allMapPieces = FindObjectsOfType<MapPiece>();
+    }
+
+    /// <summary>
+    /// Searches for the nearest map piece and returns it.
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns>Returns the closest mapPiece to pos.</returns>
+    private MapPiece FindClosestMapPieceByDungeon(Vector3 pos)
+    {
+
+        float shortestDistance = float.MaxValue;
+        int index = 0;
+
+        for (int i = 0; i < allMapPieces.Length; i++)
+        {
+            float currentDistance = (pos - allMapPieces[i].dungeonPart.transform.position).magnitude;
+
+            if (currentDistance < shortestDistance)
+            {
+                shortestDistance = currentDistance;
+                index = i;
+            }
+        }
+        return allMapPieces[index];
     }
 
     /// <summary>
