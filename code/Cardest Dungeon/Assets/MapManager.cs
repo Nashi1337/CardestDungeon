@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private Vector2Int playerPiece = default;
     private MapPiece[] allMapPieces = null;
     private static MapManager current = null;
     // Start is called before the first frame update
@@ -32,6 +33,11 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdatePlayerPiece()
+    {
+
     }
 
     private void FindAllMapPieces()

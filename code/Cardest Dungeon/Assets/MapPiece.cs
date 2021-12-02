@@ -59,7 +59,6 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     /// <param name="newDungeonPosition">The position for the DungeonPart will be set to this.</param>
     public void ChangePosition(Vector3 newMapPosition, Vector3 newDungeonPosition)
     {
-        Debug.Log(gameObject + " wird auf " + newDungeonPosition + " gesetzt");
         positionBeforeDrag = transform.position = newMapPosition;
         dungeonPart.transform.position = newDungeonPosition;
         dungeonPiecePosition = newDungeonPosition;
