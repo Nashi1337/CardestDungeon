@@ -27,17 +27,6 @@ public class MapManager : MonoBehaviour
     private MapPiece[] allMapPieces = null;
     private static MapManager current = null;
     private GameObject player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnEnable()
     {
