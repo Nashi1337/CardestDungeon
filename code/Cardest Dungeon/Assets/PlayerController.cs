@@ -18,18 +18,33 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
     private GameObject mapeditor;
+
+
     // Start is called before the first frame update
 
     Transform[] allchildren;
+
+    public StateMachine gamestatemachine = new StateMachine();
+
+    [SerializeField]
+    private GameObject battlescreen;
+
+    //Audio kram
+    AudioSource audioData;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         mapeditor = GameObject.Find("MapEditor");
         allchildren = mapeditor.GetComponentsInChildren<Transform>();
         spriterRenderer = GetComponent < SpriteRenderer>();
-
+        
+        Debug.Log(spriterRenderer);
         //MapEditor and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
+        battlescreen.SetActive(false);
+
+        //audio kram
+        audioData = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +77,8 @@ public class PlayerController : MonoBehaviour
         {
             ShowHideMap();
         }
+
+        gamestatemachine.Update();
     }
 
     private void ShowHideMap()
@@ -73,4 +90,12 @@ public class PlayerController : MonoBehaviour
         //    child.gameObject.SetActive(mapeditor.activeSelf);
         //}
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        gamestatemachine.ChangeState(new BattleState(battlescreen));
+        audioData.Play();
+    }
+
+
 }
