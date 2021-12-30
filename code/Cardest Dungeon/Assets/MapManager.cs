@@ -23,7 +23,6 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private GameObject playerIcon;
 
-    private Vector2Int playerPiece = default;
     private MapPiece[] allMapPieces = null;
     private static MapManager current = null;
     private GameObject player;
@@ -109,9 +108,15 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="piece1"></param>
     /// <param name="piece2"></param>
-    /// <returns></returns>
+    /// <returns>Returns true if swap succeded. Else false</returns>
     public bool SwapMapPieces(MapPiece piece1, MapPiece piece2)
     {
+        MapPiece playersLocation = playerIcon.transform.parent.GetComponent<MapPiece>();
+        if (playersLocation.Equals(piece1) || playersLocation.Equals(piece2))
+        {
+            return false;
+        }
+
         if (piece1.IsUnlocked && piece2.IsUnlocked)
         {
             Vector3 piece1Pos = piece1.PositionBeforeDrag;
