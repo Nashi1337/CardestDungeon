@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6555072576439701367, guid: 0b4e88dbdbf7cec43981586d11597821, type: 3}
       propertyPath: m_Name
-      value: DungeonTilePrefab
+      value: TileTemplate
       objectReference: {fileID: 0}
     - target: {fileID: 6555072576439701369, guid: 0b4e88dbdbf7cec43981586d11597821, type: 3}
       propertyPath: m_Enabled
