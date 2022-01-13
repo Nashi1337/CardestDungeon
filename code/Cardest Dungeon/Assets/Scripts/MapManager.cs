@@ -38,6 +38,7 @@ public class MapManager : MonoBehaviour
     public void UpdatePlayerPiece()
     {
         MapPiece closestPiece = FindClosestMapPieceByDungeon(player.transform.position);
+        Debug.Log(closestPiece);
 
         playerIcon.transform.SetParent(closestPiece.transform, false);
     }

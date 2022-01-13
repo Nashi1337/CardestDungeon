@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Current
+    {
+        get
+        {
+            if (current == null)
+            {
+                current = FindObjectOfType<PlayerController>();
+            }
+            return current;
+        }
+    }
+
     public Item[] Inventory { get; }
     public Animator animator; //animator Variable um für den Player Animationen zu steuern
     public int InventorySize
@@ -34,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private GameObject mapeditor = default;
     private Transform[] allchildren = default;
     private Item[] inventory = default;
+
+    private static PlayerController current = null;
 
     //Audio kram
     AudioSource audioData;
