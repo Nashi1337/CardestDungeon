@@ -40,12 +40,18 @@ public class PlayerController : MonoBehaviour
     private int inventorySize;
     [SerializeField]
     private GameObject battlescreen;
+    [SerializeField]
+    private CharacterStatus playerStatus;
 
+
+    //die Variable prüft ob schon ein Kampf stattfindet oder so
+    private bool isAttacked = false;
     private Rigidbody2D rig = default;
     private SpriteRenderer spriterRenderer = default;
     private GameObject mapeditor = default;
     private Transform[] allchildren = default;
     private Item[] inventory = default;
+   
 
     private static PlayerController current = null;
 
@@ -107,10 +113,23 @@ public class PlayerController : MonoBehaviour
         gamestatemachine.Update();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        gamestatemachine.ChangeState(new BattleState(battlescreen));
-        audioData.Play();
+        //Kampf findet nur statt wenn die eigenen HP > 0 sind lol
+        if (this.playerStatus.curHealth > 0)
+        {
+            if (other.gameObject.tag == "Enemy")
+            {
+                if (!isAttacked)
+                {
+                    gamestatemachine.ChangeState(new BattleState(battlescreen));
+                    audioData.Play();
+                    isAttacked = true;
+                    //setBattleData(other);
+                    //LevelLoader.instance.LoadLevel("BattleArena");
+                }
+            }
+        }
     }
 
     private void ShowHideMap()

@@ -8,6 +8,8 @@ public class BattleState : IState
     AudioSource audioData;
 
     private GameObject battlescreen;
+
+    private CharacterStatus playerStatus;
     public BattleState(GameObject battlescreen)
     {
         this.battlescreen = battlescreen;
@@ -30,5 +32,13 @@ public class BattleState : IState
         audioData.Stop();
     }
 
-    // Start is called before the first frame update
+    private void setBattleData(Collider2D other)
+    {
+        //Spieler Position wird gespeichert
+        playerStatus.position = PlayerController.Current.transform.position;
+
+        //Gegner Daten
+        //CharacterStatus status = other.gameObject.GetComponent<EnemyStatus>().enemyStatus;
+    }
+
 }

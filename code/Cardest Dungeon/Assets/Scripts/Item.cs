@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,16 +31,17 @@ public class Item : MonoBehaviour
         /// Returns a struct that is equivalent to the stat-changes this item has
         /// </summary>
         /// <returns></returns>
-        public BaseFighter.Stats ToStats()
-        {
-            BaseFighter.Stats stats = new BaseFighter.Stats();
+        /// kann ich des löschen yannik(y/n)?
+        //public BaseFighter.Stats ToStats()
+        //{
+        //    BaseFighter.Stats stats = new BaseFighter.Stats();
 
-            stats.attack = attack;
-            stats.defense = defense;
-            stats.honor = honor;
+        //    stats.attack = attack;
+        //    stats.defense = defense;
+        //    stats.honor = honor;
 
-            return stats;
-        }
+        //    return stats;
+        //}
     }
 
 }
