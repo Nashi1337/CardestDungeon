@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,18 +29,31 @@ public class MapManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //Sollte das überhaupt hier sein? Oder Start
-        FindAllMapPieces();
-        player = GameObject.FindGameObjectWithTag("Player");
-        UpdatePlayerPiece();
+        FindAllMapPieces(); //OnCollisionEnter seems to trigger before Start. So Map Pieces not to be found before Start. "Danke, Henrik -_-"
     }
 
-    public void UpdatePlayerPiece()
+    private void Start()
     {
-        MapPiece closestPiece = FindClosestMapPieceByDungeon(player.transform.position);
-        Debug.Log(closestPiece);
 
-        playerIcon.transform.SetParent(closestPiece.transform, false);
+        player = GameObject.FindGameObjectWithTag("Player");
+        //UpdatePlayerPiece();
+    }
+
+    private void Update()
+    {
+        //UpdatePlayerPiece();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mapPiece">The map piece at which the player icon will be set.</param>
+    public void UpdatePlayerPiece(MapPiece mapPiece)
+    {
+        //MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
+        //Debug.Log(closestPiece);
+
+        playerIcon.transform.SetParent(mapPiece.transform, false);
     }
 
     private void FindAllMapPieces()
@@ -53,7 +66,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <returns>Returns the closest mapPiece to pos.</returns>
-    private MapPiece FindClosestMapPieceByDungeon(Vector3 pos)
+    private MapPiece FindClosestMapPieceByPosition(Vector3 pos)
     {
 
         float shortestDistance = float.MaxValue;
@@ -68,6 +81,8 @@ public class MapManager : MonoBehaviour
                 shortestDistance = currentDistance;
                 index = i;
             }
+
+            Debug.Log(currentDistance + " "+ allMapPieces[i]);
         }
         return allMapPieces[index];
     }
@@ -129,5 +144,23 @@ public class MapManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Search for MapPiece by its dungeon parts. "Danke, Henrik -_-"
+    /// </summary>
+    /// <param name="dungeonPart"></param>
+    /// <returns></returns>
+    public MapPiece SearchMapPiece(GameObject dungeonPart)
+    {
+        foreach(MapPiece mapPiece in allMapPieces)
+        {
+            if (mapPiece.dungeonPart.Equals(dungeonPart))
+            {
+                return mapPiece;
+            }
+        }
+
+        return null;
     }
 }

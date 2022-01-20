@@ -64,11 +64,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        mapeditor = GameObject.Find("MapEditor");
+        mapeditor = MapManager.Current.gameObject;
         allchildren = mapeditor.GetComponentsInChildren<Transform>();
         spriterRenderer = GetComponent<SpriteRenderer>();
 
-        Debug.Log(spriterRenderer);
         //MapEditor and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
         battlescreen.SetActive(false);
@@ -130,6 +129,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        MapManager.Current.UpdatePlayerPiece(MapManager.Current.SearchMapPiece(collision.gameObject));
     }
 
     private void ShowHideMap()
