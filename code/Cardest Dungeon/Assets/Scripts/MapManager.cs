@@ -27,25 +27,33 @@ public class MapManager : MonoBehaviour
     private static MapManager current = null;
     private GameObject player;
 
+    private void OnEnable()
+    {
+        FindAllMapPieces(); //OnCollisionEnter seems to trigger before Start. So Map Pieces not to be found before Start. "Danke, Henrik -_-"
+    }
+
     private void Start()
     {
-        //Sollte das überhaupt hier sein? Oder Start
-        FindAllMapPieces();
+
         player = GameObject.FindGameObjectWithTag("Player");
-        UpdatePlayerPiece();
+        //UpdatePlayerPiece();
     }
 
     private void Update()
     {
-        UpdatePlayerPiece();
+        //UpdatePlayerPiece();
     }
 
-    public void UpdatePlayerPiece()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mapPiece">The map piece at which the player icon will be set.</param>
+    public void UpdatePlayerPiece(MapPiece mapPiece)
     {
-        MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
-        Debug.Log(closestPiece);
+        //MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
+        //Debug.Log(closestPiece);
 
-        playerIcon.transform.SetParent(closestPiece.transform, false);
+        playerIcon.transform.SetParent(mapPiece.transform, false);
     }
 
     private void FindAllMapPieces()
@@ -136,5 +144,23 @@ public class MapManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Search for MapPiece by its dungeon parts. "Danke, Henrik -_-"
+    /// </summary>
+    /// <param name="dungeonPart"></param>
+    /// <returns></returns>
+    public MapPiece SearchMapPiece(GameObject dungeonPart)
+    {
+        foreach(MapPiece mapPiece in allMapPieces)
+        {
+            if (mapPiece.dungeonPart.Equals(dungeonPart))
+            {
+                return mapPiece;
+            }
+        }
+
+        return null;
     }
 }
