@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,17 +27,22 @@ public class MapManager : MonoBehaviour
     private static MapManager current = null;
     private GameObject player;
 
-    private void OnEnable()
+    private void Start()
     {
-        //Sollte das �berhaupt hier sein? Oder Start
+        //Sollte das überhaupt hier sein? Oder Start
         FindAllMapPieces();
         player = GameObject.FindGameObjectWithTag("Player");
         UpdatePlayerPiece();
     }
 
+    private void Update()
+    {
+        UpdatePlayerPiece();
+    }
+
     public void UpdatePlayerPiece()
     {
-        MapPiece closestPiece = FindClosestMapPieceByDungeon(player.transform.position);
+        MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
         Debug.Log(closestPiece);
 
         playerIcon.transform.SetParent(closestPiece.transform, false);
@@ -53,7 +58,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <returns>Returns the closest mapPiece to pos.</returns>
-    private MapPiece FindClosestMapPieceByDungeon(Vector3 pos)
+    private MapPiece FindClosestMapPieceByPosition(Vector3 pos)
     {
 
         float shortestDistance = float.MaxValue;
@@ -68,6 +73,8 @@ public class MapManager : MonoBehaviour
                 shortestDistance = currentDistance;
                 index = i;
             }
+
+            Debug.Log(currentDistance + " "+ allMapPieces[i]);
         }
         return allMapPieces[index];
     }
