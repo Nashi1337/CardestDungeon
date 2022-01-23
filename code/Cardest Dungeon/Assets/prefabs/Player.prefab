@@ -75,10 +75,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d7a81c4ef1d29478c2db05b3f55c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1313012027907956051}
   speed: 5
   runningSpeed: 10
+  inventorySize: 0
+  playerStatus: {fileID: 0}
+  battleSceneName: TestBattle
   test: {fileID: 8300000, guid: 1c0d01a6ae1c87242ad3b08359d6ed92, type: 3}
-  animator: {fileID: 1313012027907956051}
 --- !u!50 &2872941082599331135
 Rigidbody2D:
   serializedVersion: 4

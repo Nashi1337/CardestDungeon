@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,13 +40,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int inventorySize;
     [SerializeField]
-    private GameObject battlescreen;
-    [SerializeField]
     private CharacterStatus playerStatus;
+    [SerializeField]
+    private string battleSceneName;
 
-
-    //die Variable prüft ob schon ein Kampf stattfindet oder so
-    private bool isAttacked = false;
     private Rigidbody2D rig = default;
     private SpriteRenderer spriterRenderer = default;
     private GameObject mapeditor = default;
@@ -54,12 +52,6 @@ public class PlayerController : MonoBehaviour
    
 
     private static PlayerController current = null;
-
-    //Audio kram
-    AudioSource audioData;
-
-    //DEBUG Variablen
-    public AudioClip test;
 
     void Start()
     {
@@ -70,12 +62,9 @@ public class PlayerController : MonoBehaviour
 
         //MapEditor and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
-        battlescreen.SetActive(false);
 
         inventory = new Item[inventorySize];
 
-        //audio kram
-        audioData = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -112,28 +101,21 @@ public class PlayerController : MonoBehaviour
         gamestatemachine.Update();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        //Kampf findet nur statt wenn die eigenen HP > 0 sind lol
-        if (this.playerStatus.curHealth > 0)
-        {
-            if (other.gameObject.tag == "Enemy")
-            {
-                if (!isAttacked)
-                {
-                    gamestatemachine.ChangeState(new BattleState(battlescreen));
-                    audioData.Play();
-                    isAttacked = true;
-                    //setBattleData(other);
-                    //LevelLoader.instance.LoadLevel("BattleArena");
-                }
-            }
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        MapManager.Current.UpdatePlayerPiece(MapManager.Current.SearchMapPiece(collision.gameObject));
+        MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
+        if (collidedWith != null)
+        {
+            MapManager.Current.UpdatePlayerPiece(collidedWith);
+        }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("KÄMPFT!!!!!!!");
+
+            SceneManager.LoadScene(battleSceneName);
+        }
     }
 
     private void ShowHideMap()
