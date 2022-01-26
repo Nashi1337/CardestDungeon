@@ -3,11 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-<<<<<<< HEAD
+  tags: 
   - key
   - Enemy
->>>>>>> 68f559b (Kampfsystem begonnen)
   layers:
   - Default
   - TransparentFX
