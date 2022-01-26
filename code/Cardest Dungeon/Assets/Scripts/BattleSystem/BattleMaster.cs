@@ -28,12 +28,19 @@ public class BattleMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Get all fighters here somehow. (Loading prefabs?)
+        queueFighters = new Queue<Fighter>();
+        listFighters = new List<Fighter>();
+
+        //Create all fighters here somehow. (Loading prefabs?)
+
+        GatherAllFighters();
 
         foreach(Fighter fighter in listFighters)
         {
             queueFighters.Enqueue(fighter);
         }
+
+        ActivateFighter();
     }
 
     // Update is called once per frame
@@ -42,11 +49,21 @@ public class BattleMaster : MonoBehaviour
         
     }
 
+    private void GatherAllFighters()
+    {
+        Fighter[] allFighters = FindObjectsOfType<Fighter>();
+        foreach(Fighter fighter in allFighters)
+        {
+            listFighters.Add(fighter);
+        }
+    }
+
     /// <summary>
     /// Tells the current Fighter that it is his turn now.
     /// </summary>
     private void ActivateFighter()
     {
+        Debug.Log("Bist wieder dran, " + queueFighters.Peek().gameObject);
         queueFighters.Peek().ActivateMyTurn();
     }
 
@@ -61,6 +78,7 @@ public class BattleMaster : MonoBehaviour
     public void EndTurn()
     {
         NextFighter();
+        ActivateFighter();
     }
 
     /// <summary>

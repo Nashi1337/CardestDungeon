@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public StateMachine gamestatemachine = new StateMachine();
-
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -97,8 +95,6 @@ public class PlayerController : MonoBehaviour
         {
             ShowHideMap();
         }
-
-        gamestatemachine.Update();
     }
 
 

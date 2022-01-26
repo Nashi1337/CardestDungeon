@@ -10,11 +10,6 @@ public class FirstEnemy : Fighter
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public new void Attack()
     {
