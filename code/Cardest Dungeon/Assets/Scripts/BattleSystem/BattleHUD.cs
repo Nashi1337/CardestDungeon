@@ -8,14 +8,6 @@ public class BattleHUD : MonoBehaviour
     public Text levelText;
     public Slider hpSlider;
 
-    public void SetHUD(Unit unit)
-    {
-        nameText.text = unit.unitName;
-        levelText.text = "Lvl " + unit.unitLevel;
-        hpSlider.maxValue = unit.maxHP;
-        hpSlider.value = unit.currentHP;
-    }
-
     /// <summary>
     /// Adds a fighter to this HUD. And saves a reference in the fighter to this HUD.
     /// </summary>

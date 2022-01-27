@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Item[] Inventory { get; }
-    public Animator animator; //animator Variable um für den Player Animationen zu steuern
     public int InventorySize
     {
         get { return inventorySize; }
@@ -30,6 +28,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public Item[] Inventory { get; }
+    public Animator animator; //animator Variable um für den Player Animationen zu steuern
 
     [SerializeField]
     private float speed;
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
+            //Hier muss eigentlich der Gegner aus Dateien geladen werden
             Debug.Log("KÄMPFT!!!!!!!");
 
             SceneManager.LoadScene(battleSceneName);

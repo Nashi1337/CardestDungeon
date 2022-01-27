@@ -507,6 +507,8 @@ MonoBehaviour:
   playerActions:
   - {fileID: 539132060}
   - {fileID: 1399371054}
+  playerGround: {fileID: 1466915675}
+  enemyGround: {fileID: 1800617486}
 --- !u!4 &197415184
 Transform:
   m_ObjectHideFlags: 0
@@ -2468,6 +2470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dd004d9c3a18104088f6aea31cb3284, type: 3}
+--- !u!1 &1466915675 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8872149386273759004, guid: 5dd004d9c3a18104088f6aea31cb3284, type: 3}
+  m_PrefabInstance: {fileID: 1466915674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1534117784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,6 +2653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dd004d9c3a18104088f6aea31cb3284, type: 3}
+--- !u!1 &1800617486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8872149386273759004, guid: 5dd004d9c3a18104088f6aea31cb3284, type: 3}
+  m_PrefabInstance: {fileID: 1800617485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1811079376
 GameObject:
   m_ObjectHideFlags: 0

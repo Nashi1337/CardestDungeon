@@ -27,13 +27,16 @@ public class BattleMaster : MonoBehaviour
     
     [SerializeField]
     private Text dialogueText;
-
     [SerializeField]
     private BattleHUD playerHUD;
     [SerializeField]
     private BattleHUD enemyHUD;
     [SerializeField]
     private Button[] playerActions;
+    [SerializeField]
+    private GameObject playerGround;
+    [SerializeField]
+    private GameObject enemyGround;
 
     private static BattleMaster current;
 
@@ -44,6 +47,11 @@ public class BattleMaster : MonoBehaviour
         listFighters = new List<Fighter>();
 
         //Create all fighters here somehow. (Loading prefabs?)        
+        GameObject player = Instantiate(BattleData.playerPrefabToLoad);
+        player.transform.SetParent(playerGround.transform, true);
+
+        GameObject enemy = Instantiate(BattleData.enemyPrefabToLoad);
+        player.transform.SetParent(enemyGround.transform, true);
 
         StartCoroutine(SetupBattle());
 
