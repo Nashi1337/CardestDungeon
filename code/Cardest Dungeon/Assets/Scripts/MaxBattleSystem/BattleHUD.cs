@@ -16,8 +16,22 @@ public class BattleHUD : MonoBehaviour
         hpSlider.value = unit.currentHP;
     }
 
-    public void SetHP(int hp)
+    /// <summary>
+    /// Adds a fighter to this HUD. And saves a reference in the fighter to this HUD.
+    /// </summary>
+    /// <param name="fighter"></param>
+    public void SetHUD(Fighter fighter)
     {
-        hpSlider.value = hp;
+        nameText.text = fighter.name;
+        levelText.text = "Lvl " + fighter.GetLevel();
+        hpSlider.maxValue = fighter.GetStatus().health;
+        hpSlider.value = hpSlider.maxValue;
+
+        fighter.BattleHUD = this;
+    }
+
+    public void SetHealth(int health)
+    {
+        hpSlider.value = health;
     }
 }

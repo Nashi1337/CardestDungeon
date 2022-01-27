@@ -2826,8 +2826,9 @@ MonoBehaviour:
   dialogueText: {fileID: 2073704430}
   playerHUD: {fileID: 695459663}
   enemyHUD: {fileID: 789077735}
-  AttackButton: {fileID: 1621258544}
-  HealButton: {fileID: 1066169601}
+  playerActions:
+  - {fileID: 1621258544}
+  - {fileID: 1066169601}
   state: 0
 --- !u!4 &2112855437
 Transform:

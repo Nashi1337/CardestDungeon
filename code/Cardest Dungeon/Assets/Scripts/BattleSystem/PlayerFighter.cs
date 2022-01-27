@@ -14,7 +14,7 @@ public class PlayerFighter : Fighter
     // Update is called once per frame
     void Update()
     {
-        
+        stateMachine.Run();
     }
 
     #region StateMachineStuff
@@ -68,7 +68,8 @@ public class PlayerFighter : Fighter
 
     private void IdleToSelectMove()
     {
-        //Hier werden die Knöpfe freigeschaltet.
+        BattleMaster.Current.ActivatePlayerActions();
+        BattleMaster.Current.WriteToDialogue("Choose an action: ");
     }
 
     private void SelectMoveToSelectEnemy()
@@ -84,37 +85,47 @@ public class PlayerFighter : Fighter
     private void SelectEnemyToAttack()
     {
         //Hier wird der Pfeil deaktiviert und angegriffen
+
     }
 
     private void AttackToIdle()
     {
-        //Hier wird die Kontroller zurück an den BattleMaster gegeben.
+        //Hier wird die Kontrolle zurück an den BattleMaster gegeben.
+        BattleMaster.Current.DeactivatePlayerActions();
+        EndTurn();
     }
 
     private void ToDie()
     {
 
     }
-
-    //protected void IdleToAttack()
-    //{
-    //    GetComponent<SpriteRenderer>().color = Color.blue;
-    //}
-
-    //protected void AttackToIdle()
-    //{
-    //    GetComponent<SpriteRenderer>().color = Color.white;
-    //    EndTurn();
-    //}
-
-    //protected void ToDie()
-    //{
-    //    BattleMaster.Current.DestroyFighter(this);
-    //}
     #endregion StateMachineStuff
 
     public override void ActivateMyTurn()
     {
         stateMachine.TransitionToState("SelectMove");
+    }
+
+    public void OnAttackButton()
+    {
+        if (stateMachine.GetActiveStateName() == "SelectMove")
+        {
+            stateMachine.TransitionToState("SelectEnemy");
+            stateMachine.TransitionToState("Attack");
+        }
+    }
+
+    public void OnHealButton()
+    {
+        if (stateMachine.GetActiveStateName() == "SelectMove")
+        {
+            //Das hier bitte sauberer machen
+            BattleMaster.Current.HealFighter(this, 7);
+            stateMachine.TransitionToState("Idle");
+            
+            //Das hier bitte sauberer machen
+            BattleMaster.Current.DeactivatePlayerActions();
+            EndTurn();
+        }
     }
 }

@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURM, WON, LOST}
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
 public class BattleSystem : MonoBehaviour
 {
 
     public GameObject playerbattleui;
-    public GameObject enemybattleui;
-
-    public Transform playerBattleStation;
-    public Transform enemyBattleStation;
+    public GameObject enemyPrefab;
 
     Unit playerUnit;
     Unit enemyUnit;
@@ -23,9 +20,11 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     [SerializeField]
-    public Button AttackButton;
+    private Transform playerBattleStation;
     [SerializeField]
-    public Button HealButton;
+    private Transform enemyBattleStation;
+    [SerializeField]
+    private Button[] playerActions;
 
     public BattleState state;
 
@@ -38,15 +37,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject playergameobject = Instantiate(playerbattleui, playerBattleStation);
-        playergameobject.transform.localScale = Vector3.one;
-        //das soll den player und enemy sprite als child der jeweiligen battle stations spawnen lassen
+        //DEBUG
+        GameObject playergameobject = Instantiate(playerbattleui);
+        playergameobject.transform.parent = playerBattleStation;
+        playergameobject.transform.localPosition = new Vector3(0, 1.5f, 0);
         playerUnit = playergameobject.GetComponent<Unit>();
 
-        GameObject enemygameobject = Instantiate(enemybattleui, enemyBattleStation);
-        enemygameobject.transform.localScale = Vector3.one;
+        GameObject enemygameobject = Instantiate(enemyPrefab);
+        enemygameobject.transform.parent = enemyBattleStation;
+        enemygameobject.transform.localPosition = new Vector3(0, 1.5f, 0);
         enemyUnit = enemygameobject.GetComponent<Unit>();
-
+        //DEBUG ENDE
         
 
         dialogueText.text = "A wild " + enemyUnit.unitName + " appeared!";
@@ -54,11 +55,11 @@ public class BattleSystem : MonoBehaviour
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
+        //Wait for 2 seconds
         yield return new WaitForSeconds(2f);
-        //warte 2 Sekunden
 
+        //After the battle is set up it's the player's turn
         state = BattleState.PLAYERTURN;
-        //nach dem der Battle upgesettet wurde wird der naechste Status PLAYERTURN
         PlayerTurn();
     }
 
@@ -68,11 +69,14 @@ public class BattleSystem : MonoBehaviour
         // Damage the enemy
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
-        enemyHUD.SetHP(enemyUnit.currentHP);
+        enemyHUD.SetHealth(enemyUnit.currentHP);
         dialogueText.text = "Player attacked " + enemyUnit.unitName + " for " + playerUnit.damage;
 
-        AttackButton.interactable = false;
-        HealButton.interactable = false;
+        foreach(Button button in playerActions)
+        {
+            button.interactable = false;
+        }
+
         //Sobald angegriffen wurde wird die Interaktivitaet des AttackButtons auf false gesetzt
         //Das soll davor schuetzen, dass man wenn man nicht dran ist nicht am Button rumspielt
 
@@ -90,7 +94,7 @@ public class BattleSystem : MonoBehaviour
             //Enemy turn
 
 
-            state = BattleState.ENEMYTURM;
+            state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
         
@@ -125,7 +129,7 @@ public class BattleSystem : MonoBehaviour
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+        playerHUD.SetHealth(playerUnit.currentHP);
 
         yield return new WaitForSeconds(1f);
 
@@ -144,8 +148,10 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         //am Anfang des PlayerTurns wird die Interaktivitaet des AttackButtons auf true gesetzt
-        AttackButton.interactable = true;
-        HealButton.interactable = true;
+        foreach (Button button in playerActions)
+        {
+            button.interactable = true;
+        }
         dialogueText.text = "Choose an action: ";
     }
 
@@ -153,15 +159,16 @@ public class BattleSystem : MonoBehaviour
     {
         playerUnit.Heal(playerUnit.magic);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+        playerHUD.SetHealth(playerUnit.currentHP);
         dialogueText.text = playerUnit.unitName + " healed themself for " + playerUnit.magic + " Health Points!";
 
-        AttackButton.interactable = false;
-        HealButton.interactable = false;
-
+        foreach(Button button in playerActions)
+        {
+            button.interactable = false;
+        }
         yield return new WaitForSeconds(2f);
 
-        state = BattleState.ENEMYTURM;
+        state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
 

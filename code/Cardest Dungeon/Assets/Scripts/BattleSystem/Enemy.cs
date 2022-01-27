@@ -7,7 +7,7 @@ public abstract class Enemy : Fighter
 {
 
     protected float restTimer = 0;
-    protected float restTime = 0.2f; //How long the "ai" will pause between actions
+    protected float restTime = 2f; //How long the "ai" will pause between actions
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +34,12 @@ public abstract class Enemy : Fighter
         stateMachine = new StateMachine("Idle", IdleBody);
         stateMachine.AddState("Attack", AttackBody);
         stateMachine.AddState("Die", DieBody);
+        stateMachine.AddState("EndTurnWait", EndTurnWaitBody);
+
 
         stateMachine.AddTransition("Idle", "Attack", IdleToAttack);
         stateMachine.AddTransition("Attack", "Idle", AttackToIdle);
+        stateMachine.AddTransition("Attack", "EndTurnWait", AttackToEndTurnWait);
         stateMachine.AddTransition("Idle", "Die", ToDie);
         stateMachine.AddTransition("Attack", "Die", ToDie);
     }
@@ -49,7 +52,7 @@ public abstract class Enemy : Fighter
     protected virtual void AttackBody()
     {
         Attack();
-        stateMachine.TransitionToState("Idle");
+        stateMachine.TransitionToState("EndTurnWait");
     }
 
     protected virtual void DieBody()
@@ -57,17 +60,25 @@ public abstract class Enemy : Fighter
 
     }
 
+    protected virtual void EndTurnWaitBody()
+    {
+        stateMachine.TransitionToState("Idle");
+        EndTurn();
+    }
+
     protected virtual void IdleToAttack()
     {
         restTimer = restTime;
-        GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
     protected virtual void AttackToIdle()
     {
         restTimer = restTime;
-        GetComponent<SpriteRenderer>().color = Color.white;
-        EndTurn();
+    }
+
+    protected virtual void AttackToEndTurnWait()
+    {
+        restTimer = restTime;
     }
 
     protected virtual void ToDie()

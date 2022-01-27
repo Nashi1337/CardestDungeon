@@ -18,7 +18,7 @@ public class FirstEnemy : Enemy
 
         if (playerTeam.Length > 0)
         {
-            BattleMaster.Current.AttackFighter(playerTeam[Random.Range(0, playerTeam.Length)], Random.Range(status.attack - 2, status.attack + 2));
+            BattleMaster.Current.AttackFighter(this, playerTeam[Random.Range(0, playerTeam.Length)], Random.Range(status.attack - 2, status.attack + 2));
         }
     }
 }
