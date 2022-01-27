@@ -28,8 +28,8 @@ public class Enemy : MonoBehaviour
 
     private void MoveEnemy()
     {
-        //directionToPlayer = (player.transform.position - transform.position).normalized;
-        //rb.velocity = new Vector2(directionToPlayer.x, directionToPlayer.y) * moveSpeed;
+        directionToPlayer = (player.transform.position - transform.position).normalized;
+        rb.velocity = new Vector2(directionToPlayer.x, directionToPlayer.y) * moveSpeed;
     }
 
     private void LateUpdate()
