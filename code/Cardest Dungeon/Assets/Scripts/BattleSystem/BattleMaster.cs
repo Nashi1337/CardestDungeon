@@ -63,12 +63,12 @@ public class BattleMaster : MonoBehaviour
     /// </summary>
     private void ActivateFighter()
     {
-        Debug.Log("Bist wieder dran, " + queueFighters.Peek().gameObject);
         queueFighters.Peek().ActivateMyTurn();
     }
 
     private void NextFighter()
     {
+        
         queueFighters.Enqueue(queueFighters.Dequeue());
     }
 
@@ -84,15 +84,33 @@ public class BattleMaster : MonoBehaviour
     /// <summary>
     /// Call this for attacking a fighter
     /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="defender"></param>
-    public void AttackFighter(Fighter attacker, Fighter defender)
+    /// <param name="attackstrength">The strength whith which will be attacked.</param>
+    /// <param name="defender">The one who gets attacked</param>
+    public void AttackFighter(Fighter defender, int attackstrength)
     {
-        defender.GetAttacked(attacker.GetStatus().attack);
+        defender.GetAttacked(attackstrength);
     }
 
     public Fighter[] GetAllFightersFromTeam(Fighter.Team team)
     {
         return listFighters.FindAll(x => x.GetTeam() == team).ToArray();
+    }
+
+    /// <summary>
+    /// Destroys a fighter fully. Always call this when a fighter should be removed from scene (e.g. when dead).
+    /// </summary>
+    /// <param name="fighter">the fighter script of the GameObject to destroy</param>
+    public void DestroyFighter(Fighter fighter)
+    {
+        Fighter subject = queueFighters.Dequeue();
+        while (subject != fighter)
+        {
+            queueFighters.Enqueue(subject);
+            subject = queueFighters.Dequeue();
+        }
+
+        listFighters.Remove(subject);
+
+        Destroy(fighter.gameObject);
     }
 }

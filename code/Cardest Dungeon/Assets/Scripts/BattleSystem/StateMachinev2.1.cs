@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace MethodStateMachine
 {
@@ -85,9 +86,10 @@ namespace MethodStateMachine
         public void TransitionToState(string nameOfTarget)
         {
             Transition transition = adjacencyList[states.IndexOf(activeState)].Find(transition => transition.GetTargetName() == nameOfTarget);
+            activeState = states.Find(state => state.GetName() == nameOfTarget);
+            
             transition?.Invoke();
 
-            activeState = states.Find(state => state.GetName() == nameOfTarget);
         }
 
 

@@ -5,14 +5,6 @@ using MethodStateMachine;
 
 public abstract class Fighter : MonoBehaviour
 {
-    /* The statemachine has the following states and transitions:
-     * From     | Idle      | Attack    | Die
-     * to       |
-     * Idle:    |-------    |--------   |------
-     * Attack:  |-------    |--------   |------
-     * Die:     |-------    |--------   |------
-     * */
-
     public enum Team
     {
         Player,
@@ -29,107 +21,42 @@ public abstract class Fighter : MonoBehaviour
 
     protected StateMachine stateMachine;
 
+    protected int maxHealth;
     [SerializeField]
     protected Status status;
 
     [SerializeField]
     private Team team;
 
-    private float restTimer = 0;
-    private float restTime = 3; //How long the "ai" will pause between actions
-
     //DEBUG
     [SerializeField]
-    private Team foe;
+    public Team foe;
 
     // Start is called before the first frame update
     void OnEnable()
     {
+        maxHealth = status.health;
         InitializeStateMachine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(restTimer);
-        transform.localScale = new Vector3(status.health / 20f, status.health / 20f, 0);
-        if (restTimer <= 0)
-        {
-            stateMachine.Run();
-        }
-        else
-        {
-            restTimer -= Time.deltaTime;
-        }
 
-        Debug.LogWarning(stateMachine.GetActiveStateName());
     }
 
-    #region StateMachineStuff
-    protected void InitializeStateMachine()
-    {
-        stateMachine = new StateMachine("Idle", IdleBody);
-        stateMachine.AddState("Attack", AttackBody);
-        stateMachine.AddState("Die", DieBody);
+    protected abstract void InitializeStateMachine();
 
-        stateMachine.AddTransition("Idle", "Attack", IdleToAttack);
-        stateMachine.AddTransition("Idle", "Die", IdleToDie);
-        stateMachine.AddTransition("Attack", "Idle", AttackToIdle);
-    }
-
-    private void IdleBody()
-    {
-        
-    }
-
-    private void AttackBody()
-    {
-        Attack();
-        stateMachine.TransitionToState("Idle");
-    }
-
-    private void DieBody()
-    {
-        Destroy(gameObject);
-    }
-
-    private void IdleToAttack()
-    {
-        restTimer = restTime;
-        Debug.LogError("Ich hab soger 'n Übergang gemacht");
-    }
-
-    private void AttackToIdle()
-    {
-        restTimer = restTime;
-        EndTurn();
-    }
-
-    private void IdleToDie()
-    {
-        restTimer = restTime;
-    }
-    #endregion StateMachineStuff
-
-    public void ActivateMyTurn()
-    {
-        stateMachine.TransitionToState("Attack");
-        Debug.LogError("Ich wurde auf Attack gestellt. Hier ist der Beweis: " + stateMachine.GetActiveStateName());
-    }
-
-    public Team GetTeam()
-    {
-        return team;
-    }
+    public abstract void ActivateMyTurn();
 
     public void Attack()
     {
-        Fighter[] playerTeam = BattleMaster.Current.GetAllFightersFromTeam(foe);
+        Fighter[] opponents = BattleMaster.Current.GetAllFightersFromTeam(foe);
         GetComponent<AudioSource>().Play();
 
-        if (playerTeam.Length > 0)
+        if (opponents.Length > 0)
         {
-            BattleMaster.Current.AttackFighter(this, playerTeam[Random.Range(0, playerTeam.Length)]);
+            BattleMaster.Current.AttackFighter(opponents[Random.Range(0, opponents.Length)], Random.Range(status.attack - 2, status.attack + 2));
         }
     }
 
@@ -139,9 +66,13 @@ public abstract class Fighter : MonoBehaviour
         
         if(status.health <= 0)
         {
-            Debug.Log("Ja hallo, ich wurde gerade angegriffen und sollte jetzt eigentlich tot sein.");
             stateMachine.TransitionToState("Die");
         }
+    }
+
+    public Team GetTeam()
+    {
+        return team;
     }
 
     public Status GetStatus()
