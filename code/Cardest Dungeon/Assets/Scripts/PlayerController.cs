@@ -39,9 +39,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int inventorySize;
     [SerializeField]
+    private string battleSceneName;
+    [SerializeField]
     private CharacterStatus playerStatus;
     [SerializeField]
-    private string battleSceneName;
+    private GameObject playerBattleObjectToLoad;
 
     private Rigidbody2D rig = default;
     private SpriteRenderer spriterRenderer = default;
@@ -98,6 +100,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            BattleData.playerToLoad = playerBattleObjectToLoad;
+            BattleData.enemiesToLoad = new GameObject[1] { collision.gameObject.GetComponent<DungeonEnemy>().GetBattleObject() };
+
+            Debug.Log("KÄMPFT!!!!!!!");
+
+            SceneManager.LoadScene(battleSceneName);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -105,14 +119,6 @@ public class PlayerController : MonoBehaviour
         if (collidedWith != null)
         {
             MapManager.Current.UpdatePlayerPiece(collidedWith);
-        }
-
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //Hier muss eigentlich der Gegner aus Dateien geladen werden
-            Debug.Log("KÄMPFT!!!!!!!");
-
-            SceneManager.LoadScene(battleSceneName);
         }
     }
 

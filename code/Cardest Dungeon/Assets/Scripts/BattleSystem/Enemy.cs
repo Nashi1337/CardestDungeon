@@ -8,16 +8,18 @@ public abstract class Enemy : Fighter
 
     protected float restTimer = 0;
     protected float restTime = 2f; //How long the "ai" will pause between actions
+
+    private Vector3 originalScale;
     // Start is called before the first frame update
     void Start()
     {
-        
+        originalScale = transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.localScale = new Vector3(status.health / (float)maxHealth, status.health / (float)maxHealth, 0);
+        transform.localScale = new Vector3(status.health / (float)maxHealth * originalScale.x, status.health / (float)maxHealth * originalScale.y, originalScale.z);
         if (restTimer <= 0)
         {
             stateMachine.Run();

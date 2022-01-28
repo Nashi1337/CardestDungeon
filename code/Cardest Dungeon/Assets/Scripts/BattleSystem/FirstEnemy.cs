@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class FirstEnemy : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-
     public new void Attack()
     {
         Fighter[] playerTeam = BattleMaster.Current.GetAllFightersFromTeam(foe);

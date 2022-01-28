@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4821381030658810475}
   - component: {fileID: 4821381030658810474}
   m_Layer: 0
-  m_Name: enemyfromscenebattlesystemwhofollowstheplayer
+  m_Name: EnemyFollower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4821381030658810471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a3f26e3cb5c3b4f9a904b68064eb51, type: 3}
+  m_Script: {fileID: 11500000, guid: ce9d21b2ab6086c4dab7d287e8022bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleEnemyToLoad: {fileID: 0}

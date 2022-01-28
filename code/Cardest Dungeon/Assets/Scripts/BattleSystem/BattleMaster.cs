@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BattleMaster : MonoBehaviour
 {
@@ -45,16 +46,28 @@ public class BattleMaster : MonoBehaviour
     {
         queueFighters = new Queue<Fighter>();
         listFighters = new List<Fighter>();
-
-        //Create all fighters here somehow. (Loading prefabs?)        
-        GameObject player = Instantiate(BattleData.playerPrefabToLoad);
-        player.transform.SetParent(playerGround.transform, true);
-
-        GameObject enemy = Instantiate(BattleData.enemyPrefabToLoad);
-        player.transform.SetParent(enemyGround.transform, true);
+        
+        LoadFightersIntoScene();
 
         StartCoroutine(SetupBattle());
 
+    }
+
+    private void LoadFightersIntoScene()
+    {
+        GameObject player = BattleData.playerToLoad;
+        player = Instantiate(player);
+        player.name = player.name.Remove(player.name.LastIndexOf('(')); //Removes the "(clone)" that unity adds when instantiating prefabs
+        player.transform.SetParent(playerGround.transform, true);
+
+        GameObject enemy = BattleData.enemiesToLoad[0];
+        enemy = Instantiate(enemy);
+        enemy.name = enemy.name.Remove(enemy.name.LastIndexOf('(')); //Removes the "(clone)" that unity adds when instantiating prefabs
+        enemy.transform.SetParent(enemyGround.transform, true);
+
+        //Das ist blöd. Anderse machen
+        Array.Find(playerActions, action => action.name == "attackbutton").onClick.AddListener(player.GetComponent<PlayerFighter>().OnAttackButton);
+        Array.Find(playerActions, action => action.name == "healbutton").onClick.AddListener(player.GetComponent<PlayerFighter>().OnHealButton);
     }
 
     IEnumerator SetupBattle()
@@ -73,7 +86,7 @@ public class BattleMaster : MonoBehaviour
         enemyHUD.SetHUD(listFighters.Find(fighter => fighter.GetTeam() == Fighter.Team.Enemy));
 
         //Wait for 2 seconds
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0);
 
         //After the battle is set up it's the player's turn
         ActivateFighter();
@@ -139,9 +152,9 @@ public class BattleMaster : MonoBehaviour
     /// <param name="defender">The one who gets attacked</param>
     public void AttackFighter(Fighter attacker, Fighter defender, int attackstrength)
     {
-        defender.GetAttacked(attackstrength);
-        defender?.BattleHUD.SetHealth(defender.GetStatus().health);
-        WriteToDialogue(attacker.name + " attacked " + defender.name + " with " + attackstrength);
+        int actualDamage = defender.GetAttacked(attackstrength);
+
+        WriteToDialogue(attacker.name + " attacked " + defender.name + " with " + actualDamage + " damage!");
     }
 
     /// <summary>

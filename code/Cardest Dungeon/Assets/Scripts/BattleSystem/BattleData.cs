@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class BattleData
 {
-    public static GameObject enemyPrefabToLoad;
-    public static GameObject playerPrefabToLoad;
+    public static GameObject[] enemiesToLoad;
+    public static GameObject playerToLoad; 
 }

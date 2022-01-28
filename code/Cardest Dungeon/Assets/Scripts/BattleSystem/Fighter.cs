@@ -64,14 +64,21 @@ public abstract class Fighter : MonoBehaviour
         }
     }
 
-    public void GetAttacked(int attackDamage)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="attackDamage"></param>
+    /// <returns>Returns the actual damage taken.</returns>
+    public int GetAttacked(int attackDamage)
     {
-        status.health -= Mathf.Max(attackDamage - status.defence, 0);
-        
-        if(status.health <= 0)
+        int actualDamage = Mathf.Max(attackDamage - status.defence, 0);
+        status.health -= actualDamage;
+        BattleHUD.SetHealth(status.health);
+        if (status.health <= 0)
         {
             stateMachine.TransitionToState("Die");
         }
+        return actualDamage;
     }
 
     /// <summary>
