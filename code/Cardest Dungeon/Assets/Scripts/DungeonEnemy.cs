@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class represents an enemy behaviour within the dungeon.
+/// </summary>
 public class DungeonEnemy : MonoBehaviour
 {
-/*    [SerializeField]
-    private GameObject battleEnemyToLoad;*/
+    [SerializeField]
+    private GameObject battleEnemyToLoad;
     [SerializeField]
     private static bool isdead;
     private Rigidbody2D rb;
@@ -19,22 +22,14 @@ public class DungeonEnemy : MonoBehaviour
 
     private void Awake()
     {
-/*        if (!created)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            created = true;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }*/
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log("Ich bin " + this.name +" und gebe in Start als Player aus: " + player);
+        Debug.Log("Ich bin " + this.name + " und gebe in Start als Player aus: " + player);
         //player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         player = FindObjectOfType<PlayerController>();
         Debug.Log(this.name + "Nachdem ich den Player suche gebe ich aus: " + player);
@@ -48,6 +43,9 @@ public class DungeonEnemy : MonoBehaviour
         MoveEnemy();
     }
 
+    /// <summary>
+    /// Contains the movement pattern of the enemy which is to directly move into the players direction.
+    /// </summary>
     private void MoveEnemy()
     {
         Debug.Log("Ich bin " + this.name + " MoveEnemy und gebe als Player aus: " + player);
@@ -68,8 +66,12 @@ public class DungeonEnemy : MonoBehaviour
         }
     }
 
-/*    public GameObject GetBattleObject()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>The equivalent of this enemy for the battle.</returns>
+    public GameObject GetBattleObject()
     {
         return battleEnemyToLoad;
-    }*/
+    }
 }

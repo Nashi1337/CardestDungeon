@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// represents a piece on the map and of the map of a dungeon. It has a reference on its corresponding actual dungeonPart.
+/// </summary>
 public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public bool IsUnlocked { get; set; } = true;

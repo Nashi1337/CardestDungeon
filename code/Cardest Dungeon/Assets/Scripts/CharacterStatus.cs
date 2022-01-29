@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable Object for storing information about the player. This and the BattleData script should be merged.
+/// </summary>
 [CreateAssetMenu(fileName = "HealthStatusData", menuName = "StatusObjects/Health")]
 public class CharacterStatus : ScriptableObject
 {

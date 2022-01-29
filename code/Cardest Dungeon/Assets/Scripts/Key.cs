@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This represents an in-game key. Complementary classes are KeyDoor and KeyHolder.
+/// </summary>
 public class Key : MonoBehaviour
 {
 

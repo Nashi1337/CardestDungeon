@@ -501,6 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listFighters: []
+  dungeonSceneName: DungeonWinterExpo
   dialogueText: {fileID: 66655651}
   playerHUD: {fileID: 2058194611}
   enemyHUD: {fileID: 1029023467}

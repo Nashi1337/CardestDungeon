@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This is the script which handles everything regarding the player in the dungeon scene. It is NOT used in the battle scene.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-/*    public static PlayerController Current
+    public static PlayerController Current
     {
         get
         {
@@ -15,10 +18,8 @@ public class PlayerController : MonoBehaviour
             }
             return current;
         }
-    }*/
+    }
 
-    public Item[] Inventory { get; }
-    public Animator animator; //animator Variable um für den Player Animationen zu steuern
     public int InventorySize
     {
         get { return inventorySize; }
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Item[] Inventory { get; }
+    public Animator animator; //animator Variable um für den Player Animationen zu steuern
 
     [SerializeField]
     private float speed;
@@ -48,27 +51,37 @@ public class PlayerController : MonoBehaviour
     private GameObject mapeditor = default;
     private Transform[] allchildren = default;
     private Item[] inventory = default;
-    private bool possaved = false;
-    public static bool canMove = true;
 
-    public VectorValue startingPosition;
+    public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
 
-    //private static PlayerController current = null;
+    private static PlayerController current = null;
     private static PlayerController playerInstance;
 
+
+    //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
+    // private void OnEnable()
+    // {
+    // //Datentransfer zwischen Szenen sauberer machen und vollständiger
+    // if(BattleData.playerPositionBeforeFight != Vector3.zero)
+    // {
+    // transform.position = BattleData.playerPositionBeforeFight;
+    // }
+    // }
 
     void Start()
     {
         //Das Objekt bleibt bestehen auch bei Szenenwechsel
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
 
-        if(playerInstance == null)
+        if (playerInstance == null)
         {
             playerInstance = this;
             canMove = true;
-        }else{
-            Object.Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
             canMove = true;
         }
 
@@ -84,7 +97,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("1. " + currentPosition);
         //currentPosition = new Vector2(-10, -140);
         Debug.Log("2. " + currentPosition);
-        this.transform.position = currentPosition;
+        transform.position = currentPosition;
 
 
     }
@@ -141,12 +154,16 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("KÄMPFT!!!!!!!");
 
+            //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
+            //BattleData.playerToLoad = playerBattleObjectToLoad;
+            //BattleData.enemiesToLoad = new GameObject[1] { collision.gameObject.GetComponent<DungeonEnemy>().GetBattleObject() };
+            //BattleData.playerPositionBeforeFight = transform.position;
+
             canMove = false;
 
             Debug.Log("3. " + currentPosition);
-            currentPosition = new Vector2(this.transform.position.x, this.transform.position.y);
+            currentPosition = new Vector2(transform.position.x, transform.position.y);
             Debug.Log("4. " + currentPosition);
-            possaved = true;
 
             //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
             Destroy(collision.gameObject);
@@ -157,6 +174,9 @@ public class PlayerController : MonoBehaviour
 
 
 
+    /// <summary>
+    /// Switches the state of the visual map between visible and invisible
+    /// </summary>
     private void ShowHideMap()
     {
         mapeditor.SetActive(!mapeditor.activeSelf);
@@ -166,7 +186,7 @@ public class PlayerController : MonoBehaviour
     /// Adds an item to the player's inventory
     /// </summary>
     /// <param name="item">the item that should be added</param>
-    /// <returns>True, if item was successfully added. False, if inventory was already full</returns>
+    /// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
     private bool AddToInventory(Item item)
     {
         int index = 0;

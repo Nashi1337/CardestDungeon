@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class handles the inventory UI in the dungeon. It is seperate from the actual inventory and therefore needs to updated
+/// appropriatly if the state of the player inventory changes.
+/// This class is not even close to be in a finished state.
+/// </summary>
 public class InventoryUI : MonoBehaviour
 {
     public static InventoryUI Current
@@ -21,22 +26,10 @@ public class InventoryUI : MonoBehaviour
     //private float itemDelta; //Delta between two items
     private static InventoryUI current = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Adds an item to the graphical User Interface
     /// </summary>
-    /// <param name="item">the item to add</param>
+    /// <param name="item">The item to add</param>
     public void AddItem(Item item)
     {
         item.transform.SetParent(transform);
@@ -52,7 +45,6 @@ public class InventoryUI : MonoBehaviour
     /// Removes an item from the graphical User Interface
     /// </summary>
     /// <param name="item">the item to remove</param>
-    /// <param name="destroy">should the Gameobject be deleted or not</param>
     public void RemoveItem(Item item)
     {
         GameObject search = null;

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// This class is used for anything input related. It especially maps different buttons to  more abstract actions.
+/// It is unclear at the moment how much this class is actually used. Therefore it's existence should be up to debate.
 /// </summary>
 public class InputManager : MonoBehaviour
 {

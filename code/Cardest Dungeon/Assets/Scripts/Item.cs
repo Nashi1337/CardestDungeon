@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Maybe remove abstract and just use prefabs for different items? Sounds smarter.
-/// Yep, will be done the smorter way.
+/// This class represents an Item. It is mainly used by the player and the inventory.
 /// </summary>
 public class Item : MonoBehaviour
 {
     public Effects effects;
 
     /// <summary>
-    /// Activates the effect of the item.
+    /// Activates the effect of the item. However takes up the item system again should reconsider the existence of this question.
     /// </summary>
     /// <param name="player">Data type may need to be changed because this method is used in combat.</param>
     public void ActivateEffect(PlayerController player)
@@ -19,6 +18,9 @@ public class Item : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Represents the additional bonuses an item gives. Should this be merged with Fighter.status in some way?
+    /// </summary>
     [System.Serializable]
     public struct Effects
     {

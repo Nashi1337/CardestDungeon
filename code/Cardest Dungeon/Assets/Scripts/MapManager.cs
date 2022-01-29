@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class manages everything that has to do with changinge the dungeon layout and controlling the visual map.
+/// </summary>
 public class MapManager : MonoBehaviour
 {
     public static MapManager Current
@@ -29,25 +32,19 @@ public class MapManager : MonoBehaviour
 
     private void OnEnable()
     {
-        FindAllMapPieces(); //OnCollisionEnter seems to trigger before Start. So Map Pieces not to be found before Start. "Danke, Henrik -_-"
+        //OnCollisionEnter seems to trigger before Start. So Map Pieces not to be found before Start. "Danke, Henrik -_-"
+        FindAllMapPieces(); 
     }
 
     private void Start()
     {
-
         player = GameObject.FindGameObjectWithTag("Player");
-        //UpdatePlayerPiece();
-    }
-
-    private void Update()
-    {
-        //UpdatePlayerPiece();
     }
 
     /// <summary>
-    /// 
+    /// Changes the player location on the visual map to mapPiece by setting the parent of the player icon.
     /// </summary>
-    /// <param name="mapPiece">The map piece at which the player icon will be set.</param>
+    /// <param name="mapPiece">The map piece at which the player icon will be appended.</param>
     public void UpdatePlayerPiece(MapPiece mapPiece)
     {
         //MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
@@ -56,15 +53,18 @@ public class MapManager : MonoBehaviour
         playerIcon.transform.SetParent(mapPiece.transform, false);
     }
 
+    /// <summary>
+    /// Searches the scene for every instance of the class MapPiece and adds them to the allMapPieces list.
+    /// </summary>
     private void FindAllMapPieces()
     {
         allMapPieces = FindObjectsOfType<MapPiece>();
     }
 
     /// <summary>
-    /// Searches for the nearest map piece and returns it.
+    /// Searches for the closest map piece to pos and returns it.
     /// </summary>
-    /// <param name="pos"></param>
+    /// <param name="pos">The position from which the closest map piece will be calculated.</param>
     /// <returns>Returns the closest mapPiece to pos.</returns>
     private MapPiece FindClosestMapPieceByPosition(Vector3 pos)
     {
@@ -88,10 +88,11 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Searches for the nearest map piece and returns it.
+    /// Searches for the closest map piece to mapPiece that is within distanceCap and returns it. This is intended for use within
+    /// the MapPiece class only.
     /// </summary>
-    /// <param name="mapPiece"></param>
-    /// <param name="distanceCap">maximum distance of any map piece to the given one in pixels</param>
+    /// <param name="mapPiece">The map piece from which the closest other map piece will be calculated</param>
+    /// <param name="distanceCap">Maximum distance of any map piece to the given one in pixels</param>
     /// <returns>If there is no map piece closer than distanceCap it will return mapPiece. Otherwise the closest map piece.</returns>
     public MapPiece FindClosestMapPiece(MapPiece mapPiece, float distanceCap)
     {
@@ -120,11 +121,11 @@ public class MapManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Swaps two map pieces with each other if they are both unlocked
+    /// Swaps two map pieces with each other if they are both unlocked.
     /// </summary>
-    /// <param name="piece1"></param>
-    /// <param name="piece2"></param>
-    /// <returns>Returns true if swap succeded. Else false</returns>
+    /// <param name="piece1">First piece to swap.</param>
+    /// <param name="piece2">Second piece to swap.</param>
+    /// <returns>True if swap succeded. Else false</returns>
     public bool SwapMapPieces(MapPiece piece1, MapPiece piece2)
     {
         MapPiece playersLocation = playerIcon.transform.parent.GetComponent<MapPiece>();
@@ -147,10 +148,10 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Search for MapPiece by its dungeon parts. "Danke, Henrik -_-"
+    /// Search for MapPiece by its dungeon parts. Needed for updating player icon on visual map correctly. "Danke, Henrik -_-"
     /// </summary>
-    /// <param name="dungeonPart"></param>
-    /// <returns></returns>
+    /// <param name="dungeonPart">The dungeon part whos corresponding map piece will be looked for</param>
+    /// <returns>The corresponding mapPiece do dungeonPart or null if nothing was found.</returns>
     public MapPiece SearchMapPiece(GameObject dungeonPart)
     {
         foreach(MapPiece mapPiece in allMapPieces)
