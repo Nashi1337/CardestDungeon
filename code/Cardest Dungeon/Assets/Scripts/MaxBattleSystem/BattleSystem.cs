@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURM, WON, LOST}
 
@@ -26,6 +27,8 @@ public class BattleSystem : MonoBehaviour
     public Button AttackButton;
     [SerializeField]
     public Button HealButton;
+    [SerializeField]
+    private string dungeonscenename;
 
     public BattleState state;
 
@@ -39,7 +42,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator SetupBattle()
     {
         GameObject playergameobject = Instantiate(playerbattleui, playerBattleStation);
-        playergameobject.transform.localScale = Vector3.one;
+        //playergameobject.transform.localScale = Vector3.one;
         //das soll den player und enemy sprite als child der jeweiligen battle stations spawnen lassen
         playerUnit = playergameobject.GetComponent<Unit>();
 
@@ -102,6 +105,7 @@ public class BattleSystem : MonoBehaviour
         if (state == BattleState.WON)
         {
             dialogueText.text = "Player won the battle!";
+            SceneManager.LoadScene(dungeonscenename);
         }
         else if(state == BattleState.LOST)
         {

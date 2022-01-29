@@ -105,7 +105,10 @@ public class PlayerController : MonoBehaviour
         {
             MapManager.Current.UpdatePlayerPiece(collidedWith);
         }
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("KÄMPFT!!!!!!!");
