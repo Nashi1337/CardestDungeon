@@ -35,10 +35,6 @@ public class KeyHolder : MonoBehaviour
             AddKey(key.GetKeyType());
             Destroy(key.gameObject);
         }
-        else
-        {
-            Debug.Log("Halts Maul");
-        }
 
         KeyDoor keyDoor = collider.GetComponent<KeyDoor>();
         if (keyDoor != null)

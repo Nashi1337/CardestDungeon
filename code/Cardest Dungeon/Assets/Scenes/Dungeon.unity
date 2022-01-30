@@ -318,11 +318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4821381030658810468, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.908486
+      value: -17.71
       objectReference: {fileID: 0}
     - target: {fileID: 4821381030658810468, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -118.12206
+      value: -120.07
       objectReference: {fileID: 0}
     - target: {fileID: 4821381030658810468, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -358,12 +358,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4821381030658810471, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_Name
-      value: enemyfromscenebattlesystemwhofollowstheplayer
+      value: EnemyFollower
       objectReference: {fileID: 0}
     - target: {fileID: 4821381030658810471, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4821381030658810474, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
+      propertyPath: battleEnemyToLoad
+      value: 
+      objectReference: {fileID: 5531106838259381465, guid: 69aa4df65b773b54b93a5039e433bc55, type: 3}
     - target: {fileID: 4821381030658810475, guid: 5d518a61bb62a9b4aa7bdc4e94eb0efa, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -6180,7 +6184,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4173323428746058197, guid: 03f4301c29288104b8d0106295598661, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 6003620417343838029, guid: 03f4301c29288104b8d0106295598661, type: 3}
       propertyPath: m_Sprite
@@ -17375,7 +17379,7 @@ Transform:
   m_Children:
   - {fileID: 1908423895}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &937692188
 GameObject:
@@ -17421,8 +17425,9 @@ Transform:
   - {fileID: 6174981387743232622}
   - {fileID: 1752151855}
   - {fileID: 275702887}
+  - {fileID: 1321812444155048269}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &956874944
 PrefabInstance:
@@ -28151,14 +28156,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1393701410386905591, guid: ed5281036d415bf45b208e47d412166a, type: 3}
-      propertyPath: runningSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1393701410386905591, guid: ed5281036d415bf45b208e47d412166a, type: 3}
-      propertyPath: battleSceneName
-      value: BattleUI
-      objectReference: {fileID: 0}
     - target: {fileID: 3661738050438060402, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -36570,7 +36567,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1751057745 stripped
 GameObject:
@@ -37038,6 +37035,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &1901879780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37113,7 +37128,7 @@ RectTransform:
   - {fileID: 1417714034}
   - {fileID: 1152671235}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -40697,12 +40712,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6628060362170982510}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 11.16, y: -122.11, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 937692189}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2017062149739595832
 BoxCollider2D:

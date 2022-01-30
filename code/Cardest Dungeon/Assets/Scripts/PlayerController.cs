@@ -31,12 +31,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Item[] Inventory { get; }
+    public Animator animator; //animator Variable um für den Player Animationen zu steuern
+
     [SerializeField]
     private float speed;
     [SerializeField]
     private float runningSpeed;
     [SerializeField]
     private int inventorySize;
+    [SerializeField]
+    private string battleSceneName;
     [SerializeField]
     private CharacterStatus playerStatus;
     [SerializeField]
@@ -97,6 +102,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            BattleData.playerToLoad = playerBattleObjectToLoad;
+            BattleData.enemiesToLoad = new GameObject[1] { collision.gameObject.GetComponent<DungeonEnemy>().GetBattleObject() };
+
+            Debug.Log("KÄMPFT!!!!!!!");
+
+            SceneManager.LoadScene(battleSceneName);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
