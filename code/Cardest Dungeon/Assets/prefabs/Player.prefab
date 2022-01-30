@@ -79,9 +79,10 @@ MonoBehaviour:
   speed: 5
   runningSpeed: 10
   inventorySize: 0
-  battleSceneName: BattleMerge
+  battleSceneName: BattleUI
   playerStatus: {fileID: 0}
-  playerBattleObjectToLoad: {fileID: 5026611991087226192, guid: 2b289f3ab6ad4154687c9b08f10b111a, type: 3}
+  gamesavedata: {fileID: 0}
+  startingPosition: {fileID: 11400000, guid: c0f75080ff424cc498faf2bbfcfb6513, type: 2}
 --- !u!50 &2872941082599331135
 Rigidbody2D:
   serializedVersion: 4

@@ -6,12 +6,14 @@ public class DungeonEnemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject battleEnemyToLoad;
-
+    [SerializeField]
+    private static bool isdead;
     private Rigidbody2D rb;
     private PlayerController player;
     private float moveSpeed;
     private Vector3 directionToPlayer;
     private Vector3 localScale;
+
 
     // Start is called before the first frame update
     void Start()

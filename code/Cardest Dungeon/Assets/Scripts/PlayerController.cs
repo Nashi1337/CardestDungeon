@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Item[] Inventory { get; }
-    public Animator animator; //animator Variable um für den Player Animationen zu steuern
 
     [SerializeField]
     private float speed;
@@ -44,15 +42,16 @@ public class PlayerController : MonoBehaviour
     private string battleSceneName;
     [SerializeField]
     private CharacterStatus playerStatus;
-    [SerializeField]
-    private string battleSceneName;
 
     private Rigidbody2D rig = default;
     private SpriteRenderer spriterRenderer = default;
     private GameObject mapeditor = default;
     private Transform[] allchildren = default;
     private Item[] inventory = default;
-   
+    private bool possaved = false;
+
+    public VectorValue startingPosition;
+    public static Vector2 currentPosition = new Vector2(-10, -140);
 
     private static PlayerController current = null;
 
@@ -67,6 +66,11 @@ public class PlayerController : MonoBehaviour
         mapeditor.SetActive(false);
 
         inventory = new Item[inventorySize];
+        Debug.Log("1. " + currentPosition);
+        //currentPosition = new Vector2(-10, -140);
+        Debug.Log("2. " + currentPosition);
+        this.transform.position = currentPosition;
+
 
     }
 
@@ -102,19 +106,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            BattleData.playerToLoad = playerBattleObjectToLoad;
-            BattleData.enemiesToLoad = new GameObject[1] { collision.gameObject.GetComponent<DungeonEnemy>().GetBattleObject() };
-
-            Debug.Log("KÄMPFT!!!!!!!");
-
-            SceneManager.LoadScene(battleSceneName);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
@@ -126,22 +117,25 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+
         if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("KÄMPFT!!!!!!!");
 
+            Debug.Log("3. " + currentPosition);
+            currentPosition = new Vector2(this.transform.position.x, this.transform.position.y);
+            Debug.Log("4. " + currentPosition);
+            possaved = true;
             SceneManager.LoadScene(battleSceneName);
         }
     }
 
+
+
     private void ShowHideMap()
     {
         mapeditor.SetActive(!mapeditor.activeSelf);
-
-        //foreach (Transform child in allchildren)
-        //{
-        //    child.gameObject.SetActive(mapeditor.activeSelf);
-        //}
     }
 
     /// <summary>
