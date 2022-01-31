@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
     }
 
     [SerializeField]
-    private float itemDelta; //Delta between two items
+    //private float itemDelta; //Delta between two items
     private static InventoryUI current = null;
 
     // Start is called before the first frame update
@@ -45,7 +45,7 @@ public class InventoryUI : MonoBehaviour
         float itemWidth = item.GetComponent<Image>().sprite.rect.width;
         float offset = + 0.5f * itemWidth - 0.5f * inventoryWidth;
 
-        item.transform.localPosition = new Vector3(itemDelta * (transform.childCount - 1) + offset, 0, 0);
+        //item.transform.localPosition = new Vector3(itemDelta * (transform.childCount - 1) + offset, 0, 0);
     }
 
     /// <summary>

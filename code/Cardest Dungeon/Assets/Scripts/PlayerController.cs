@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Current
+/*    public static PlayerController Current
     {
         get
         {
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
             }
             return current;
         }
-    }
+    }*/
 
     public Item[] Inventory { get; }
     public Animator animator; //animator Variable um für den Player Animationen zu steuern
@@ -49,14 +49,29 @@ public class PlayerController : MonoBehaviour
     private Transform[] allchildren = default;
     private Item[] inventory = default;
     private bool possaved = false;
+    public static bool canMove = true;
 
     public VectorValue startingPosition;
     public static Vector2 currentPosition = new Vector2(-10, -140);
 
-    private static PlayerController current = null;
+    //private static PlayerController current = null;
+    private static PlayerController playerInstance;
+
 
     void Start()
     {
+        //Das Objekt bleibt bestehen auch bei Szenenwechsel
+        DontDestroyOnLoad(this.gameObject);
+
+        if(playerInstance == null)
+        {
+            playerInstance = this;
+            canMove = true;
+        }else{
+            Object.Destroy(gameObject);
+            canMove = true;
+        }
+
         rig = GetComponent<Rigidbody2D>();
         mapeditor = MapManager.Current.gameObject;
         allchildren = mapeditor.GetComponentsInChildren<Transform>();
@@ -77,24 +92,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (canMove == true)
         {
-            rig.velocity = InputManager.CalculateMovement() * runningSpeed;
-        }
-        else
-        {
-            rig.velocity = InputManager.CalculateMovement() * speed;
-        }
-        //Der Parameter a_Speed ist wichtig für die Animation, bei einem Wert > 0.01 wird die walking Animation getriggert
-        animator.SetFloat("a_Speed", rig.velocity.magnitude);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                rig.velocity = InputManager.CalculateMovement() * runningSpeed;
+            }
+            else
+            {
+                rig.velocity = InputManager.CalculateMovement() * speed;
+            }
+            //Der Parameter a_Speed ist wichtig für die Animation, bei einem Wert > 0.01 wird die walking Animation getriggert
+            animator.SetFloat("a_Speed", rig.velocity.magnitude);
 
-        if (rig.velocity.x < 0)
-        {
-            spriterRenderer.flipX = true;
-        }
-        else if (rig.velocity.x > 0)
-        {
-            spriterRenderer.flipX = false;
+            if (rig.velocity.x < 0)
+            {
+                spriterRenderer.flipX = true;
+            }
+            else if (rig.velocity.x > 0)
+            {
+                spriterRenderer.flipX = false;
+            }
         }
     }
 
@@ -123,10 +141,16 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("KÄMPFT!!!!!!!");
 
+            canMove = false;
+
             Debug.Log("3. " + currentPosition);
             currentPosition = new Vector2(this.transform.position.x, this.transform.position.y);
             Debug.Log("4. " + currentPosition);
             possaved = true;
+
+            //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
+            Destroy(collision.gameObject);
+
             SceneManager.LoadScene(battleSceneName);
         }
     }

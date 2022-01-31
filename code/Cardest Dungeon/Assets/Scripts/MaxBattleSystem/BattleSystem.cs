@@ -106,6 +106,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "Player won the battle!";
             SceneManager.LoadScene(dungeonscenename);
+            //PlayerController.canMove = true;
         }
         else if(state == BattleState.LOST)
         {
