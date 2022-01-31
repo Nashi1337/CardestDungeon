@@ -17,27 +17,27 @@ public class DungeonEnemy : MonoBehaviour
     bool created = false;
     public bool Loading = true;
 
-    private void Awake()
-    {
-/*        if (!created)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            created = true;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }*/
-    }
+    private DungeonEnemy myself = null;
+    [SerializeField]
+    private int enemyIndex;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        if (myself == null)
+        {
+            myself = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log("Ich bin " + this.name +" und gebe in Start als Player aus: " + player);
-        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //Debug.Log("Ich bin " + this.name +" und gebe in Start als Player aus: " + player);
         player = FindObjectOfType<PlayerController>();
-        Debug.Log(this.name + "Nachdem ich den Player suche gebe ich aus: " + player);
+        //Debug.Log(this.name + "Nachdem ich den Player suche gebe ich aus: " + player);
         moveSpeed = 2f;
         localScale = transform.localScale;
     }
@@ -50,9 +50,9 @@ public class DungeonEnemy : MonoBehaviour
 
     private void MoveEnemy()
     {
-        Debug.Log("Ich bin " + this.name + " MoveEnemy und gebe als Player aus: " + player);
+        //Debug.Log("Ich bin " + this.name + " MoveEnemy und gebe als Player aus: " + player);
         directionToPlayer = (player.transform.position - this.transform.position).normalized;
-        Debug.Log("Nachdem " + this.name + " die directionToPlayer bestimme gebe ich aus: " + player);
+        //Debug.Log("Nachdem " + this.name + " die directionToPlayer bestimme gebe ich aus: " + player);
         rb.velocity = new Vector2(directionToPlayer.x, directionToPlayer.y) * moveSpeed;
     }
 
@@ -68,8 +68,17 @@ public class DungeonEnemy : MonoBehaviour
         }
     }
 
-/*    public GameObject GetBattleObject()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        return battleEnemyToLoad;
-    }*/
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Spieler beruehrt");
+            EnemyManager.enemymanager.DeleteEnemy(enemyIndex);
+        }
+    }
+
+    public int GetIndex()
+    {
+        return enemyIndex;
+    }
 }

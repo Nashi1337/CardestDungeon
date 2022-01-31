@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
     private bool possaved = false;
     public static bool canMove = true;
 
-    public VectorValue startingPosition;
     public static Vector2 currentPosition = new Vector2(-10, -140);
 
     //private static PlayerController current = null;
