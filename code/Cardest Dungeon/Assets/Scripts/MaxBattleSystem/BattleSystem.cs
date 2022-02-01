@@ -185,4 +185,11 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerHeal());
     }
+
+    public void OnSkipButton()
+    {
+        dialogueText.text = "Player chose to skip the battle"!;
+        state = BattleState.WON;
+        EndBattle();
+    }
 }
