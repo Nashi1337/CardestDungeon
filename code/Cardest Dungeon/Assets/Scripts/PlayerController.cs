@@ -49,15 +49,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rig = default;
     private SpriteRenderer spriterRenderer = default;
     private GameObject mapeditor = default;
-    private Transform[] allchildren = default;
-    private Item[] inventory = default;
+    private GameObject inventory = default;
+    private Transform[] allchildrenofmap = default;
+    private Transform[] allchildrenofinventory = default;
+    //private Item[] inventory = default;
 
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
 
     private static PlayerController current = null;
     private static PlayerController playerInstance;
-
 
     //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
     // private void OnEnable()
@@ -87,13 +88,22 @@ public class PlayerController : MonoBehaviour
 
         rig = GetComponent<Rigidbody2D>();
         mapeditor = MapManager.Current.gameObject;
-        allchildren = mapeditor.GetComponentsInChildren<Transform>();
+        allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
+        inventory = InventoryManager.Current.gameObject;
+        allchildrenofinventory = inventory.GetComponentsInChildren<RectTransform>();
+
+        Debug.Log(mapeditor);
+        Debug.Log(allchildrenofmap);
+        Debug.Log(inventory);
+        Debug.Log(allchildrenofinventory);
+
         spriterRenderer = GetComponent<SpriteRenderer>();
 
-        //MapEditor and it's children are set false at the start of the game so that the M button action works
+        //MapEditor and Inventory and it's children are set false at the start of the game so that the M button action works
         mapeditor.SetActive(false);
+        inventory.SetActive(false);
 
-        inventory = new Item[inventorySize];
+        //inventory = new Item[inventorySize];
         //Debug.Log("1. " + currentPosition);
         //currentPosition = new Vector2(-10, -140);
         //Debug.Log("2. " + currentPosition);
@@ -134,6 +144,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(InputManager.map))
         {
             ShowHideMap();
+        }
+        if (Input.GetKeyDown(InputManager.inventory))
+        {
+            ShowHideInventory();
         }
     }
 
@@ -182,12 +196,17 @@ public class PlayerController : MonoBehaviour
         mapeditor.SetActive(!mapeditor.activeSelf);
     }
 
+    private void ShowHideInventory()
+    {
+        inventory.SetActive(!inventory.activeSelf);
+    }
+
     /// <summary>
     /// Adds an item to the player's inventory
     /// </summary>
     /// <param name="item">the item that should be added</param>
     /// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
-    private bool AddToInventory(Item item)
+/*    private bool AddToInventory(Item item)
     {
         int index = 0;
         while (index < inventory.Length && inventory[index] != null)
@@ -202,14 +221,14 @@ public class PlayerController : MonoBehaviour
 
         inventory[index] = item;
         return true;
-    }
+    }*/
 
     /// <summary>
     /// Removes the given Item from the inventory and moves all later items one index to the left.
     /// </summary>
     /// <param name="item">The item to be removed</param>
     /// <returns>Returns the removed item or null if no item could be removed</returns>
-    private Item RemoveFromInventory(Item item)
+/*    private Item RemoveFromInventory(Item item)
     {
         int index = 0;
         while (index < inventory.Length && inventory[index] != item)
@@ -230,5 +249,5 @@ public class PlayerController : MonoBehaviour
         }
 
         return removed;
-    }
+    }*/
 }

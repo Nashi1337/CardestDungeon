@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,53 +8,89 @@ using UnityEngine.UI;
 /// </summary>
 public class InventoryUI : MonoBehaviour
 {
-    public static InventoryUI Current
+    public Transform itemsParent;
+
+    Inventory inventory;
+
+    InventorySlot[] slots;
+
+    private void Start()
     {
-        get
+        inventory = Inventory.instance;
+        //inventory.onItemChangedCallback += UpdateUI;
+
+        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private void UpdateUI()
+    {
+        for(int i = 0; i < slots.Length; i++)
         {
-            if(current == null)
+            if(i < inventory.items.Count)
             {
-                current = FindObjectOfType<InventoryUI>();
+                slots[i].AddItem(inventory.items[i]);
             }
-            return current;
-        }
-    }
-
-    [SerializeField]
-    //private float itemDelta; //Delta between two items
-    private static InventoryUI current = null;
-
-    /// <summary>
-    /// Adds an item to the graphical User Interface
-    /// </summary>
-    /// <param name="item">The item to add</param>
-    public void AddItem(Item item)
-    {
-        item.transform.SetParent(transform);
-
-        float inventoryWidth = GetComponent<Image>().sprite.rect.width;
-        float itemWidth = item.GetComponent<Image>().sprite.rect.width;
-        float offset = + 0.5f * itemWidth - 0.5f * inventoryWidth;
-
-        //item.transform.localPosition = new Vector3(itemDelta * (transform.childCount - 1) + offset, 0, 0);
-    }
-
-    /// <summary>
-    /// Removes an item from the graphical User Interface
-    /// </summary>
-    /// <param name="item">the item to remove</param>
-    public void RemoveItem(Item item)
-    {
-        GameObject search = null;
-
-        foreach (Transform i in item.transform)
-        {
-            if (item.gameObject.Equals(i.gameObject))
+            else
             {
-                search = null;
-                break;
+                slots[i].ClearSlot();
             }
         }
-        Destroy(search);
     }
+
+
+
+    /*    public static InventoryUI Current
+        {
+            get
+            {
+                if(current == null)
+                {
+                    current = FindObjectOfType<InventoryUI>();
+                }
+                return current;
+            }
+        }
+
+        [SerializeField]
+        //private float itemDelta; //Delta between two items
+        private static InventoryUI current = null;
+
+        /// <summary>
+        /// Adds an item to the graphical User Interface
+        /// </summary>
+        /// <param name="item">The item to add</param>
+        public void AddItem(Item item)
+        {
+            item.transform.SetParent(transform);
+
+            float inventoryWidth = GetComponent<Image>().sprite.rect.width;
+            float itemWidth = item.GetComponent<Image>().sprite.rect.width;
+            float offset = + 0.5f * itemWidth - 0.5f * inventoryWidth;
+
+            //item.transform.localPosition = new Vector3(itemDelta * (transform.childCount - 1) + offset, 0, 0);
+        }
+
+        /// <summary>
+        /// Removes an item from the graphical User Interface
+        /// </summary>
+        /// <param name="item">the item to remove</param>
+        public void RemoveItem(Item item)
+        {
+            GameObject search = null;
+
+            foreach (Transform i in item.transform)
+            {
+                if (item.gameObject.Equals(i.gameObject))
+                {
+                    search = null;
+                    break;
+                }
+            }
+            Destroy(search);
+        }*/
 }
