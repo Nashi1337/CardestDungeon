@@ -32,7 +32,7 @@ public class MapManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //OnCollisionEnter seems to trigger before Start. So Map Pieces not to be found before Start. "Danke, Henrik -_-"
+        //OnCollisionEnter seems to trigger before Start. So Map Pieces will not to be found before Start. "Danke, Henrik -_-"
         FindAllMapPieces(); 
     }
 
@@ -47,8 +47,6 @@ public class MapManager : MonoBehaviour
     /// <param name="mapPiece">The map piece at which the player icon will be appended.</param>
     public void UpdatePlayerPiece(MapPiece mapPiece)
     {
-        //MapPiece closestPiece = FindClosestMapPieceByPosition(player.transform.position);
-        //Debug.Log(closestPiece);
 
         playerIcon.transform.SetParent(mapPiece.transform, false);
     }
