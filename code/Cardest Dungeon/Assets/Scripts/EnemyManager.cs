@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script manages all enemies in the dungeon and their spawning.
+/// </summary>
 public class EnemyManager : MonoBehaviour
 {
 
+    /// <summary>
+    /// Contains important information about an enemy.
+    /// </summary>
     private class EnemyData
     {
         public int index;
@@ -14,22 +20,31 @@ public class EnemyManager : MonoBehaviour
         public EnemyData(int index)
         {
             this.index = index;
+            isDead = false;
         }    
     }
 
     public static EnemyManager enemymanager;
 
-    private static List<EnemyData> enemies;
+    private List<EnemyData> enemies;
 
 
 
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         if (enemymanager == null)
         {
             enemymanager = this;
+            DontDestroyOnLoad(gameObject);
+
+            enemies = new List<EnemyData>();
+            DungeonEnemy[] allenemies = FindObjectsOfType<DungeonEnemy>();
+
+            foreach (DungeonEnemy enemy in allenemies)
+            {
+                enemies.Add(new EnemyData(enemy.GetIndex()));
+            }
         }
         else
         {
@@ -37,41 +52,29 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        enemies = new List<EnemyData>();
-        DungeonEnemy[] ballenemies = FindObjectsOfType<DungeonEnemy>();
-
-        Debug.Log("Hier sind alle Gegner die ich gefunden habe: " + ballenemies);
-
-        foreach(DungeonEnemy enemy in ballenemies)
-        {
-            Debug.Log("Hallo, ich bin " + enemy + " und ich habe die Nummer " + enemy.GetIndex());
-            EnemyData data = enemies.Find(e => e.index == enemy.GetIndex());
-            if (data!=null && data.isDead)
-            {
-                DeleteEnemy(enemy.GetIndex());
-            }
-        }
-    }
-
-    private void Start()
-    {
-        DungeonEnemy[] allenemies = FindObjectsOfType<DungeonEnemy>();
-        foreach(DungeonEnemy enemy in allenemies)
-        {
-            enemies.Add(new EnemyData(enemy.GetIndex()));
-        }
-    }
-
-    private EnemyData FindEnemyDataByIndex(int index)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index">The identifier for the enemy that will be looked for.</param>
+    /// <returns>Returns a reference of enemyData that corresponds to the given index.</returns>
+    private EnemyData GetEnemyData(int index)
     {
         return enemies.Find(e => e.index == index);
     }
 
-    public void DeleteEnemy(int index)
+    public void KillEnemy(int index)
     {
-        EnemyData delete = FindEnemyDataByIndex(index);
-        delete.isDead = true;
+        EnemyData victim = GetEnemyData(index);
+        victim.isDead = true;
+    }
+
+    /// <summary>
+    /// Checks if the enemy with the given index should be dead.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>True if dead, else falls.</returns>
+    public bool HasMyTimeCome(int index)
+    {
+        return GetEnemyData(index).isDead;
     }
 }

@@ -13028,9 +13028,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9d21b2ab6086c4dab7d287e8022bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyIndex: 1
   battleEnemyToLoad: {fileID: 0}
   Loading: 1
-  enemyIndex: 1
 --- !u!1 &1834826032
 GameObject:
   m_ObjectHideFlags: 0
@@ -13388,7 +13388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881776105}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.304924, y: -119.409775, z: -477.52594}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

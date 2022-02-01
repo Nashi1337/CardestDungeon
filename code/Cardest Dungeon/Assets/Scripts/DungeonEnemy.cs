@@ -8,34 +8,30 @@ using UnityEngine;
 public class DungeonEnemy : MonoBehaviour
 {
     [SerializeField]
-    private GameObject battleEnemyToLoad;
+    private int enemyIndex;
     [SerializeField]
-    private static bool isdead;
-    private Rigidbody2D rb;
-    private PlayerController player;
+    private GameObject battleEnemyToLoad;
+
     private float moveSpeed;
     private Vector3 directionToPlayer;
     private Vector3 localScale;
+    private Rigidbody2D rb;
+    private PlayerController player;
 
-    bool created = false;
     public bool Loading = true;
-
-    private DungeonEnemy myself = null;
+    
     [SerializeField]
-    private int enemyIndex;
+    private static bool isdead;
+
 
     // Start is called before the first frame update
     void Start()
     {
-		if (myself == null)
-        {
-            myself = this;
-        }
-        else
+        if (EnemyManager.enemymanager.HasMyTimeCome(enemyIndex))
         {
             Destroy(gameObject);
         }
-		
+
         rb = GetComponent<Rigidbody2D>();
         //Debug.Log("Ich bin " + this.name + " und gebe in Start als Player aus: " + player);
         player = FindObjectOfType<PlayerController>();
@@ -77,12 +73,13 @@ public class DungeonEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Spieler beruehrt");
-            EnemyManager.enemymanager.DeleteEnemy(enemyIndex);
+            //Debug.Log("Spieler beruehrt");
+            EnemyManager.enemymanager.KillEnemy(enemyIndex);
         }
     }
-	
-	    public int GetIndex()
+
+
+	public int GetIndex()
     {
         return enemyIndex;
     }

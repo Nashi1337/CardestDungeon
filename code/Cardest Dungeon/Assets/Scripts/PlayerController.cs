@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("KÄMPFT!!!!!!!");
+            //Debug.Log("KÄMPFT!!!!!!!");
 
             //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
             //BattleData.playerToLoad = playerBattleObjectToLoad;
@@ -161,9 +161,9 @@ public class PlayerController : MonoBehaviour
 
             canMove = false;
 
-            Debug.Log("3. " + currentPosition);
+            //Debug.Log("3. " + currentPosition);
             currentPosition = new Vector2(transform.position.x, transform.position.y);
-            Debug.Log("4. " + currentPosition);
+            //Debug.Log("4. " + currentPosition);
 
             //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
             Destroy(collision.gameObject);
