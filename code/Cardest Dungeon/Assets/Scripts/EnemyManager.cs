@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         }    
     }
 
-    public static EnemyManager enemymanager;
+    public static EnemyManager Instance;
 
     private List<EnemyData> enemies;
 
@@ -33,9 +33,9 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        if (enemymanager == null)
+        if (Instance == null)
         {
-            enemymanager = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
 
             enemies = new List<EnemyData>();

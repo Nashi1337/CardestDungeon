@@ -27,7 +27,7 @@ public class DungeonEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (EnemyManager.enemymanager.HasMyTimeCome(enemyIndex))
+        if (EnemyManager.Instance.HasMyTimeCome(enemyIndex))
         {
             Destroy(gameObject);
         }
@@ -74,7 +74,7 @@ public class DungeonEnemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("Spieler beruehrt");
-            EnemyManager.enemymanager.KillEnemy(enemyIndex);
+            EnemyManager.Instance.KillEnemy(enemyIndex);
         }
     }
 
