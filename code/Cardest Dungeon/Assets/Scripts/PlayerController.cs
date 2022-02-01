@@ -94,10 +94,10 @@ public class PlayerController : MonoBehaviour
         mapeditor.SetActive(false);
 
         inventory = new Item[inventorySize];
-        Debug.Log("1. " + currentPosition);
+        //Debug.Log("1. " + currentPosition);
         //currentPosition = new Vector2(-10, -140);
-        Debug.Log("2. " + currentPosition);
-        transform.position = currentPosition;
+        //Debug.Log("2. " + currentPosition);
+        currentPosition = transform.position;
 
 
     }

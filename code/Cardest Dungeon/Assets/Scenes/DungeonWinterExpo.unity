@@ -29998,6 +29998,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2625452527170333751, guid: ed5281036d415bf45b208e47d412166a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625452527170333751, guid: ed5281036d415bf45b208e47d412166a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3661738050438060402, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -30006,17 +30014,25 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4334783836991956000, guid: 11ba581b1d4b105459a7e7c8b9412933, type: 3}
+    - target: {fileID: 8274389898831950116, guid: ed5281036d415bf45b208e47d412166a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8274389898831950116, guid: ed5281036d415bf45b208e47d412166a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8895321718741354577, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8895321718741354577, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.7
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 8895321718741354577, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -139.3
+      value: -26.3
       objectReference: {fileID: 0}
     - target: {fileID: 8895321718741354577, guid: ed5281036d415bf45b208e47d412166a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42797,7 +42813,6 @@ GameObject:
   - component: {fileID: 3548874655814840054}
   - component: {fileID: 437233195441965692}
   - component: {fileID: 8868225284062372943}
-  - component: {fileID: 6628060362170982511}
   m_Layer: 0
   m_Name: Enemy_E1
   m_TagString: Enemy
@@ -42805,18 +42820,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6628060362170982511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6628060362170982510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a3f26e3cb5c3b4f9a904b68064eb51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7928375948213702651
 PrefabInstance:
   m_ObjectHideFlags: 0

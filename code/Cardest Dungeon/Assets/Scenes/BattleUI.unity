@@ -415,7 +415,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 695459659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54256ab382ce80448564aad0772e487, type: 3}
+  m_Script: {fileID: 11500000, guid: e02cba4f95c5b424588cd3b2004c66b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1705860959}
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 789077731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54256ab382ce80448564aad0772e487, type: 3}
+  m_Script: {fileID: 11500000, guid: e02cba4f95c5b424588cd3b2004c66b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 1493951583}
@@ -2112,13 +2112,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1492709136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c80e8194eb51864b9cf6b6832030cfe, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Dungeon
-  playerPosition: {x: 0, y: 0}
-  playerStorage: {fileID: 11400000, guid: c0f75080ff424cc498faf2bbfcfb6513, type: 2}
-  player: {fileID: 3661738050438060402, guid: ed5281036d415bf45b208e47d412166a, type: 3}
 --- !u!4 &1492709138
 Transform:
   m_ObjectHideFlags: 0

@@ -29,6 +29,19 @@ public class BattleHUD : MonoBehaviour
     }
 
     /// <summary>
+    /// Adds a unit to this HUD. Also sets all important parameters that the HUD displays.
+    /// This is only needed for Max' battle system!!! Either this or the other SetHUD method can be deleted at some point.
+    /// </summary>
+    /// <param name="fighter">The fighter which should be bound to this HUD</param>
+    public void SetHUD(Unit unit)
+    {
+        nameText.text = unit.name;
+        levelText.text = "Lvl " + unit.unitLevel;
+        hpSlider.maxValue = unit.maxHP;
+        hpSlider.value = hpSlider.maxValue;
+    }
+
+    /// <summary>
     /// Updates the visual health bar by setting the health of the bound fighter.
     /// </summary>
     /// <param name="health">The up-to-date health points which will be displayed by the HUD</param>

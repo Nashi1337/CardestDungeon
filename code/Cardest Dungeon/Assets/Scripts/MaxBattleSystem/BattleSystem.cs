@@ -71,7 +71,7 @@ public class BattleSystem : MonoBehaviour
         // Damage the enemy
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
-        enemyHUD.SetHP(enemyUnit.currentHP);
+        enemyHUD.SetHealth(enemyUnit.currentHP);
         dialogueText.text = "Player attacked " + enemyUnit.unitName + " for " + playerUnit.damage;
 
         AttackButton.interactable = false;
@@ -130,7 +130,7 @@ public class BattleSystem : MonoBehaviour
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+        playerHUD.SetHealth(playerUnit.currentHP);
 
         yield return new WaitForSeconds(1f);
 
@@ -158,7 +158,7 @@ public class BattleSystem : MonoBehaviour
     {
         playerUnit.Heal(playerUnit.magic);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+        playerHUD.SetHealth(playerUnit.currentHP);
         dialogueText.text = playerUnit.unitName + " healed themself for " + playerUnit.magic + " Health Points!";
 
         AttackButton.interactable = false;
