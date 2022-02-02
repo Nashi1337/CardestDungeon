@@ -35,7 +35,7 @@ public class BattleHUD : MonoBehaviour
     /// <param name="fighter">The fighter which should be bound to this HUD</param>
     public void SetHUD(Unit unit)
     {
-        nameText.text = unit.name;
+        nameText.text = unit.unitName;
         levelText.text = "Lvl " + unit.unitLevel;
         hpSlider.maxValue = unit.maxHP;
         hpSlider.value = hpSlider.maxValue;
