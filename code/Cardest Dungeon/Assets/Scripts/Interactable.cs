@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-
+	public Item item;
 	public float radius = 3f;               // How close do we need to be to interact?
 	public Transform interactionTransform;  // The transform from where we interact in case you want to offset it
 
@@ -40,8 +40,19 @@ public class Interactable : MonoBehaviour
 		}
 	}
 
-	// Called when the object starts being focused
-	public void OnFocused(Transform playerTransform)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+
+		if (player != null)
+        {
+			player.AddToInventory(item);
+			Destroy(gameObject);
+        }
+    }
+
+    // Called when the object starts being focused
+    public void OnFocused(Transform playerTransform)
 	{
 		isFocus = true;
 		player = playerTransform;

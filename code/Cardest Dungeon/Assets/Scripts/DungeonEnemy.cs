@@ -11,6 +11,8 @@ public class DungeonEnemy : MonoBehaviour
     private int enemyIndex;
     [SerializeField]
     private GameObject battleEnemyToLoad;
+    [SerializeField]
+    private float detectRange;
 
     private float moveSpeed;
     private Vector3 directionToPlayer;
@@ -43,7 +45,10 @@ public class DungeonEnemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Vector2.Distance(player.transform.position, transform.position) <= detectRange)
+        {
         MoveEnemy();
+        }
     }
 
     /// <summary>

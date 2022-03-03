@@ -47,12 +47,13 @@ public class PlayerController : MonoBehaviour
     private CharacterStatus playerStatus;
 
     private Rigidbody2D rig = default;
-    private SpriteRenderer spriterRenderer = default;
+    private Rigidbody2D rig2;
+    private SpriteRenderer spriterRenderer;
     private GameObject mapeditor = default;
     private GameObject inventory = default;
     private Transform[] allchildrenofmap = default;
     private Transform[] allchildrenofinventory = default;
-    //private Item[] inventory = default;
+    private Item[] inventoryItems = default;
 
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //Das Objekt bleibt bestehen auch bei Szenenwechsel
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         if (playerInstance == null)
         {
@@ -103,12 +104,11 @@ public class PlayerController : MonoBehaviour
         mapeditor.SetActive(false);
         inventory.SetActive(false);
 
-        //inventory = new Item[inventorySize];
+        inventoryItems = new Item[inventorySize];
         //Debug.Log("1. " + currentPosition);
         //currentPosition = new Vector2(-10, -140);
         //Debug.Log("2. " + currentPosition);
         currentPosition = transform.position;
-
 
     }
 
@@ -127,6 +127,9 @@ public class PlayerController : MonoBehaviour
             }
             //Der Parameter a_Speed ist wichtig für die Animation, bei einem Wert > 0.01 wird die walking Animation getriggert
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
+
+            if (spriterRenderer == null)
+                Debug.Log("Renderer missing");
 
             if (rig.velocity.x < 0)
             {
@@ -223,48 +226,48 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="item">the item that should be added</param>
     /// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
-/*    private bool AddToInventory(Item item)
+    public bool AddToInventory(Item item)
     {
         int index = 0;
-        while (index < inventory.Length && inventory[index] != null)
+        while (index < inventoryItems.Length && inventoryItems[index] != null)
         {
             index++;
         }
 
-        if (index == inventory.Length)
+        if (index == inventoryItems.Length)
         {
             return false;
         }
 
-        inventory[index] = item;
+        inventoryItems[index] = item;
         return true;
-    }*/
+    }
 
     /// <summary>
     /// Removes the given Item from the inventory and moves all later items one index to the left.
     /// </summary>
     /// <param name="item">The item to be removed</param>
     /// <returns>Returns the removed item or null if no item could be removed</returns>
-/*    private Item RemoveFromInventory(Item item)
+    public Item RemoveFromInventory(Item item)
     {
         int index = 0;
-        while (index < inventory.Length && inventory[index] != item)
+        while (index < inventoryItems.Length && inventoryItems[index] != item)
         {
             index++;
         }
         Item removed = null;
 
         //If the item was found in the inventory
-        if (index != inventory.Length)
+        if (index != inventoryItems.Length)
         {
-            removed = inventory[index];
+            removed = inventoryItems[index];
             index++;
-            while (index < inventory.Length)
+            while (index < inventoryItems.Length)
             {
-                inventory[index - 1] = inventory[index];
+                inventoryItems[index - 1] = inventoryItems[index];
             }
         }
 
         return removed;
-    }*/
+    }
 }
