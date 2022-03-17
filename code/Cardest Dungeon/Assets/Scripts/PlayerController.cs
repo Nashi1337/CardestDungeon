@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     private static PlayerController current = null;
     private static PlayerController playerInstance;
+    private float interactionRadius = 2f;
 
     //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
     // private void OnEnable()
@@ -140,6 +141,12 @@ public class PlayerController : MonoBehaviour
                 spriterRenderer.flipX = false;
             }
         }
+
+/*        if (Input.GetKeyDown(InputManager.action))
+        {
+            TryGetComponent<ItemObject>(out ItemObject item);
+            item.OnHandlePickupItem();
+        }*/
     }
 
     private void Update()
@@ -160,6 +167,24 @@ public class PlayerController : MonoBehaviour
             }
             ShowHideInventory();
         }
+
+        if (Input.GetKeyDown(InputManager.action))
+        {
+            List<Collider2D> results;
+            results = new List<Collider2D>();
+            ContactFilter2D contactFilter = new ContactFilter2D();
+
+            Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
+            foreach(Collider2D collider in results)
+            {
+                if (collider.tag.Equals("Interactable"))
+                {
+                    Debug.Log("Servus Erdnuss");
+                    collider.GetComponent<ItemPickup>().Interact();
+                    break;
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -173,8 +198,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-
         if (collision.gameObject.tag == "Enemy")
         {
             //Debug.Log("KÄMPFT!!!!!!!");
@@ -191,7 +214,10 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("4. " + currentPosition);
 
             //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
-            Destroy(collision.gameObject);
+
+            Debug.Log("Hallo");
+
+            EnemyManager.Instance.KillEnemy(collision.gameObject.GetComponent<DungeonEnemy>().GetIndex());
 
             SceneManager.LoadScene(battleSceneName);
         }

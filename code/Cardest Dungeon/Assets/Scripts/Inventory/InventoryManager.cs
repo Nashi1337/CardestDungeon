@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    //Brackeys:
     public static InventoryManager Current
     {
         get

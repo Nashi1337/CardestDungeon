@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    #region Singleton
 
-	public static Inventory instance;
+    public static Inventory instance;
 
 	void Awake()
 	{
@@ -18,9 +19,11 @@ public class Inventory : MonoBehaviour
 		instance = this;
 	}
 
-	// Callback which is triggered when
-	// an item gets added/removed.
-	public delegate void OnItemChanged();
+#endregion
+
+    // Callback which is triggered when
+    // an item gets added/removed.
+    public delegate void OnItemChanged();
 	public OnItemChanged onItemChangedCallback;
 
 	public int space = 10;  // Amount of slots in inventory

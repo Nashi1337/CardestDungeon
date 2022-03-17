@@ -3191,7 +3191,7 @@ MonoBehaviour:
   enemyHUD: {fileID: 789077735}
   AttackButton: {fileID: 1621258544}
   HealButton: {fileID: 1066169601}
-  dungeonscenename: DungeonWinterExpo
+  dungeonscenename: Dungeon
   state: 0
 --- !u!4 &2112855437
 Transform:

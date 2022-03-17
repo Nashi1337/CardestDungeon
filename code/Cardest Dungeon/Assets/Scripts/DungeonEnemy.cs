@@ -78,8 +78,8 @@ public class DungeonEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //Debug.Log("Spieler beruehrt");
-            EnemyManager.Instance.KillEnemy(enemyIndex);
+            Debug.Log("Spieler beruehrt " + this.enemyIndex);
+            //EnemyManager.Instance.KillEnemy(enemyIndex);
         }
     }
 
