@@ -18,6 +18,6 @@ EditorBuildSettings:
     path: Assets/Scenes/BattleMerge.unity
     guid: 19a917073d9da434fbac83291d19c4d1
   - enabled: 0
-    path: Assets/Scenes/DungeonWinterExpo.unity
+    path: Assets/Scenes/Altes/DungeonWinterExpo.unity
     guid: 0b5ce407e79f57f4288fc5d23ff8c607
   m_configObjects: {}
