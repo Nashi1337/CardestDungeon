@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8127142959703369412}
   - component: {fileID: 256283718605078676}
-  - component: {fileID: 1303051153104048926}
   m_Layer: 0
   m_Name: MiniMapCamera
   m_TagString: Untagged
@@ -75,14 +74,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1303051153104048926
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529289310418376770}
-  m_Enabled: 1
 --- !u!1 &3661738050438060402
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,9 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1313012027907956051}
+  inventorySize: 10
+  attack: 3
   speed: 5
   runningSpeed: 10
-  inventorySize: 0
   battleSceneName: BattleUI
   playerStatus: {fileID: 0}
 --- !u!50 &2872941082599331135

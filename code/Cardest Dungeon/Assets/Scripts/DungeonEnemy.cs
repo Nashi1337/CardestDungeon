@@ -10,15 +10,18 @@ public class DungeonEnemy : MonoBehaviour
     [SerializeField]
     private int enemyIndex;
     [SerializeField]
+    private int health;
+    [SerializeField]
     private GameObject battleEnemyToLoad;
     [SerializeField]
     private float detectRange;
-
-    private float moveSpeed;
+    [SerializeField]
+    private float acceleration;
     private Vector3 directionToPlayer;
     private Vector3 localScale;
     private Rigidbody2D rb;
     private PlayerController player;
+    private AudioSource audioSource;
 
     public bool Loading = true;
     
@@ -35,10 +38,10 @@ public class DungeonEnemy : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
         //Debug.Log("Ich bin " + this.name + " und gebe in Start als Player aus: " + player);
         player = FindObjectOfType<PlayerController>();
         //Debug.Log(this.name + "Nachdem ich den Player suche gebe ich aus: " + player);
-        moveSpeed = 2f;
         localScale = transform.localScale;
     }
 
@@ -47,7 +50,19 @@ public class DungeonEnemy : MonoBehaviour
     {
         if (Vector2.Distance(player.transform.position, transform.position) <= detectRange)
         {
-        MoveEnemy();
+            if(!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            MoveEnemy();
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                rb.velocity = Vector2.zero;
+                audioSource.Pause();
+            }
         }
     }
 
@@ -59,7 +74,8 @@ public class DungeonEnemy : MonoBehaviour
         //Debug.Log("Ich bin " + this.name + " MoveEnemy und gebe als Player aus: " + player);
         directionToPlayer = (player.transform.position - this.transform.position).normalized;
         //Debug.Log("Nachdem " + this.name + " die directionToPlayer bestimme gebe ich aus: " + player);
-        rb.velocity = new Vector2(directionToPlayer.x, directionToPlayer.y) * moveSpeed;
+        //rb.velocity = directionToPlayer * acceleration;
+        rb.AddForce(directionToPlayer * acceleration);
     }
 
     private void LateUpdate()
@@ -76,19 +92,32 @@ public class DungeonEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("Spieler beruehrt " + this.enemyIndex);
-            //EnemyManager.Instance.KillEnemy(enemyIndex);
-        }
+        //if (collision.gameObject.tag == "Player")
+        //{
+        //    Debug.Log("Spieler beruehrt " + enemyIndex);
+        //}
     }
-
 
 	public int GetIndex()
     {
         return enemyIndex;
     }
+
+    public int GetHealth()
+    {
+        return health;
+    }
 	
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Debug.LogWarning("No Loot? :(\n Hier sollte wahrscheinlich noch mehr passieren");
+            Destroy(gameObject);
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>

@@ -36,11 +36,15 @@ public class PlayerController : MonoBehaviour
     public Animator animator; //animator Variable um für den Player Animationen zu steuern
 
     [SerializeField]
+    private int inventorySize;
+    
+    //Set this on private when the script has been merged whith PlayerAttack_MergeWithPlayer.cs
+    [SerializeField]
+    public int attack;
+    [SerializeField]
     private float speed;
     [SerializeField]
     private float runningSpeed;
-    [SerializeField]
-    private int inventorySize;
     [SerializeField]
     private string battleSceneName;
     [SerializeField]
@@ -94,10 +98,10 @@ public class PlayerController : MonoBehaviour
         AssignInventoryManager();
         allchildrenofinventory = inventory.GetComponentsInChildren<RectTransform>();
 
-        Debug.Log(mapeditor);
-        Debug.Log(allchildrenofmap);
-        Debug.Log(inventory);
-        Debug.Log(allchildrenofinventory);
+        //Debug.Log(mapeditor);
+        //Debug.Log(allchildrenofmap);
+        //Debug.Log(inventory);
+        //Debug.Log(allchildrenofinventory);
 
         spriterRenderer = GetComponent<SpriteRenderer>();
 
@@ -198,29 +202,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            //Debug.Log("KÄMPFT!!!!!!!");
+        //if (collision.gameObject.tag == "Enemy")
+        //{
+        //    canMove = false;
+        //    currentPosition = new Vector2(transform.position.x, transform.position.y);
 
-            //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
-            //BattleData.playerToLoad = playerBattleObjectToLoad;
-            //BattleData.enemiesToLoad = new GameObject[1] { collision.gameObject.GetComponent<DungeonEnemy>().GetBattleObject() };
-            //BattleData.playerPositionBeforeFight = transform.position;
-
-            canMove = false;
-
-            //Debug.Log("3. " + currentPosition);
-            currentPosition = new Vector2(transform.position.x, transform.position.y);
-            //Debug.Log("4. " + currentPosition);
-
-            //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
-
-            Debug.Log("Hallo");
-
-            EnemyManager.Instance.KillEnemy(collision.gameObject.GetComponent<DungeonEnemy>().GetIndex());
-
-            SceneManager.LoadScene(battleSceneName);
-        }
+        //    //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
+        //    EnemyManager.Instance.KillEnemy(collision.gameObject.GetComponent<DungeonEnemy>().GetIndex());
+        //    SceneManager.LoadScene(battleSceneName);
+        //}
     }
 
 
