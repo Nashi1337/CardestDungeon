@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
+    public GameObject inventoryUI;
 
     Inventory inventory;
 
@@ -17,6 +18,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         inventory = Inventory.instance;
+        Debug.Log(inventory);
         inventory.onItemChangedCallback += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
@@ -24,7 +26,10 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(InputManager.inventory))
+        {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        }
     }
 
     private void UpdateUI()

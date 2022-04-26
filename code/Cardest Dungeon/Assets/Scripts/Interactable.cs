@@ -8,14 +8,13 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-	public Item item;
+	//public Item item;
 	public float radius = 3f;               // How close do we need to be to interact?
 	public Transform interactionTransform;  // The transform from where we interact in case you want to offset it
 
 	public virtual void Interact()
 	{
-		// This method is meant to be overwritten
-		//Debug.Log("Interacting with " + transform.name);
+		Debug.Log("Interacting with " + transform.name);
 	}
 
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    //Brackeys:
     public static InventoryManager Current
     {
         get
@@ -23,6 +22,22 @@ public class InventoryManager : MonoBehaviour
 
     private InventorySlot[] allInventorySlots = null;
     private static InventoryManager current = null;
+
+    private void Awake()
+    {
+        if (current == null)
+        {
+            current = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Awake if");
+        }
+        else
+        {
+            Debug.Log("Awake else");
+            Destroy(gameObject);
+        }
+    }
+
 
     public void Start()
     {

@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    #region Singleton
+	#region Singleton
 
-    public static Inventory instance;
+	public static Inventory instance;
 
-	void Awake()
+	private void Awake()
 	{
-		if (instance != null)
-		{
-			Debug.LogWarning("More than one instance of Inventory found!");
+        if (instance != null)
+        {
 			return;
-		}
-
+        }
 		instance = this;
+
 	}
 
 #endregion

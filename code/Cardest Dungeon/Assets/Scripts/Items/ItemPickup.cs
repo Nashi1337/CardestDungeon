@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPickup : Interactable
 {
@@ -20,5 +20,6 @@ public class ItemPickup : Interactable
 
         if(wasPickedUp)
             Destroy(gameObject);
+        Debug.Log(item.name + " sollte jetzt zerstört sein");
     }
 }

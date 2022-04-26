@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7bae235161f1554ab89b60c21b76d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 509d2d424a5fd5d4fabc5c6ccd2673f2, type: 2}
   radius: 1.5
   interactionTransform: {fileID: 7965874493891884996}
+  item: {fileID: 11400000, guid: 509d2d424a5fd5d4fabc5c6ccd2673f2, type: 2}
