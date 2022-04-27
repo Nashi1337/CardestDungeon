@@ -15,7 +15,8 @@ public class InputManager : MonoBehaviour
     public static KeyCode map = KeyCode.M;
     public static KeyCode inventory = KeyCode.I;
     public static KeyCode cancel = KeyCode.B;
-    public static KeyCode action = KeyCode.Space;
+    public static KeyCode action = KeyCode.E;
+    public static KeyCode attack = KeyCode.Space;
 
     /// <summary>
     /// Calculates the movement by checking the forward, backward, left and right keys.

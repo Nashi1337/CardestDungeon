@@ -15,6 +15,5 @@ MonoBehaviour:
   name: Schwert
   icon: {fileID: 21300000, guid: 994fb45b1293e7642a1b41595ab1c4bd, type: 3}
   isDefaultItem: 0
-  equipSlot: 0
-  armorModifier: 0
-  damageModifier: 3
+  defenseModifier: 0
+  attackModifier: 3

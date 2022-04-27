@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         AssignMapManager();
         allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
         AssignInventoryManager();
-        allchildrenofinventory = inventory.GetComponentsInChildren<RectTransform>();
+        allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
 
         //Debug.Log(mapeditor);
         //Debug.Log(allchildrenofmap);
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(InputManager.inventory))
         {
-            if (inventory == null)
+            if (inventoryManager == null)
             {
                 AssignInventoryManager();
             }
@@ -233,7 +233,7 @@ public class PlayerController : MonoBehaviour
         mapeditor = MapManager.Current.gameObject;
     }
 
-    private void AssignInventory()
+    private void AssignInventoryManager()
     {
         //Inventory temp = Inventory.Instance;
         //Debug.Log(Inventory.Instance);

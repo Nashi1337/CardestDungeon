@@ -16,17 +16,20 @@ public class PlayerControllerTEST : MonoBehaviour {
     private Rigidbody2D rig = default;
     private SpriteRenderer spriteRenderer;
 
+    public Animator animator;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
 
-    void Update()
+/*    void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-    }
+    }*/
 
     private void FixedUpdate()
     {
@@ -37,6 +40,17 @@ public class PlayerControllerTEST : MonoBehaviour {
         else
         {
             rig.velocity = InputManager.CalculateMovement() * speed;
+        }
+
+        animator.SetFloat("a_Speed", rig.velocity.magnitude);
+
+        if (rig.velocity.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (rig.velocity.x > 0)
+        {
+            spriteRenderer.flipX = false;
         }
 
         if (Input.GetKeyDown(InputManager.action))

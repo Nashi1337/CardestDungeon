@@ -10,6 +10,9 @@ public class Item : ScriptableObject
 	public Sprite icon = null;              // Item icon
 	public bool isDefaultItem = false;      // Is the item default wear?
 
+	public int defenseModifier;
+	public int attackModifier;
+
 	// Called when the item is pressed in the inventory
 	public virtual void Use()
 	{

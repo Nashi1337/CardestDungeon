@@ -18,25 +18,34 @@ public class Inventory : MonoBehaviour
 
 	}
 
-#endregion
+	#endregion
 
+	PlayerStats playerStats;
     // Callback which is triggered when
     // an item gets added/removed.
     public delegate void OnItemChanged();
 	public OnItemChanged onItemChangedCallback;
+
+	private int attackModifier;
+	private int defenseModifier;
 
 	public int space = 10;  // Amount of slots in inventory
 
 	// Current list of items in inventory
 	public List<Item> items = new List<Item>();
 
-	// Add a new item. If there is enough room we
-	// return true. Else we return false.
-	public bool Add(Item item)
+    // Add a new item. If there is enough room we
+    // return true. Else we return false.
+
+    private void Start()
+    {
+		playerStats = FindObjectOfType<PlayerStats>();
+		attackModifier = playerStats.attack;
+		defenseModifier = playerStats.defense;
+	}
+    public bool Add(Item item)
 	{
-		// Don't do anything if it's a default item
-		if (!item.isDefaultItem)
-		{
+
 			// Check if out of space
 			if (items.Count >= space)
 			{
@@ -46,10 +55,14 @@ public class Inventory : MonoBehaviour
 
 			items.Add(item);    // Add item to list
 
+			attackModifier += item.attackModifier;
+			defenseModifier += item.defenseModifier;
+
+			playerStats.SetStats();
+
 			// Trigger callback
 			if (onItemChangedCallback != null)
 				onItemChangedCallback.Invoke();
-		}
 
 		return true;
 	}
@@ -59,9 +72,23 @@ public class Inventory : MonoBehaviour
 	{
 		items.Remove(item);     // Remove item from list
 
+		attackModifier -= item.attackModifier;
+		defenseModifier -= item.defenseModifier;
+
+
 		// Trigger callback
 		if (onItemChangedCallback != null)
 			onItemChangedCallback.Invoke();
 	}
+
+	public int GetAttackModifier()
+    {
+		return attackModifier;
+    }
+
+	public int GetDefenseModifier()
+    {
+		return defenseModifier;
+    }
 
 }

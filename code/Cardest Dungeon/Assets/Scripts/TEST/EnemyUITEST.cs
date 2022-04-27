@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUITEST : MonoBehaviour
+public class EnemyUITEST : MonoBehaviour
 {
-    public Text attack, defense;
+    public Text enemyattack, enemydefense, enemyhealth;
+
+
 
 }
