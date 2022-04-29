@@ -6,7 +6,4 @@ using UnityEngine.UI;
 public class EnemyUITEST : MonoBehaviour
 {
     public Text enemyattack, enemydefense, enemyhealth;
-
-
-
 }

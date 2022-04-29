@@ -90,6 +90,7 @@ public class EnemyTEST : MonoBehaviour
 
         enemystats.CheckHealth();
         enemyUI.enemyhealth.text = currentHealth.ToString();
+        enemystats.healthBar.SetHealth(currentHealth);
     }
 
     void Die()
@@ -98,7 +99,7 @@ public class EnemyTEST : MonoBehaviour
 
         animator.SetBool("IsDead", true);
 
-        GetComponent<Collider2D>().enabled = false;
+        //GetComponent<Collider2D>().enabled = false;
 
         this.enabled = false;
 
