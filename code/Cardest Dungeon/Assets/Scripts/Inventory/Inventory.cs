@@ -40,8 +40,8 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
 		playerStats = FindObjectOfType<PlayerStats>();
-		attackModifier = playerStats.attack;
-		defenseModifier = playerStats.defense;
+		attackModifier = playerStats.Attack;
+		defenseModifier = playerStats.Defense;
 	}
     public bool Add(Item item)
 	{

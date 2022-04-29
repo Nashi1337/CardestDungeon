@@ -5,17 +5,27 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    public int currHealth { get; private set; }
-    public int maxHealth;
+    public int CurrHealth { get { return currHealth; } private set { currHealth = value; } }
+    public int MaxHealth { get { return maxHealth; } protected set { maxHealth = value; } }
+    public int Attack { get { return attack; } private set { attack = value; } }
+    public int Defense { get { return defense; } private set { defense = value; } }
+    public bool IsDead { get { return isDead; } private set { isDead = value; } }
 
-    public int attack;
-    public int defense;
+    
+    [SerializeField]
+    private int maxHealth;
+    [SerializeField]
+    private int attack;
+    [SerializeField]
+    private int defense;
+    private int currHealth;
+    private bool isDead;
 
-    public bool isDead = false;
+
 
     private void Awake()
     {
-        currHealth = maxHealth;
+        CurrHealth = MaxHealth;
     }
 
     void Update()
@@ -28,10 +38,10 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        damage -= defense;
+        damage -= Defense;
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-        currHealth -= damage;
+        CurrHealth -= damage;
 
         Debug.Log(transform.name + " takes " + damage + " damage. servus");
 
@@ -41,15 +51,15 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void CheckHealth()
     {
-        if(currHealth >= maxHealth)
+        if(CurrHealth >= MaxHealth)
         {
-            currHealth = maxHealth;
+            CurrHealth = MaxHealth;
         }
-        if(currHealth <= 0)
+        if(CurrHealth <= 0)
         {
-            currHealth = 0;
-            isDead = true;
-            Debug.Log("Health = " + currHealth + " therefore " + this.transform.name + " died.");
+            CurrHealth = 0;
+            IsDead = true;
+            Debug.Log("Health = " + CurrHealth + " therefore " + transform.name + " died.");
         }
     }
 

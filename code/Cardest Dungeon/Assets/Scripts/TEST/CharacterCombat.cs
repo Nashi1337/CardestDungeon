@@ -39,6 +39,6 @@ public class CharacterCombat : MonoBehaviour
     IEnumerator DoDamage(CharacterStats stats, float delay)
     {
         yield return new WaitForSeconds(delay);
-        stats.TakeDamage(myStats.attack);
+        stats.TakeDamage(myStats.Attack);
     }
 }

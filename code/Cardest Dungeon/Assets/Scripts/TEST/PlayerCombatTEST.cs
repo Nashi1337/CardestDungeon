@@ -21,7 +21,7 @@ public class PlayerCombatTEST : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
-        attackDamage = playerStats.attack;
+        attackDamage = playerStats.Attack;
     }
 
     void Update()
@@ -50,7 +50,7 @@ public class PlayerCombatTEST : MonoBehaviour
         {
             Debug.Log(enemy.name + " getroffen!");
             //Damage Calculation
-            enemy.GetComponent<EnemyTEST>().TakeDamage(damage - enemy.GetComponent<EnemyStats>().defense);
+            enemy.GetComponent<EnemyTEST>().TakeDamage(damage - enemy.GetComponent<EnemyStats>().Defense);
 
             //Knockback Calculation
             Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;

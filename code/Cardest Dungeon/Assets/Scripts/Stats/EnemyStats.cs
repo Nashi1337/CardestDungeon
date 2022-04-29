@@ -17,10 +17,10 @@ public class EnemyStats : CharacterStats
     public void SetStats()
     {
         //Debug.Log("Servus");
-        //Debug.Log("attack: " + attack + ", defense: " + defense + ", currentHealth: "+ currHealth);
-        enemyUI.enemyattack.text = attack.ToString();
-        enemyUI.enemydefense.text = defense.ToString();
-        enemyUI.enemyhealth.text = currHealth.ToString();
+        //Debug.Log("attack: " + attack + ", defense: " + defense + ", currentHealth: "+ CurrHealth);
+        enemyUI.enemyattack.text = Attack.ToString();
+        enemyUI.enemydefense.text = Defense.ToString();
+        enemyUI.enemyhealth.text = CurrHealth.ToString();
     }
 
     public override void CheckHealth()
