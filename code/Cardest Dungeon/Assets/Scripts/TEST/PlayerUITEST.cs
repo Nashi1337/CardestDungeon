@@ -6,8 +6,4 @@ using UnityEngine.UI;
 public class PlayerUITEST : MonoBehaviour
 {
     public Text attack, defense, health;
-
-
-
-
 }

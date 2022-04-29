@@ -21,11 +21,12 @@ public class CharacterStats : MonoBehaviour
     private int currHealth;
     private bool isDead;
 
-
+	public HealthBar healthBar;
 
     private void Awake()
     {
         CurrHealth = MaxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
@@ -38,10 +39,12 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        damage -= Defense;
-        damage = Mathf.Clamp(damage, 0, int.MaxValue);
+        Damage -= Defense;
+        Damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-        CurrHealth -= damage;
+        CurrHealth -= Damage;
+
+        healthBar.SetHealth(currHealth);
 
         Debug.Log(transform.name + " takes " + damage + " damage. servus");
 
