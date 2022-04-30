@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(InputManager.attack))
+/*        if (Input.GetKeyDown(InputManager.attack))
         {
             if (attackAvailable)
             {
@@ -177,19 +177,22 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine(StartAttackCooldown());
             }
-        }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
-        if (collidedWith != null)
+        if (MapManager.Current != null)
         {
-            MapManager.Current.UpdatePlayerPiece(collidedWith);
+            MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
+            if (collidedWith != null)
+            {
+                MapManager.Current.UpdatePlayerPiece(collidedWith);
+            }
         }
     }
 
-    void Attack()
+/*    void Attack()
     {
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, LayerMask.GetMask("Enemies"));
@@ -204,7 +207,7 @@ public class PlayerController : MonoBehaviour
             float knockbackForce = actualDamage * 20;
             enemy.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         }
-    }
+    }*/
 
     /// <summary>
     /// 

@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour
                 current = FindObjectOfType<MapManager>();
                 if(current == null)
                 {
-                    Debug.LogError("Could not find a Mapmanager. Did you forget to add one to the scene?");
+                    //Debug.LogError("Could not find a Mapmanager. Did you forget to add one to the scene?");
                 }
             }
             return current;

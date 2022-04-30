@@ -20,9 +20,9 @@ public class EnemyStats : CharacterStats
 
     public override void UpdateStats()
     {
-        enemyattack.text = Attack.ToString();
+/*        enemyattack.text = Attack.ToString();
         enemydefense.text = Defense.ToString();
-        enemyhealth.text = CurrHealth.ToString();
+        enemyhealth.text = CurrHealth.ToString();*/
         base.UpdateStats();
     }
 

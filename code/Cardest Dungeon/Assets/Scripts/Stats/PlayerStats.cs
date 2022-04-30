@@ -11,6 +11,8 @@ public class PlayerStats : CharacterStats
     private Text defenseText;
     [SerializeField]
     private Text healthText;
+    [SerializeField]
+    private Text magicText;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerStats : CharacterStats
     {
         attackText.text = (Attack + Inventory.instance.GetAttackModifier()).ToString();
         defenseText.text = (Defense + Inventory.instance.GetDefenseModifier()).ToString();
+        magicText.text = (Magic + Inventory.instance.GetMagicModifier()).ToString();
         healthText.text = CurrHealth.ToString();
         base.UpdateStats();
     }

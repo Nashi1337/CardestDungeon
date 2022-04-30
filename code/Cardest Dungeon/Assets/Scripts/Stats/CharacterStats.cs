@@ -10,6 +10,7 @@ public class CharacterStats : MonoBehaviour
     public int MaxHealth { get { return maxHealth; } protected set { maxHealth = value; } }
     public int Attack { get { return attack; } protected set { attack = value; } }
     public int Defense { get { return defense; } protected set { defense = value; } }
+    public int Magic { get { return magic; } protected set { magic = value; } }
     public bool IsDead { get { return isDead; } protected set { isDead = value; } }
 
     
@@ -19,6 +20,8 @@ public class CharacterStats : MonoBehaviour
     private int attack;
     [SerializeField]
     private int defense;
+    [SerializeField]
+    private int magic;
     private int currHealth;
     private bool isDead;
 
@@ -58,7 +61,7 @@ public class CharacterStats : MonoBehaviour
 
         UpdateStats();
 
-        Debug.Log(transform.name + " takes " + attackValue + " damage");
+        Debug.Log(transform.name + " takes " + attackValue + " damage. characterstats");
 
         CheckHealth();
 
@@ -68,6 +71,13 @@ public class CharacterStats : MonoBehaviour
     public virtual int TakeDamage(int attackValue)
     {
         return TakeDamage(attackValue, Defense);
+    }
+
+    public void Heal(int magicValue)
+    {
+        CurrHealth += magicValue*10;
+        UpdateStats();
+        CheckHealth();
     }
 
     public virtual void UpdateStats()

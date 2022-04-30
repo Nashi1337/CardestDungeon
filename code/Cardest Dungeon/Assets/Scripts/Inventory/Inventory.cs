@@ -28,8 +28,12 @@ public class Inventory : MonoBehaviour
 
 	private int attackModifier;
 	private int defenseModifier;
+	private int magicModifier;
+	public bool fireball;
+	public bool heal;
+	public int heals;
 
-	public int space = 10;  // Amount of slots in inventory
+	public int space;  // Amount of slots in inventory, set via SerializeField in Scene(default 10)
 
 	// Current list of items in inventory
 	public List<Item> items = new List<Item>();
@@ -42,10 +46,12 @@ public class Inventory : MonoBehaviour
 		playerStats = FindObjectOfType<PlayerStats>();
 		attackModifier = 0;
 		defenseModifier = 0;
+		magicModifier = 0;
 	}
     public bool Add(Item item)
 	{
-
+		Debug.Log("Space: " + space);
+		Debug.Log("Item count: " + items.Count);
 			// Check if out of space
 			if (items.Count >= space)
 			{
@@ -53,16 +59,27 @@ public class Inventory : MonoBehaviour
 				return false;
 			}
 
-			items.Add(item);    // Add item to list
+		items.Add(item);    // Add item to list
 
-			attackModifier += item.attackModifier;
-			defenseModifier += item.defenseModifier;
+		attackModifier += item.attackModifier;
+		defenseModifier += item.defenseModifier;
+		magicModifier += item.magicModifier;
 
-			playerStats.UpdateStats();
+		if (item.fireball)
+        {
+			fireball=true;
+		}
+        if (item.heal)
+        {
+			heal = true;
+			heals = 3;
+        }
 
-			// Trigger callback
-			if (onItemChangedCallback != null)
-				onItemChangedCallback.Invoke();
+		playerStats.UpdateStats();
+
+		// Trigger callback
+		if (onItemChangedCallback != null)
+			onItemChangedCallback.Invoke();
 
 		return true;
 	}
@@ -74,7 +91,16 @@ public class Inventory : MonoBehaviour
 
 		attackModifier -= item.attackModifier;
 		defenseModifier -= item.defenseModifier;
+		magicModifier -= item.magicModifier;
 
+		if (item.fireball)
+		{
+			fireball = false;
+		}
+		if (item.heal)
+		{
+			heal = false;
+		}
 
 		// Trigger callback
 		if (onItemChangedCallback != null)
@@ -91,4 +117,8 @@ public class Inventory : MonoBehaviour
 		return defenseModifier;
     }
 
+	public int GetMagicModifier()
+    {
+		return magicModifier;
+    }
 }
