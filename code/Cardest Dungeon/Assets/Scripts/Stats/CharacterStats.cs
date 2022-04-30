@@ -40,7 +40,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            TakeDamage(10);
+            TakeDamage(10, 0);
         }
     }
 
@@ -49,9 +49,9 @@ public class CharacterStats : MonoBehaviour
     /// </summary>
     /// <param name="attackValue"></param>
     /// <returns>Actual Damge taken.</returns>
-    public int TakeDamage(int attackValue)
+    protected int TakeDamage(int attackValue, int defenseValue)
     {
-        attackValue -= Defense;
+        attackValue -= defenseValue;
         attackValue = Mathf.Max(attackValue, 0);
 
         CurrHealth -= attackValue;
@@ -63,6 +63,11 @@ public class CharacterStats : MonoBehaviour
         CheckHealth();
 
         return attackValue;
+    }
+
+    public virtual int TakeDamage(int attackValue)
+    {
+        return TakeDamage(attackValue, Defense);
     }
 
     public virtual void UpdateStats()
@@ -86,6 +91,6 @@ public class CharacterStats : MonoBehaviour
     public virtual void Die()
     {
         //was passiert beim Sterben? Spieler, Monster,...
-        Debug.Log(transform.name + " died");
+        //Debug.Log(transform.name + " died");
     }
 }

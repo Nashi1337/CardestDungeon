@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            int actualDamage = enemy.GetComponent<DungeonEnemy>().TakeDamage(playerStats.Attack + attackModifier);
+            int actualDamage = enemy.GetComponent<Enemy>().TakeDamage(playerStats.Attack + attackModifier);
 
             //Knockback Calculation
             Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;

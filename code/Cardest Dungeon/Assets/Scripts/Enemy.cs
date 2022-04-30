@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This class represents an enemy behaviour within the dungeon.
 /// </summary>
-public class DungeonEnemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //[SerializeField]
     //private int enemyIndex;
@@ -120,11 +120,20 @@ public class DungeonEnemy : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="damage"></param>
+    /// <param name="attackValue"></param>
     /// <returns>Actual damage taken.</returns>
-    public int TakeDamage(int damage)
+    public int TakeDamage(int attackValue)
     {
-        return enemystats.TakeDamage(damage);
+        int actualDamage = enemystats.TakeDamage(attackValue);
+        if(actualDamage > 0)
+        {
+            animator.SetBool("Hurt", true);
+        }
+        if(enemystats.IsDead)
+        {
+            Die();
+        }
+        return actualDamage;
     }
 
     public int Attack(CharacterStats victim)
@@ -136,14 +145,16 @@ public class DungeonEnemy : MonoBehaviour
         return 0;
     }
 
-    private void Die()
+    public void Die()
     {
         animator.SetBool("IsDead", true);
 
         enabled = false;
         Destroy(GetComponent<Collider2D>());
+        audioSource.Pause();
         transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
+        rb.velocity = Vector3.zero;
     }
 
     IEnumerator AttackCooldown()

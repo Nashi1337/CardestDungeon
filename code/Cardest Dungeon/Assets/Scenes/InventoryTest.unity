@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  attack: 6
+  attack: 2
   defense: 3
   healthBar: {fileID: 697140516}
   enemyattack: {fileID: 1378076317}
@@ -2342,7 +2342,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1290448010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce9d21b2ab6086c4dab7d287e8022bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: bd6a29476f60223429d09340ae26c339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackRate: 2

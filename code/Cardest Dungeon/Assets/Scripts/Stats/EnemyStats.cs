@@ -26,15 +26,18 @@ public class EnemyStats : CharacterStats
         base.UpdateStats();
     }
 
-    public override void CheckHealth()
+    public override int TakeDamage(int attackValue)
     {
-        base.CheckHealth();
+        return base.TakeDamage(attackValue, Defense);
     }
 
-    public override void Die()
-    {
-        base.Die();
+    //public override void CheckHealth()
+    //{
+    //    base.CheckHealth();
+    //}
 
-        //Destroy(gameObject);
-    }
+    //public override void Die()
+    //{
+    //    base.Die();
+    //}
 }

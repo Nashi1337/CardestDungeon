@@ -26,6 +26,11 @@ public class PlayerStats : CharacterStats
         base.UpdateStats();
     }
 
+    public override int TakeDamage(int attackValue)
+    {
+        return base.TakeDamage(attackValue, Defense + Inventory.instance.GetDefenseModifier());
+    }
+
     public override void CheckHealth()
     {
         base.CheckHealth();
@@ -34,6 +39,6 @@ public class PlayerStats : CharacterStats
     public override void Die()
     {
         base.Die();
-        PlayerManager.instance.KillPlayer();
+        Debug.LogWarning("Du bist tot. Hier sollte jetzt etwas passieren.");
     }
 }

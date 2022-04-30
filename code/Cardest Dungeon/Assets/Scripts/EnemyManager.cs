@@ -39,9 +39,9 @@ public class EnemyManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             enemies = new List<EnemyData>();
-            DungeonEnemy[] allenemies = FindObjectsOfType<DungeonEnemy>();
+            Enemy[] allenemies = FindObjectsOfType<Enemy>();
 
-            foreach (DungeonEnemy enemy in allenemies)
+            foreach (Enemy enemy in allenemies)
             {
                 Debug.LogWarning("Do we even need the EnemyManager script?");
                 //enemies.Add(new EnemyData(enemy.GetIndex()));
