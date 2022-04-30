@@ -1,38 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyStats : CharacterStats
 {
-
-    EnemyUITEST enemyUI;
+    [SerializeField]
+    private Text enemyattack;
+    [SerializeField]
+    private Text enemydefense;
+    [SerializeField]
+    private Text enemyhealth;
 
     void Start()
     {
-        enemyUI = GetComponent<EnemyUITEST>();
-        Debug.Log("Hallo");
-        SetStats();
+        UpdateStats();
+        Initialize();
     }
 
-    public void SetStats()
+    public override void UpdateStats()
     {
-        //Debug.Log("Servus");
-        //Debug.Log("attack: " + attack + ", defense: " + defense + ", currentHealth: "+ CurrHealth);
-        enemyUI.enemyattack.text = Attack.ToString();
-        enemyUI.enemydefense.text = Defense.ToString();
-        enemyUI.enemyhealth.text = CurrHealth.ToString();
+        enemyattack.text = Attack.ToString();
+        enemydefense.text = Defense.ToString();
+        enemyhealth.text = CurrHealth.ToString();
+        base.UpdateStats();
     }
 
     public override void CheckHealth()
     {
         base.CheckHealth();
-        SetStats();
     }
 
     public override void Die()
     {
         base.Die();
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

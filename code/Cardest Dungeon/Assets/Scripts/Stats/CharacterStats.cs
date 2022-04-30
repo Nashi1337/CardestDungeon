@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Muss das von MonoBehaviour erben? vllt Stattdessen als Variable im Enemy-/Playerskript
 public class CharacterStats : MonoBehaviour
 {
     public int CurrHealth { get { return currHealth; } private set { currHealth = value; } }
     public int MaxHealth { get { return maxHealth; } protected set { maxHealth = value; } }
-    public int Attack { get { return attack; } private set { attack = value; } }
-    public int Defense { get { return defense; } private set { defense = value; } }
-    public bool IsDead { get { return isDead; } private set { isDead = value; } }
+    public int Attack { get { return attack; } protected set { attack = value; } }
+    public int Defense { get { return defense; } protected set { defense = value; } }
+    public bool IsDead { get { return isDead; } protected set { isDead = value; } }
 
     
     [SerializeField]
@@ -21,35 +22,52 @@ public class CharacterStats : MonoBehaviour
     private int currHealth;
     private bool isDead;
 
-	public HealthBar healthBar;
+    [SerializeField]
+	private HealthBar healthBar;
 
-    private void Awake()
+    void Start()
+    {
+        Initialize();
+    }
+
+    public void Initialize()
     {
         CurrHealth = MaxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        UpdateStats();
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            TakeDamage(Mathf.Max(10 - Inventory.instance.GetDefenseModifier(),0));
-        }    
+            TakeDamage(10);
+        }
     }
 
-    public void TakeDamage(int damage)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="attackValue"></param>
+    /// <returns>Actual Damge taken.</returns>
+    public int TakeDamage(int attackValue)
     {
-        Damage -= Defense;
-        Damage = Mathf.Clamp(damage, 0, int.MaxValue);
+        attackValue -= Defense;
+        attackValue = Mathf.Max(attackValue, 0);
 
-        CurrHealth -= Damage;
+        CurrHealth -= attackValue;
 
-        healthBar.SetHealth(currHealth);
+        UpdateStats();
 
-        Debug.Log(transform.name + " takes " + damage + " damage. servus");
+        Debug.Log(transform.name + " takes " + attackValue + " damage");
 
         CheckHealth();
 
+        return attackValue;
+    }
+
+    public virtual void UpdateStats()
+    {
+        healthBar.SetHealth(currHealth);
     }
 
     public virtual void CheckHealth()
@@ -60,9 +78,8 @@ public class CharacterStats : MonoBehaviour
         }
         if(CurrHealth <= 0)
         {
-            CurrHealth = 0;
             IsDead = true;
-            Debug.Log("Health = " + CurrHealth + " therefore " + transform.name + " died.");
+            Die();
         }
     }
 

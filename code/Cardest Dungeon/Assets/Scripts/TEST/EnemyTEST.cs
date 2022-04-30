@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemyTEST : MonoBehaviour
 {
-    public Animator animator;
+    [SerializeField]
+    private Animator animator;
 
-    public int maxHealth = 100;
-    int currentHealth;
+    //public int maxHealth = 100;
+    //int currentHealth;
 
     [SerializeField]
     private float detectRange;
@@ -17,29 +18,25 @@ public class EnemyTEST : MonoBehaviour
     private Vector3 directionToPlayer;
     private Vector3 localScale;
     private Rigidbody2D rb;
-    private PlayerControllerTEST player;
+    private PlayerController player;
 
     EnemyStats enemystats;
 
     CharacterCombat combat;
 
-    EnemyUITEST enemyUI;
 
     void Start()
     {
-        currentHealth = maxHealth;
 
         rb = GetComponent<Rigidbody2D>();
+        combat = GetComponent<CharacterCombat>();
+        enemystats = GetComponent<EnemyStats>();
+        player = PlayerController.Current;
 
-        player = FindObjectOfType<PlayerControllerTEST>();
 
+        //currentHealth = maxHealth;
         localScale = transform.localScale;
 
-        combat = GetComponent<CharacterCombat>();
-
-        enemystats = GetComponent<EnemyStats>();
-
-        enemyUI = GetComponent<EnemyUITEST>();
     }
 
     private void FixedUpdate()
@@ -56,13 +53,13 @@ public class EnemyTEST : MonoBehaviour
 
     void MoveEnemy()
     {
-        directionToPlayer = (player.transform.position - this.transform.position).normalized;
+        directionToPlayer = (player.transform.position - transform.position).normalized;
         rb.AddForce(directionToPlayer * acceleration);
-        CharacterStats targetStats = player.GetComponent<CharacterStats>();
-        if(targetStats != null)
-        {
-            combat.Attack(targetStats);
-        }
+        //CharacterStats targetStats = player.GetComponent<CharacterStats>();
+        //if(targetStats != null)
+        //{
+        //    combat.Attack(targetStats);
+        //}
     }
 
     private void LateUpdate()
@@ -77,32 +74,26 @@ public class EnemyTEST : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <returns>Actual damage taken.</returns>
+    public int TakeDamage(int damage)
     {
-        currentHealth -= damage;
-
-        animator.SetTrigger("Hurt");
-
-        if(currentHealth <= 0)
-        {
-            Die();
-        }
-
-        enemystats.CheckHealth();
-        enemyUI.enemyhealth.text = currentHealth.ToString();
-        enemystats.healthBar.SetHealth(currentHealth);
+        return enemystats.TakeDamage(damage);
     }
 
     void Die()
     {
-        Debug.Log(this.name + " died");
+        Debug.Log(name + " died");
 
         animator.SetBool("IsDead", true);
 
-        //GetComponent<Collider2D>().enabled = false;
-
-        this.enabled = false;
-
+        enabled = false;
+        Destroy(GetComponent<Collider2D>());
+        transform.position += Vector3.forward;
+        rb.isKinematic = true; //Disables enemy physics
     }
 
     private void OnDrawGizmosSelected()

@@ -5,10 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 public class CharacterCombat : MonoBehaviour
 {
-    public float attackSpeed = 1f;
-    private float attackCooldown = 0f;
-
-    public float attackDelay = .6f;
+    private bool attackAvailable = true;
+    [SerializeField]
+    private float attackRate = 2f;
 
     public event System.Action OnAttack;
 
@@ -21,24 +20,41 @@ public class CharacterCombat : MonoBehaviour
 
     private void Update()
     {
-        attackCooldown -= Time.deltaTime;
+        
     }
-    public void Attack(CharacterStats targetStats)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(attackCooldown <= 0f)
+        if(attackAvailable && collision.tag == "Player")
         {
-            StartCoroutine(DoDamage(targetStats, attackDelay));
-
-            if (OnAttack != null)
-                OnAttack();
-
-            attackCooldown = 1f / attackSpeed;
+            collision.GetComponent<PlayerController>().TakeDamage(myStats.Attack);
+            attackAvailable = false;
+            StartCoroutine(AttackCooldown());
         }
     }
 
-    IEnumerator DoDamage(CharacterStats stats, float delay)
+    //public void Attack(CharacterStats targetStats)
+    //{
+    //    if(attackRate <= 0f)
+    //    {
+    //        StartCoroutine(DoDamage(targetStats, attackDelay));
+
+    //        //? macht eine != null Abfrage vor dem aufruf
+    //        OnAttack?.Invoke();
+
+    //        attackRate = 1f / attackSpeed;
+    //    }
+    //}
+
+    //IEnumerator DoDamage(CharacterStats stats, float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    stats.TakeDamage(myStats.Attack);
+    //}
+
+    IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(delay);
-        stats.TakeDamage(myStats.Attack);
+        yield return new WaitForSeconds(attackRate);
+        attackAvailable = true;
     }
 }

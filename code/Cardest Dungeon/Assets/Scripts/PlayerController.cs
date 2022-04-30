@@ -32,23 +32,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Animator animator; //animator Variable um für den Player Animationen zu steuern
-
     [SerializeField]
-    private int inventorySize;
-    
-    //Set this on private when the script has been merged whith PlayerAttack_MergeWithPlayer.cs
+    private int inventorySize; 
     [SerializeField]
-    public int attack;
+    private float attackRate;
+    [SerializeField]
+    private float attackRadius = 0.5f;
     [SerializeField]
     private float speed;
     [SerializeField]
     private float runningSpeed;
     [SerializeField]
-    private string battleSceneName;
+    private Animator animator; //animator Variable um für den Player Animationen zu steuern
     [SerializeField]
-    private CharacterStatus playerStatus;
+    private Transform attackPoint;
+    private PlayerStats playerStats;
 
+    private bool attackAvailable = true;
     private Rigidbody2D rig = default;
     private Rigidbody2D rig2;
     private SpriteRenderer spriterRenderer;
@@ -66,21 +66,8 @@ public class PlayerController : MonoBehaviour
     private static PlayerController playerInstance;
     private float interactionRadius = 2f;
 
-    //Falls Maxens Datenübertragungsweg benutzt wird, kann das hier gelöscht werden
-    // private void OnEnable()
-    // {
-    // //Datentransfer zwischen Szenen sauberer machen und vollständiger
-    // if(BattleData.playerPositionBeforeFight != Vector3.zero)
-    // {
-    // transform.position = BattleData.playerPositionBeforeFight;
-    // }
-    // }
-
     void Start()
     {
-        //Das Objekt bleibt bestehen auch bei Szenenwechsel
-        //DontDestroyOnLoad(gameObject);
-
         if (playerInstance == null)
         {
             playerInstance = this;
@@ -93,28 +80,21 @@ public class PlayerController : MonoBehaviour
         }
 
         rig = GetComponent<Rigidbody2D>();
-        AssignMapManager();
-        allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
-        AssignInventoryManager();
-        allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-
-        //Debug.Log(mapeditor);
-        //Debug.Log(allchildrenofmap);
-        //Debug.Log(inventory);
-        //Debug.Log(allchildrenofinventory);
-
         spriterRenderer = GetComponent<SpriteRenderer>();
 
-        //MapEditor and Inventory and it's children are set false at the start of the game so that the M button action works
-        mapeditor.SetActive(false);
-        inventoryUI.SetActive(false);
+        animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
 
-        inventoryItems = new Item[inventorySize];
-        //Debug.Log("1. " + currentPosition);
-        //currentPosition = new Vector2(-10, -140);
-        //Debug.Log("2. " + currentPosition);
+        //AssignMapManager();
+        //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
+        //mapeditor.SetActive(false);
+        
+        //AssignInventoryManager();
+        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+        //inventoryUI.SetActive(false);
+
+        //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
-
     }
 
     // Update is called once per frame
@@ -134,23 +114,22 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
 
             if (spriterRenderer == null)
-                Debug.Log("Renderer missing");
+                Debug.LogError("Renderer missing");
 
             if (rig.velocity.x < 0)
             {
-                spriterRenderer.flipX = true;
+                Vector3 scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * -1;
+                transform.localScale = scale;
             }
             else if (rig.velocity.x > 0)
             {
-                spriterRenderer.flipX = false;
+                Vector3 scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x);
+                transform.localScale = scale;
             }
         }
 
-/*        if (Input.GetKeyDown(InputManager.action))
-        {
-            TryGetComponent<ItemObject>(out ItemObject item);
-            item.OnHandlePickupItem();
-        }*/
     }
 
     private void Update()
@@ -183,10 +162,20 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag.Equals("Interactable"))
                 {
-                    Debug.Log("Servus Erdnuss");
                     collider.GetComponent<ItemPickup>().Interact();
                     break;
                 }
+            }
+        }
+
+        if (Input.GetKeyDown(InputManager.attack))
+        {
+            if (attackAvailable)
+            {
+                Attack();
+                attackAvailable = false;
+
+                StartCoroutine(StartAttackCooldown());
             }
         }
     }
@@ -200,20 +189,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void Attack()
     {
-        //if (collision.gameObject.tag == "Enemy")
-        //{
-        //    canMove = false;
-        //    currentPosition = new Vector2(transform.position.x, transform.position.y);
+        animator.SetTrigger("Attack");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, LayerMask.GetMask("Enemies"));
+        int attackModifier = Inventory.instance.GetAttackModifier();
 
-        //    //We destroy the gameobject that collided with our player, so that it is gone once we reload the scene
-        //    EnemyManager.Instance.KillEnemy(collision.gameObject.GetComponent<DungeonEnemy>().GetIndex());
-        //    SceneManager.LoadScene(battleSceneName);
-        //}
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            int actualDamage = enemy.GetComponent<DungeonEnemy>().TakeDamage(playerStats.Attack + attackModifier);
+
+            //Knockback Calculation
+            Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
+            float knockbackForce = actualDamage * 20;
+            enemy.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="attackValue"></param>
+    /// <returns>Actual damage Taken</returns>
+    public int TakeDamage(int attackValue)
+    {
+        return playerStats.TakeDamage(attackValue);
+    }
 
     /// <summary>
     /// Switches the state of the visual map between visible and invisible
@@ -230,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
     private void AssignMapManager()
     {
-        mapeditor = MapManager.Current.gameObject;
+        mapeditor = MapManager.Current?.gameObject;
     }
 
     private void AssignInventoryManager()
@@ -240,53 +241,70 @@ public class PlayerController : MonoBehaviour
         inventoryManager = InventoryManager.Current.gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
     }
-    /// <summary>
-    /// Adds an item to the player's inventory
-    /// </summary>
-    /// <param name="item"> the item that should be added</param>
-    /// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
-    public bool AddToInventory(Item item)
+
+    ///// <summary>
+    ///// Adds an item to the player's inventory
+    ///// </summary>
+    ///// <param name="item"> the item that should be added</param>
+    ///// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
+    //public bool AddToInventory(Item item)
+    //{
+    //    int index = 0;
+    //    while (index < inventoryItems.Length && inventoryItems[index] != null)
+    //    {
+    //        index++;
+    //    }
+
+    //    if (index == inventoryItems.Length)
+    //    {
+    //        return false;
+    //    }
+
+    //    inventoryItems[index] = item;
+    //    return true;
+    //}
+
+    ///// <summary>
+    ///// Removes the given Item from the inventory and moves all later items one index to the left.
+    ///// </summary>
+    ///// <param name="item"> The item to be removed</param>
+    ///// <returns>Returns the removed item or null if no item could be removed</returns>
+    //public Item RemoveFromInventory(Item item)
+    //{
+    //    int index = 0;
+    //    while (index < inventoryItems.Length && inventoryItems[index] != item)
+    //    {
+    //        index++;
+    //    }
+    //    Item removed = null;
+
+    //    //If the item was found in the inventory
+    //    if (index != inventoryItems.Length)
+    //    {
+    //        removed = inventoryItems[index];
+    //        index++;
+    //        while (index < inventoryItems.Length)
+    //        {
+    //            inventoryItems[index - 1] = inventoryItems[index];
+    //        }
+    //    }
+
+    //    return removed;
+    //}
+    
+    private IEnumerator StartAttackCooldown()
     {
-        int index = 0;
-        while (index < inventoryItems.Length && inventoryItems[index] != null)
-        {
-            index++;
-        }
-
-        if (index == inventoryItems.Length)
-        {
-            return false;
-        }
-
-        inventoryItems[index] = item;
-        return true;
+        yield return new WaitForSeconds(attackRate);
+        attackAvailable = true;
     }
 
-    /// <summary>
-    /// Removes the given Item from the inventory and moves all later items one index to the left.
-    /// </summary>
-    /// <param name="item"> The item to be removed</param>
-    /// <returns>Returns the removed item or null if no item could be removed</returns>
-    public Item RemoveFromInventory(Item item)
+    private void OnDrawGizmosSelected()
     {
-        int index = 0;
-        while (index < inventoryItems.Length && inventoryItems[index] != item)
+        if (attackPoint == null)
         {
-            index++;
-        }
-        Item removed = null;
-
-        //If the item was found in the inventory
-        if (index != inventoryItems.Length)
-        {
-            removed = inventoryItems[index];
-            index++;
-            while (index < inventoryItems.Length)
-            {
-                inventoryItems[index - 1] = inventoryItems[index];
-            }
+            return;
         }
 
-        return removed;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 }

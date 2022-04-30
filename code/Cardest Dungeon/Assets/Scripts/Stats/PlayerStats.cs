@@ -1,30 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : CharacterStats
 {
-    PlayerUITEST playerUI;
+    [SerializeField]
+    private Text attackText;
+    [SerializeField]
+    private Text defenseText;
+    [SerializeField]
+    private Text healthText;
 
     void Start()
     {
-        playerUI = GetComponent<PlayerUITEST>();
-        MaxHealth = 100;
-
-        SetStats();
+        Initialize();
     }
 
-    public void SetStats()
+    //Do not Use this except if you are the PlayerController. Else use either the SetStats or the UpdateStats of player controller
+    public override void UpdateStats()
     {
-        playerUI.attack.text = (Inventory.instance.GetAttackModifier()).ToString();
-        playerUI.defense.text = Defense.ToString();
-        playerUI.health.text = CurrHealth.ToString();
+        attackText.text = (Attack + Inventory.instance.GetAttackModifier()).ToString();
+        defenseText.text = (Defense + Inventory.instance.GetDefenseModifier()).ToString();
+        healthText.text = CurrHealth.ToString();
+        base.UpdateStats();
     }
 
     public override void CheckHealth()
     {
         base.CheckHealth();
-        SetStats();
     }
 
     public override void Die()

@@ -43,7 +43,8 @@ public class EnemyManager : MonoBehaviour
 
             foreach (DungeonEnemy enemy in allenemies)
             {
-                enemies.Add(new EnemyData(enemy.GetIndex()));
+                Debug.LogWarning("Do we even need the EnemyManager script?");
+                //enemies.Add(new EnemyData(enemy.GetIndex()));
             }
         }
         else

@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Dungeon.unity
     guid: fb72e0e74a5096e4cb8310ba5177f01b
   - enabled: 1
-    path: Assets/Scenes/BattleUI.unity
+    path: Assets/Scenes/Altes/BattleUI.unity
     guid: 8056d40dd6f774148a4cda2b3993f20f
   - enabled: 0
-    path: Assets/Scenes/BattleMerge.unity
+    path: Assets/Scenes/Altes/BattleMerge.unity
     guid: 19a917073d9da434fbac83291d19c4d1
   - enabled: 0
     path: Assets/Scenes/Altes/DungeonWinterExpo.unity

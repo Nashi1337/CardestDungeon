@@ -7,48 +7,51 @@ using UnityEngine;
 /// </summary>
 public class DungeonEnemy : MonoBehaviour
 {
+    //[SerializeField]
+    //private int enemyIndex;
+    //[SerializeField]
+    //private int health;
+    //[SerializeField]
+    //private GameObject battleEnemyToLoad;
+    private bool attackAvailable = true;
     [SerializeField]
-    private int enemyIndex;
-    [SerializeField]
-    private int health;
-    [SerializeField]
-    private GameObject battleEnemyToLoad;
+    private float attackRate;
     [SerializeField]
     private float detectRange;
     [SerializeField]
     private float acceleration;
     private Vector3 directionToPlayer;
-    private Vector3 localScale;
+    private Vector3 localScale; //May become redundant soon
     private Rigidbody2D rb;
-    private PlayerController player;
     private AudioSource audioSource;
-
-    public bool Loading = true;
-    
     [SerializeField]
-    private static bool isdead;
+    private Animator animator;
+    private EnemyStats enemystats;
+    //public bool Loading = true;
+
+    //[SerializeField]
+    //private static bool isdead;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        if (EnemyManager.Instance.HasMyTimeCome(enemyIndex))
-        {
-            Destroy(gameObject);
-        }
+        //if (EnemyManager.Instance.HasMyTimeCome(enemyIndex))
+        //{
+        //    Destroy(gameObject);
+        //}
 
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-        //Debug.Log("Ich bin " + this.name + " und gebe in Start als Player aus: " + player);
-        player = FindObjectOfType<PlayerController>();
-        //Debug.Log(this.name + "Nachdem ich den Player suche gebe ich aus: " + player);
+        enemystats = GetComponent<EnemyStats>();
         localScale = transform.localScale;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) <= detectRange)
+        if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
             if(!audioSource.isPlaying)
             {
@@ -71,11 +74,15 @@ public class DungeonEnemy : MonoBehaviour
     /// </summary>
     private void MoveEnemy()
     {
-        //Debug.Log("Ich bin " + this.name + " MoveEnemy und gebe als Player aus: " + player);
-        directionToPlayer = (player.transform.position - this.transform.position).normalized;
-        //Debug.Log("Nachdem " + this.name + " die directionToPlayer bestimme gebe ich aus: " + player);
-        //rb.velocity = directionToPlayer * acceleration;
+        directionToPlayer = (PlayerController.Current.transform.position - this.transform.position).normalized;
         rb.AddForce(directionToPlayer * acceleration);
+
+        //Attack should not happen in MoveEnemy. This needs to be moved somewhere else
+        //CharacterStats targetStats = player.GetComponent<CharacterStats>();
+        //if (targetStats != null)
+        //{
+        //    combat.Attack(targetStats);
+        //}
     }
 
     private void LateUpdate()
@@ -90,40 +97,73 @@ public class DungeonEnemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        //if (collision.gameObject.tag == "Player")
-        //{
-        //    Debug.Log("Spieler beruehrt " + enemyIndex);
-        //}
-    }
-
-	public int GetIndex()
-    {
-        return enemyIndex;
-    }
-
-    public int GetHealth()
-    {
-        return health;
-    }
-	
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if(health <= 0)
+        if (attackAvailable && collision.tag == "Player")
         {
-            Debug.LogWarning("No Loot? :(\n Hier sollte wahrscheinlich noch mehr passieren");
-            Destroy(gameObject);
+            collision.GetComponent<PlayerController>().TakeDamage(enemystats.Attack);
+            attackAvailable = false;
+            StartCoroutine(AttackCooldown());
         }
     }
+
+    //public int GetIndex()
+    //   {
+    //       return enemyIndex;
+    //   }
+
+    //public int GetHealth()
+    //{
+    //    return health;
+    //}
 
     /// <summary>
     /// 
     /// </summary>
-    /// <returns>The equivalent of this enemy for the battle.</returns>
-    public GameObject GetBattleObject()
+    /// <param name="damage"></param>
+    /// <returns>Actual damage taken.</returns>
+    public int TakeDamage(int damage)
     {
-        return battleEnemyToLoad;
+        return enemystats.TakeDamage(damage);
     }
+
+    public int Attack(CharacterStats victim)
+    {
+        if (victim != null)
+        {
+            return victim.TakeDamage(enemystats.Attack);
+        }
+        return 0;
+    }
+
+    private void Die()
+    {
+        animator.SetBool("IsDead", true);
+
+        enabled = false;
+        Destroy(GetComponent<Collider2D>());
+        transform.position += Vector3.forward;
+        rb.isKinematic = true; //Disables enemy physics
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackRate);
+        attackAvailable = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectRange);
+    }
+
+    ///// <summary>
+    ///// 
+    ///// </summary>
+    ///// <returns>The equivalent of this enemy for the battle.</returns>
+    //public GameObject GetBattleObject()
+    //{
+    //    return battleEnemyToLoad;
+    //}
 }

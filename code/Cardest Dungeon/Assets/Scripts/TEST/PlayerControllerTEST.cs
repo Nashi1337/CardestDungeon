@@ -21,15 +21,8 @@ public class PlayerControllerTEST : MonoBehaviour {
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-
-/*    void Update()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-    }*/
 
     private void FixedUpdate()
     {

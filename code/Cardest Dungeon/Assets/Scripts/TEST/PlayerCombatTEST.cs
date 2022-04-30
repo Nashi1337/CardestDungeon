@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerCombatTEST : MonoBehaviour
 {
+    public int attackDamage;
+    public float attackRange = 0.5f;
     public Animator animator;
 
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public int attackDamage;
     public float attackRate = 2f;
     private float nextAttackTime = 0f;
     private float knockbackForce;
+    [SerializeField]
+    private Transform attackPoint;
 
     public LayerMask enemyLayers;
 
@@ -50,7 +51,7 @@ public class PlayerCombatTEST : MonoBehaviour
         {
             Debug.Log(enemy.name + " getroffen!");
             //Damage Calculation
-            enemy.GetComponent<EnemyTEST>().TakeDamage(damage - enemy.GetComponent<EnemyStats>().Defense);
+            enemy.GetComponent<DungeonEnemy>().TakeDamage(damage - enemy.GetComponent<EnemyStats>().Defense);
 
             //Knockback Calculation
             Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;

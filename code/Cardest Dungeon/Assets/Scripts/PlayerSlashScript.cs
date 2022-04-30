@@ -24,10 +24,10 @@ public class PlayerSlashScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            DungeonEnemy enemy = collision.gameObject.GetComponent<DungeonEnemy>();
-            enemy.TakeDamage(PlayerController.Current.attack + Inventory.instance.GetAttackModifier());
-            Vector2 knockbackDirection = (collision.transform.position - gameObject.transform.position).normalized;
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 20, ForceMode2D.Impulse);
+            //DungeonEnemy enemy = collision.gameObject.GetComponent<DungeonEnemy>();
+            //enemy.TakeDamage(PlayerController.Current.attack + Inventory.instance.GetAttackModifier());
+            //Vector2 knockbackDirection = (collision.transform.position - gameObject.transform.position).normalized;
+            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 20, ForceMode2D.Impulse);
         }
     }
 }

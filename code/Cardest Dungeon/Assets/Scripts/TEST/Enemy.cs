@@ -18,14 +18,14 @@ public class Enemy : Interactable
 
     }
 
-    public override void Interact()
-    {
-        base.Interact();
-        CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
+    //public override void Interact()
+    //{
+    //    base.Interact();
+    //    CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
 
-        if(playerCombat != null)
-        {
-            playerCombat.Attack(myStats);
-        }
-    }
+    //    if(playerCombat != null)
+    //    {
+    //        playerCombat.Attack(myStats);
+    //    }
+    //}
 }

@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour
     private void UpdateUI()
     {
 
-        Debug.Log("Updating UI");
+        //Debug.Log("Updating UI");
 
         for(int i = 0; i < slots.Length; i++)
         {

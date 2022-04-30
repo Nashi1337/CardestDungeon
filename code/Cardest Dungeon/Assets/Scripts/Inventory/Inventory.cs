@@ -40,8 +40,8 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
 		playerStats = FindObjectOfType<PlayerStats>();
-		attackModifier = playerStats.Attack;
-		defenseModifier = playerStats.Defense;
+		attackModifier = 0;
+		defenseModifier = 0;
 	}
     public bool Add(Item item)
 	{
@@ -58,7 +58,7 @@ public class Inventory : MonoBehaviour
 			attackModifier += item.attackModifier;
 			defenseModifier += item.defenseModifier;
 
-			playerStats.SetStats();
+			playerStats.UpdateStats();
 
 			// Trigger callback
 			if (onItemChangedCallback != null)
