@@ -27,8 +27,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Animator animator;
     private EnemyStats enemystats;
+    DialogueManager dm;
 
     private SpriteRenderer spriterenderer;
+
+    public int zahl = 0;
     //public bool Loading = true;
 
     //[SerializeField]
@@ -48,6 +51,7 @@ public class Enemy : MonoBehaviour
         enemystats = GetComponent<EnemyStats>();
         localScale = transform.localScale;
         spriterenderer = GetComponent<SpriteRenderer>();
+        dm = FindObjectOfType<DialogueManager>();
 
     }
 
@@ -56,18 +60,26 @@ public class Enemy : MonoBehaviour
     {
         if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
-            if(!audioSource.isPlaying)
+/*            if(!audioSource.isPlaying)
             {
                 audioSource.Play();
-            }
+            }*/
             MoveEnemy();
         }
-        else
+        /*        else
+                {
+                    if (audioSource.isPlaying)
+                    {
+                        rb.velocity = Vector2.zero;
+                        audioSource.Pause();
+                    }
+                }*/
+
+        if (zahl != 0)
         {
-            if (audioSource.isPlaying)
+            if (dm.read[zahl] == zahl)
             {
-                rb.velocity = Vector2.zero;
-                audioSource.Pause();
+                Die();
             }
         }
     }
@@ -154,7 +166,7 @@ public class Enemy : MonoBehaviour
 
         enabled = false;
         Destroy(GetComponent<Collider2D>());
-        audioSource?.Pause();
+        //audioSource?.Pause();
         transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
