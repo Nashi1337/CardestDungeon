@@ -7,6 +7,7 @@ TagManager:
   - key
   - Enemy
   - Interactable
+  - Tutorial
   layers:
   - Default
   - TransparentFX

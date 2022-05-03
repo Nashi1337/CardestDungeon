@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour
     private static PlayerController playerInstance;
     private float interactionRadius = 2f;
 
+    GameObject tutorial;
+    DialogueManager dm;
+
     void Start()
     {
         if (playerInstance == null)
@@ -95,6 +98,13 @@ public class PlayerController : MonoBehaviour
 
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
+
+/*      tutorial = FindObjectOfType<GameObject>(tag.Equals("Tutorial"));*/
+/*        tutorial.GetComponent<DialogueTrigger>().TriggerDialogue();*/
+        dm = FindObjectOfType<DialogueManager>();
+        dm.CustomDialogue("Hallo");
+        Debug.Log("Hallo?");
+        
     }
 
     // Update is called once per frame
@@ -162,6 +172,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag.Equals("Interactable"))
                 {
+                    if(collider.GetComponent<DialogueTrigger>() != null)
+                    {
+                        collider.GetComponent<DialogueTrigger>().TriggerDialogue();
+                        break;
+                    }
                     collider.GetComponent<ItemPickup>().Interact();
                     break;
                 }

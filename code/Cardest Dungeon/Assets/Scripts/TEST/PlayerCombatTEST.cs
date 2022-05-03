@@ -20,6 +20,8 @@ public class PlayerCombatTEST : MonoBehaviour
     PlayerStats playerStats;
     public GameObject fireballProjectile;
 
+    Inventory inventory;
+
 
 
     private void Start()
@@ -27,6 +29,7 @@ public class PlayerCombatTEST : MonoBehaviour
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
         attackDamage = playerStats.Attack;
+        inventory = Inventory.instance;
     }
 
     void Update()
@@ -38,7 +41,7 @@ public class PlayerCombatTEST : MonoBehaviour
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
-            if (Inventory.instance.fireball== true)
+            if (inventory.fireball)
             {
                 if (Input.GetKeyDown(InputManager.fireball))
                 {

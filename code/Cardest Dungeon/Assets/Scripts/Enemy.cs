@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Animator animator;
     private EnemyStats enemystats;
+
+    private SpriteRenderer spriterenderer;
     //public bool Loading = true;
 
     //[SerializeField]
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         enemystats = GetComponent<EnemyStats>();
         localScale = transform.localScale;
+        spriterenderer = GetComponent<SpriteRenderer>();
 
     }
 
@@ -151,10 +154,11 @@ public class Enemy : MonoBehaviour
 
         enabled = false;
         Destroy(GetComponent<Collider2D>());
-        audioSource.Pause();
+        audioSource?.Pause();
         transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
+        spriterenderer.sortingOrder = 0;
     }
 
     IEnumerator AttackCooldown()
