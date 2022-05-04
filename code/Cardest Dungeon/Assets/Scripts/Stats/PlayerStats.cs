@@ -14,9 +14,12 @@ public class PlayerStats : CharacterStats
     [SerializeField]
     private Text magicText;
 
+    new private AudioSource audio;
+
     void Start()
     {
         Initialize();
+        audio = GetComponent<AudioSource>();
     }
 
     //Do not Use this except if you are the PlayerController. Else use either the SetStats or the UpdateStats of player controller
@@ -31,6 +34,10 @@ public class PlayerStats : CharacterStats
 
     public override int TakeDamage(int attackValue)
     {
+        if (attackValue > Defense)
+        {
+            audio.Play();
+        }
         return base.TakeDamage(attackValue, Defense + Inventory.instance.GetDefenseModifier());
     }
 

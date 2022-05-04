@@ -23,7 +23,11 @@ public class Enemy : MonoBehaviour
     private Vector3 directionToPlayer;
     private Vector3 localScale; //May become redundant soon
     private Rigidbody2D rb;
-    private AudioSource audioSource;
+
+    public AudioSource[] audioSource;
+    public AudioSource grindSound;
+    public AudioSource dieSound;
+
     [SerializeField]
     private Animator animator;
     private EnemyStats enemystats;
@@ -47,7 +51,10 @@ public class Enemy : MonoBehaviour
         //}
 
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
+
+        audioSource = GetComponents<AudioSource>();
+        grindSound = audioSource[0];
+        dieSound = audioSource[1];
         enemystats = GetComponent<EnemyStats>();
         localScale = transform.localScale;
         spriterenderer = GetComponent<SpriteRenderer>();
@@ -60,20 +67,20 @@ public class Enemy : MonoBehaviour
     {
         if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
-/*            if(!audioSource.isPlaying)
+            if(!grindSound.isPlaying)
             {
-                audioSource.Play();
-            }*/
+                grindSound.Play();
+            }
             MoveEnemy();
         }
-        /*        else
+                else
                 {
-                    if (audioSource.isPlaying)
+                    if (grindSound.isPlaying)
                     {
                         rb.velocity = Vector2.zero;
-                        audioSource.Pause();
+                        grindSound.Pause();
                     }
-                }*/
+                }
 
         if (zahl != 0)
         {
@@ -166,11 +173,12 @@ public class Enemy : MonoBehaviour
 
         enabled = false;
         Destroy(GetComponent<Collider2D>());
-        //audioSource?.Pause();
+        grindSound?.Pause();
         transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
         spriterenderer.sortingOrder = 0;
+        dieSound.Play();
     }
 
     IEnumerator AttackCooldown()

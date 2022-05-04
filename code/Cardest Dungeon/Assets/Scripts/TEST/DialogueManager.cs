@@ -76,6 +76,13 @@ public class DialogueManager : MonoBehaviour
         PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
         dialogue.text = sentence;
-        Debug.Log(sentence);
+    }
+
+    public void Tutorial1()
+    {
+        nameText.text = "Tutorial";
+        PlayerController.canMove = false;
+        animator.SetBool("IsOpen", true);
+        dialogue.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
     }
 }

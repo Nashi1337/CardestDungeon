@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class EnemyStats : CharacterStats
 {
-    [SerializeField]
+/*    [SerializeField]
     private Text enemyattack;
     [SerializeField]
     private Text enemydefense;
     [SerializeField]
-    private Text enemyhealth;
+    private Text enemyhealth;*/
 
     void Start()
     {

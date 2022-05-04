@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,8 @@ public class InventoryManager : MonoBehaviour
                 current = FindObjectOfType<InventoryManager>();
                 if(current == null)
                 {
-                    Debug.LogError("Could not find an InventoryManager. Did you forget to add one to your scene?");
+                    //Die Meldung kommt ständig weil kein InventoryManager in der Szene ist... aber man braucht keinen? weird
+                    //Debug.LogError("Could not find an InventoryManager. Did you forget to add one to your scene?");
                 }
             }
             return current;

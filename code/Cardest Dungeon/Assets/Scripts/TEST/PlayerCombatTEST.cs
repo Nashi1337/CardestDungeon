@@ -23,7 +23,6 @@ public class PlayerCombatTEST : MonoBehaviour
     Inventory inventory;
 
 
-
     private void Start()
     {
         animator = GetComponent<Animator>();

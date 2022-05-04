@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
     private static PlayerController playerInstance;
     private float interactionRadius = 2f;
 
-    GameObject tutorial;
     DialogueManager dm;
 
     void Start()
@@ -99,11 +98,9 @@ public class PlayerController : MonoBehaviour
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
 
-/*      tutorial = FindObjectOfType<GameObject>(tag.Equals("Tutorial"));*/
-/*        tutorial.GetComponent<DialogueTrigger>().TriggerDialogue();*/
+        //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
         dm = FindObjectOfType<DialogueManager>();
-        dm.CustomDialogue("Hallo");
-        Debug.Log("Hallo?");
+        dm.Tutorial1();
         
     }
 
@@ -120,7 +117,7 @@ public class PlayerController : MonoBehaviour
             {
                 rig.velocity = InputManager.CalculateMovement() * speed;
             }
-            //Der Parameter a_Speed ist wichtig für die Animation, bei einem Wert > 0.01 wird die walking Animation getriggert
+            //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
 
             if (spriterRenderer == null)
@@ -256,7 +253,9 @@ public class PlayerController : MonoBehaviour
     {
         //Inventory temp = Inventory.Instance;
         //Debug.Log(Inventory.Instance);
-        inventoryManager = InventoryManager.Current.gameObject;
+
+        //Braucht man den noch?
+        //inventoryManager = InventoryManager.Current.gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
     }
 
