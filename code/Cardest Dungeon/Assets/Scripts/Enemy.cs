@@ -20,6 +20,10 @@ public class Enemy : MonoBehaviour
     private float detectRange;
     [SerializeField]
     private float acceleration;
+    [SerializeField]
+    private float distance;
+    private float accelerationfactor = 1;
+
     private Vector3 directionToPlayer;
     private Vector3 localScale; //May become redundant soon
     private Rigidbody2D rb;
@@ -36,6 +40,12 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer spriterenderer;
 
     public int zahl = 0;
+
+    public GameObject fireballProjectile;
+    public float fireBallCooldown = 3f;
+    private float nextAttackTime = 0f;
+ 
+
     //public bool Loading = true;
 
     //[SerializeField]
@@ -65,6 +75,28 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //movement for ranged enemies
+        if (this.tag == "RangeEnemy")
+        {
+            //Enemies that attack with ranged attacks have this tag
+            //When the set distance for the enemy is greater than their distance to the player, they will move away from the player
+            if(Vector2.Distance(PlayerController.Current.transform.position, transform.position) < distance)
+            {
+                accelerationfactor = -1;
+                if(Time.time >= nextAttackTime)
+                {
+                    Shoot();
+                    nextAttackTime = Time.time + 1f / fireBallCooldown;
+                }
+            }
+            else
+            {
+                accelerationfactor = 1;
+            }
+        }
+
+
+
         if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
             if(!grindSound.isPlaying)
@@ -91,13 +123,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void Shoot()
+    {
+        Instantiate(fireballProjectile, transform.position, Quaternion.identity);
+    }
+
+
     /// <summary>
     /// Contains the movement pattern of the enemy which is to directly move into the players direction.
     /// </summary>
     private void MoveEnemy()
     {
         directionToPlayer = (PlayerController.Current.transform.position - this.transform.position).normalized;
-        rb.AddForce(directionToPlayer * acceleration);
+        rb.AddForce(directionToPlayer * acceleration * accelerationfactor);
 
         //Attack should not happen in MoveEnemy. This needs to be moved somewhere else
         //CharacterStats targetStats = player.GetComponent<CharacterStats>();

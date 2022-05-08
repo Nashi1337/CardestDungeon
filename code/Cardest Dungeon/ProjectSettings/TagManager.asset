@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Interactable
   - Tutorial
+  - RangeEnemy
+  - Dungeon
   layers:
   - Default
   - TransparentFX
