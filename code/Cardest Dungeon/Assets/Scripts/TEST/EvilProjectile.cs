@@ -96,14 +96,14 @@ public class EvilProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Bin mit " + collision + " kollidiert.");
+        //Debug.Log("Bin mit " + collision + " kollidiert.");
 
         PlayerController target = collision.gameObject.GetComponent<PlayerController>();
 
         //Evil Fireball is not supposed to collide with anything else
         if (collision.gameObject.tag.Equals("Player"))
         {
-            Debug.Log("Hab den Spieler erwischt");
+            //Debug.Log("Hab den Spieler erwischt");
             if (target != null)
             {
                 target.TakeDamage(damage);
@@ -113,7 +113,7 @@ public class EvilProjectile : MonoBehaviour
         }
         else if(!collision.gameObject.tag.Equals("RangeEnemy"))
         {
-            Debug.Log("Bin mit " + collision.tag + " kollidiert");
+            //Debug.Log("Bin mit " + collision.tag + " kollidiert");
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag.Equals("Dungeon"))

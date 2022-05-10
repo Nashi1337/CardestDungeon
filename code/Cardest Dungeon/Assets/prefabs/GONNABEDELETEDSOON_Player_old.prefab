@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3452681442475751371}
   - component: {fileID: 2887800553404149662}
   m_Layer: 0
-  m_Name: Player
+  m_Name: GONNABEDELETEDSOON_Player_old
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
