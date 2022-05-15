@@ -160,6 +160,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(InputManager.action))
         {
+            Debug.Log("Aktionstaste gedrückt");
             List<Collider2D> results;
             results = new List<Collider2D>();
             ContactFilter2D contactFilter = new ContactFilter2D();
@@ -167,15 +168,23 @@ public class PlayerController : MonoBehaviour
             Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
             foreach(Collider2D collider in results)
             {
+
                 if (collider.tag.Equals("Interactable"))
                 {
-                    if(collider.GetComponent<DialogueTrigger>() != null)
+                    Debug.Log("Versuche mit " + collider.name + "zu interagieren");
+
+                    if (collider.GetComponent<ItemPickup>() != null)
                     {
+                        Debug.Log("Das kollidierte Objekt ist ein Item");
+                        collider.GetComponent<ItemPickup>().Interact();
+                        break;
+                    }
+                    if (collider.GetComponent<DialogueTrigger>() != null)
+                    {
+                        Debug.Log("Das kollidierte Objekt hat einen Dialog und ist interagierbar");
                         collider.GetComponent<DialogueTrigger>().TriggerDialogue();
                         break;
                     }
-                    collider.GetComponent<ItemPickup>().Interact();
-                    break;
                 }
             }
         }
