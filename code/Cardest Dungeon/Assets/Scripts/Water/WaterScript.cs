@@ -14,7 +14,7 @@ public class WaterScript : MonoBehaviour
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
     private Vector2 scaleDirection;
-    private WaterScript[] children;
+    private WaterScript parent;
     [NonSerialized]
     public GameObject pointOfOrigin;
 
@@ -112,6 +112,7 @@ public class WaterScript : MonoBehaviour
 
         WaterScript waterScript = newWater.GetComponent<WaterScript>();
         waterScript.pointOfOrigin = controlPoint;
+        waterScript.parent = this;
         waterScript.StartFlowing();
     }
 
