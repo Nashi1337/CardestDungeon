@@ -91,9 +91,9 @@ public class PlayerController : MonoBehaviour
         //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
         //mapeditor.SetActive(false);
         
-        //AssignInventoryManager();
-        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-        //inventoryUI.SetActive(false);
+        AssignInventoryManager();
+        allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+        inventoryUI.SetActive(false);
 
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Inventory.Instance);
 
         //Braucht man den noch?
-        //inventoryManager = InventoryManager.Current.gameObject;
+        inventoryManager = InventoryManager.Current.gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
     }
 
