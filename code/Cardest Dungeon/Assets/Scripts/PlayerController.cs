@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour
     private GameObject mapeditor = default;
     private GameObject inventoryManager = default;
     private GameObject inventoryUI = default;
-    private Transform[] allchildrenofmap = default;
-    private Transform[] allchildrenofinventory = default;
+    //private Transform[] allchildrenofmap = default;
+    //private Transform[] allchildrenofinventory = default;
     private Item[] inventoryItems = default;
 
     public static bool canMove = true;
@@ -87,12 +87,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
 
-        //AssignMapManager();
+        AssignMapManager();
         //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
-        //mapeditor.SetActive(false);
+        mapeditor.SetActive(false);
         
         AssignInventoryManager();
-        allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
         inventoryUI.SetActive(false);
 
         //inventoryItems = new Item[inventorySize];
@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour
 
     private void AssignMapManager()
     {
-        mapeditor = MapManager.Current?.gameObject;
+        mapeditor = MapManager.Current.gameObject;
     }
 
     private void AssignInventoryManager()
