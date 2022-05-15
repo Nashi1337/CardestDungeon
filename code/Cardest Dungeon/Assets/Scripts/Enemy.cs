@@ -215,7 +215,7 @@ public class Enemy : MonoBehaviour
         transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
-        spriterenderer.sortingOrder = 0;
+        spriterenderer.sortingOrder = 1;
         dieSound.Play();
     }
 
