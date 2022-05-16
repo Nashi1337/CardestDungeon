@@ -8,12 +8,13 @@ public class WaterScript : MonoBehaviour
     [SerializeField]
     private float speed;
     //[SerializeField]
-    private Vector2 direction = new Vector2(1, 0);
+    private Vector2 direction;
 
     private bool isFlowing;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
     private Vector2 scaleDirection;
+    private Vector3 startingScale;
     private WaterScript parent;
     [NonSerialized]
     public GameObject pointOfOrigin;
@@ -21,10 +22,10 @@ public class WaterScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isFlowing = true;
         spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
-        ChangeDirection(direction);
+        UpdateDirection(transform.rotation.eulerAngles.z);
         unitsPerSecond = speed / spriteSize.x;
+        startingScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -38,6 +39,11 @@ public class WaterScript : MonoBehaviour
             Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
             transform.position += addedPosition;
         }
+
+        //if(Input.GetKeyDown(KeyCode.F))
+        //{
+        //    StartFlowing();
+        //}
     }
 
     public void StartFlowing()
@@ -50,12 +56,12 @@ public class WaterScript : MonoBehaviour
         isFlowing = false;
     }
 
-    public void ChangeDirection(Vector2 direction)
+    public void UpdateDirection(float angle)
     {
-        direction.Normalize();
-        this.direction = direction;
+        direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         scaleDirection.x = Mathf.Abs(direction.x);
         scaleDirection.y = Mathf.Abs(direction.y);
+        direction.Normalize();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -108,7 +114,7 @@ public class WaterScript : MonoBehaviour
         GameObject newWater = null;
         angle.z *= Mathf.Rad2Deg; 
         newWater = Instantiate(gameObject, origin, Quaternion.Euler(angle));
-        newWater.transform.localScale = Vector3.one;
+        newWater.transform.localScale = startingScale;
 
         WaterScript waterScript = newWater.GetComponent<WaterScript>();
         waterScript.pointOfOrigin = controlPoint;
