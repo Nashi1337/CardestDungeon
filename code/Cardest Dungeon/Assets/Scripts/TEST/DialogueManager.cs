@@ -24,17 +24,20 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue1)
     {
-        PlayerController.canMove = false;
+        //PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
-        nameText.text = dialogue.name;
+        nameText.text = dialogue1.name;
 
         sentences.Clear();
+        
 
-        foreach(string sentence in dialogue.sentences)
+
+        foreach(string sentence in dialogue1.sentences)
         {
-            sentences.Enqueue(sentence);
+            if(sentence != dialogue.text)
+                sentences.Enqueue(sentence);
         }
 
         DisplayNextSentence();
@@ -67,13 +70,13 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of conversation");
         animator.SetBool("IsOpen", false);
-        PlayerController.canMove = true;
+        //PlayerController.canMove = true;
     }
 
     public void CustomDialogue(string sentence)
     {
         nameText.text = "Tutorial";
-        PlayerController.canMove = false;
+        //PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
         dialogue.text = sentence;
     }
@@ -81,7 +84,7 @@ public class DialogueManager : MonoBehaviour
     public void Tutorial1()
     {
         nameText.text = "Tutorial";
-        PlayerController.canMove = false;
+        //PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
         dialogue.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
     }
