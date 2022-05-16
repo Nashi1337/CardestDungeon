@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour
     private GameObject mapeditor = default;
     private GameObject inventoryManager = default;
     private GameObject inventoryUI = default;
-    private Transform[] allchildrenofmap = default;
-    private Transform[] allchildrenofinventory = default;
+    //private Transform[] allchildrenofmap = default;
+    //private Transform[] allchildrenofinventory = default;
     private Item[] inventoryItems = default;
 
     public static bool canMove = true;
@@ -87,12 +87,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
 
-        //AssignMapManager();
+        AssignMapManager();
         //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
-        //mapeditor.SetActive(false);
+        mapeditor.SetActive(false);
         
         AssignInventoryManager();
-        allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
         inventoryUI.SetActive(false);
 
         //inventoryItems = new Item[inventorySize];
@@ -213,23 +213,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-/*    void Attack()
-    {
-        animator.SetTrigger("Attack");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, LayerMask.GetMask("Enemies"));
-        int attackModifier = Inventory.instance.GetAttackModifier();
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            int actualDamage = enemy.GetComponent<Enemy>().TakeDamage(playerStats.Attack + attackModifier);
-
-            //Knockback Calculation
-            Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
-            float knockbackForce = actualDamage * 20;
-            enemy.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-        }
-    }*/
-
     /// <summary>
     /// 
     /// </summary>
@@ -255,68 +238,17 @@ public class PlayerController : MonoBehaviour
 
     private void AssignMapManager()
     {
-        mapeditor = MapManager.Current?.gameObject;
+        mapeditor = MapManager.Current.gameObject;
     }
 
     private void AssignInventoryManager()
     {
-        //Inventory temp = Inventory.Instance;
-        //Debug.Log(Inventory.Instance);
 
         //Braucht man den noch?
         inventoryManager = InventoryManager.Current.gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
     }
 
-    ///// <summary>
-    ///// Adds an item to the player's inventory
-    ///// </summary>
-    ///// <param name="item"> the item that should be added</param>
-    ///// <returns>True, if item was successfully added. False, if item could not be edited because inventory was already full</returns>
-    //public bool AddToInventory(Item item)
-    //{
-    //    int index = 0;
-    //    while (index < inventoryItems.Length && inventoryItems[index] != null)
-    //    {
-    //        index++;
-    //    }
-
-    //    if (index == inventoryItems.Length)
-    //    {
-    //        return false;
-    //    }
-
-    //    inventoryItems[index] = item;
-    //    return true;
-    //}
-
-    ///// <summary>
-    ///// Removes the given Item from the inventory and moves all later items one index to the left.
-    ///// </summary>
-    ///// <param name="item"> The item to be removed</param>
-    ///// <returns>Returns the removed item or null if no item could be removed</returns>
-    //public Item RemoveFromInventory(Item item)
-    //{
-    //    int index = 0;
-    //    while (index < inventoryItems.Length && inventoryItems[index] != item)
-    //    {
-    //        index++;
-    //    }
-    //    Item removed = null;
-
-    //    //If the item was found in the inventory
-    //    if (index != inventoryItems.Length)
-    //    {
-    //        removed = inventoryItems[index];
-    //        index++;
-    //        while (index < inventoryItems.Length)
-    //        {
-    //            inventoryItems[index - 1] = inventoryItems[index];
-    //        }
-    //    }
-
-    //    return removed;
-    //}
     
     private IEnumerator StartAttackCooldown()
     {

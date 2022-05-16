@@ -33,7 +33,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -192,7 +192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2829619990842809279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 5341359464259379256}
   m_Layer: 7
   m_Name: Column
-  m_TagString: Enemy
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,11 +466,14 @@ MonoBehaviour:
   attackRate: 0
   detectRange: 0
   acceleration: 0
+  distance: 0
   audioSource: []
   grindSound: {fileID: 0}
   dieSound: {fileID: 0}
   animator: {fileID: 2829619991239301601}
-  zahl: 0
+  zahl: 2
+  fireballProjectile: {fileID: 0}
+  fireBallCooldown: 3
 --- !u!82 &4136954613095657344
 AudioSource:
   m_ObjectHideFlags: 0
