@@ -64,11 +64,13 @@ public class WaterScript : MonoBehaviour
         {
             if (wcp.StopsWater)
             {
+                StopFlowing();
                 //Don't create new water elements
                 return;
             }
-
-            Vector2[] flowDirections = RemoveOriginDirection(wcp.FlowDirections);
+            Vector2[] flowDirections = new Vector2[wcp.FlowDirections.Length];
+            Array.Copy(wcp.FlowDirections, flowDirections, flowDirections.Length);
+            flowDirections = RemoveOriginDirection(flowDirections);
             
             foreach (Vector2 flowDirection in flowDirections)
             {
@@ -118,11 +120,10 @@ public class WaterScript : MonoBehaviour
     {
         int index = 0;
 
-        Vector2 direction = new Vector2(Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad));
-        for(int i = 0; i < directions.Length; i++)
+        Vector2 directionAsVector = new Vector2(Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad));
+        for (int i = 0; i < directions.Length; i++)
         {
-            Debug.Log(-direction + " ?= " + directions[i] + " = " + (directions[i] ==-direction));
-            if(!(directions[i] == -direction))
+            if (!(directions[i] == -directionAsVector))
             {
                 directions[index] = directions[i];
                 index++;
@@ -131,11 +132,10 @@ public class WaterScript : MonoBehaviour
 
 
         //If an element was deleted
-        if(index == directions.Length - 1)
+        if (index == directions.Length - 1)
         {
             Array.Resize(ref directions, directions.Length - 1);
         }
-        Debug.Log("directionen " + directions.Length);
         return directions;
     }
 }
