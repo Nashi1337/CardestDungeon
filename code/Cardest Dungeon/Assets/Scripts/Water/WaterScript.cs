@@ -7,13 +7,10 @@ public class WaterScript : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-    //[SerializeField]
-    private Vector2 direction;
 
     private bool isFlowing;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
-    private Vector2 scaleDirection;
     private Vector3 startingScale;
     private WaterScript parent;
     [NonSerialized]
@@ -23,7 +20,6 @@ public class WaterScript : MonoBehaviour
     void Start()
     {
         spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
-        UpdateDirection(transform.rotation.eulerAngles.z);
         unitsPerSecond = speed / spriteSize.x;
         startingScale = transform.localScale;
     }
@@ -33,17 +29,17 @@ public class WaterScript : MonoBehaviour
     {
         if(isFlowing)
         {
-            Vector3 addedScale = scaleDirection * unitsPerSecond * Time.deltaTime;
-            transform.localScale += addedScale;
+            float addedScale = unitsPerSecond * Time.deltaTime;
+            transform.localScale += new Vector3(addedScale, 0, 0);
             float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
             Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
             transform.position += addedPosition;
         }
 
-        //if(Input.GetKeyDown(KeyCode.F))
-        //{
-        //    StartFlowing();
-        //}
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            StartFlowing();
+        }
     }
 
     public void StartFlowing()
@@ -54,14 +50,6 @@ public class WaterScript : MonoBehaviour
     private void StopFlowing()
     {
         isFlowing = false;
-    }
-
-    public void UpdateDirection(float angle)
-    {
-        direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        scaleDirection.x = Mathf.Abs(direction.x);
-        scaleDirection.y = Mathf.Abs(direction.y);
-        direction.Normalize();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -104,15 +92,14 @@ public class WaterScript : MonoBehaviour
         Vector3 angle = Vector3.zero;
         if(flowDirection.y < 0)
         {
-            angle.z = -Mathf.Acos(flowDirection.x);
+            angle.z = -Mathf.Acos(flowDirection.x) * Mathf.Rad2Deg;
         }
         else
         {
-            angle.z = Mathf.Acos(flowDirection.x);
+            angle.z = Mathf.Acos(flowDirection.x) * Mathf.Rad2Deg;
         }
 
         GameObject newWater = null;
-        angle.z *= Mathf.Rad2Deg; 
         newWater = Instantiate(gameObject, origin, Quaternion.Euler(angle));
         newWater.transform.localScale = startingScale;
 
@@ -131,21 +118,24 @@ public class WaterScript : MonoBehaviour
     {
         int index = 0;
 
+        Vector2 direction = new Vector2(Mathf.Cos(transform.rotation.eulerAngles.z * Mathf.Deg2Rad), Mathf.Sin(transform.rotation.eulerAngles.z * Mathf.Deg2Rad));
         for(int i = 0; i < directions.Length; i++)
         {
-            if(directions[i].Equals(-direction) == false)
+            Debug.Log(-direction + " ?= " + directions[i] + " = " + (directions[i] ==-direction));
+            if(!(directions[i] == -direction))
             {
                 directions[index] = directions[i];
                 index++;
             }
         }
 
+
         //If an element was deleted
         if(index == directions.Length - 1)
         {
             Array.Resize(ref directions, directions.Length - 1);
         }
-
+        Debug.Log("directionen " + directions.Length);
         return directions;
     }
 }
