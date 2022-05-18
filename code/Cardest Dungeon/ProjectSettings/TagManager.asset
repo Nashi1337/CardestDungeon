@@ -10,6 +10,8 @@ TagManager:
   - Tutorial
   - RangeEnemy
   - Dungeon
+  - Obstacle
+  - DungeonWall
   layers:
   - Default
   - TransparentFX

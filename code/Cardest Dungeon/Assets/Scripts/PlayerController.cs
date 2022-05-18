@@ -46,9 +46,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator; //animator Variable um für den Player Animationen zu steuern
     [SerializeField]
     private Transform attackPoint;
+    [SerializeField]
+    private float interactionRadius;
     private PlayerStats playerStats;
 
-    private bool attackAvailable = true;
+    //private bool attackAvailable = true;
     private Rigidbody2D rig = default;
     private Rigidbody2D rig2;
     private SpriteRenderer spriterRenderer;
@@ -57,14 +59,13 @@ public class PlayerController : MonoBehaviour
     private GameObject inventoryUI = default;
     //private Transform[] allchildrenofmap = default;
     //private Transform[] allchildrenofinventory = default;
-    private Item[] inventoryItems = default;
+    //private Item[] inventoryItems = default;
 
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
 
     private static PlayerController current = null;
     private static PlayerController playerInstance;
-    private float interactionRadius = 2f;
 
     DialogueManager dm;
 
@@ -160,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(InputManager.action))
         {
-            Debug.Log("Aktionstaste gedrückt");
+            //Debug.Log("Aktionstaste gedrückt");
             List<Collider2D> results;
             results = new List<Collider2D>();
             ContactFilter2D contactFilter = new ContactFilter2D();
@@ -171,19 +172,19 @@ public class PlayerController : MonoBehaviour
 
                 if (collider.tag.Equals("Interactable"))
                 {
-                    Debug.Log("Versuche mit " + collider.name + "zu interagieren");
+                    //Debug.Log("Versuche mit " + collider.name + "zu interagieren");
 
                     if (collider.GetComponent<ItemPickup>() != null)
                     {
                         Debug.Log("Das kollidierte Objekt ist ein Item");
                         collider.GetComponent<ItemPickup>().Interact();
-                        break;
+                        //break;
                     }
                     if (collider.GetComponent<DialogueTrigger>() != null)
                     {
                         Debug.Log("Das kollidierte Objekt hat einen Dialog und ist interagierbar");
                         collider.GetComponent<DialogueTrigger>().TriggerDialogue();
-                        break;
+                        //break;
                     }
                 }
             }
@@ -238,14 +239,16 @@ public class PlayerController : MonoBehaviour
 
     private void AssignMapManager()
     {
-        mapeditor = MapManager.Current.gameObject;
+        //mapeditor = MapManager.Current.gameObject;
+        mapeditor = FindObjectOfType<MapManager>()./*transform.parent.*/gameObject;
     }
 
     private void AssignInventoryManager()
     {
 
         //Braucht man den noch?
-        inventoryManager = InventoryManager.Current.gameObject;
+        //inventoryManager = InventoryManager.Current.gameObject;
+        inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
     }
 
@@ -253,7 +256,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator StartAttackCooldown()
     {
         yield return new WaitForSeconds(attackRate);
-        attackAvailable = true;
+        //attackAvailable = true;
     }
 
     private void OnDrawGizmosSelected()

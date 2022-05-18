@@ -48,8 +48,7 @@ public class Enemy : MonoBehaviour
 
     //public bool Loading = true;
 
-    //[SerializeField]
-    //private static bool isdead;
+    private bool isdead;
 
 
     // Start is called before the first frame update
@@ -116,9 +115,10 @@ public class Enemy : MonoBehaviour
 
         if (zahl != 0)
         {
-            if (dm.read[zahl] == zahl)
+            if (dm.read[zahl] == zahl && isdead==false)
             {
                 Die();
+                isdead = true;
             }
         }
     }
@@ -207,16 +207,34 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        animator.SetBool("IsDead", true);
-
-        enabled = false;
-        Destroy(GetComponent<Collider2D>());
-        grindSound?.Pause();
-        transform.position += Vector3.forward;
+        if (this.tag == "Obstacle")
+        {
+            StartCoroutine(DieLater());
+        }
+        else
+        { 
+            animator.SetBool("IsDead", true);
+            Destroy(GetComponent<Collider2D>());
+            spriterenderer.sortingOrder = -1;
+            enabled = false;
+            dieSound.Play();
+        }
+        Debug.Log(this.name + " died!");
+        //grindSound?.Pause();
+        //transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
-        spriterenderer.sortingOrder = 1;
+    }
+
+    IEnumerator DieLater()
+    {
+        yield return new WaitForSeconds(2f);
         dieSound.Play();
+        //dieSound.enabled = false;
+        Destroy(GetComponent<Collider2D>());
+        animator.SetBool("IsDead", true);
+        spriterenderer.sortingOrder = -1;
+        enabled = false;
     }
 
     IEnumerator AttackCooldown()

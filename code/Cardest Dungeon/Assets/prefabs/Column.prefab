@@ -469,7 +469,7 @@ MonoBehaviour:
   distance: 0
   audioSource: []
   grindSound: {fileID: 0}
-  dieSound: {fileID: 0}
+  dieSound: {fileID: 5341359464259379256}
   animator: {fileID: 2829619991239301601}
   zahl: 2
   fireballProjectile: {fileID: 0}
