@@ -115,6 +115,7 @@ public class Enemy : MonoBehaviour
 
         if (zahl != 0)
         {
+            Debug.Log(this.name + " says: " + dm.name + " " + dm.read[zahl]);
             if (dm.read[zahl] == zahl && isdead==false)
             {
                 Die();
@@ -220,7 +221,7 @@ public class Enemy : MonoBehaviour
             dieSound.Play();
         }
         Debug.Log(this.name + " died!");
-        //grindSound?.Pause();
+        grindSound?.Pause();
         //transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
@@ -228,7 +229,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DieLater()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         dieSound.Play();
         //dieSound.enabled = false;
         Destroy(GetComponent<Collider2D>());

@@ -16,7 +16,7 @@ public class ProjectileTEST : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         if (player.GetComponent<Transform>().localScale.x < 0)
             left = true;
-        damage = Inventory.instance.GetMagicModifier();
+        damage += Inventory.instance.GetMagicModifier();
     }
 
     private void Update()
@@ -45,8 +45,12 @@ public class ProjectileTEST : MonoBehaviour
 
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
+        if (collision.gameObject.tag.Equals("DungeonWall"))
+        {
+            Destroy(gameObject);
+        }
         //Fireball is not supposed to collide with Player
-        if (!collision.gameObject.tag.Equals("Player"))
+        else if (!collision.gameObject.tag.Equals("Player"))
             {
 
             if(enemy != null)
@@ -56,5 +60,6 @@ public class ProjectileTEST : MonoBehaviour
 
             Destroy(gameObject);
         }
+        
     }
 }

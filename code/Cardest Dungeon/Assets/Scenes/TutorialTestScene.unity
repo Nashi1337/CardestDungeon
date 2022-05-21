@@ -1146,11 +1146,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5986860711186575145, guid: ba60f7dadd0bb0e46ba9f64d6556918a, type: 3}
   m_PrefabInstance: {fileID: 760842498}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1068005274 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 584085505893438920, guid: a8e288ed05ecfcb47822fc733eec93b3, type: 3}
-  m_PrefabInstance: {fileID: 584085506478153499}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1138624570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5880,7 +5875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1068005274}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1539728385
@@ -6054,11 +6049,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.33
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.z
