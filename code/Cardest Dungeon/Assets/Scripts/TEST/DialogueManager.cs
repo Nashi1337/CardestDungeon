@@ -88,4 +88,11 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", true);
         dialogue.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
     }
+
+    public void Victory()
+    {
+        nameText.text = "Victory";
+        animator.SetBool("IsOpen", true);
+        dialogue.text = "You did it! Congratulations! Press \"Q\" 15 times to exit the game!";
+    }
 }

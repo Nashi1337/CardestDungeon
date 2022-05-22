@@ -3962,6 +3962,7 @@ MonoBehaviour:
   detectRange: 0
   acceleration: 0
   distance: 0
+  boss: 0
   audioSource: []
   grindSound: {fileID: 1363829635}
   dieSound: {fileID: 1363829639}
@@ -4922,6 +4923,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877220, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
+      propertyPath: attack
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2009617174237877220, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
+      propertyPath: defense
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2009617174237877220, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: gameover
       value: 
       objectReference: {fileID: 137772462}
@@ -4967,11 +4976,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.37
+      value: -20.7
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.73
+      value: -19.6
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877243, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5011,15 +5020,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877247, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_Size.x
-      value: 1.9600399
+      value: 2.9278922
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877247, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_Size.y
-      value: 2.7242458
+      value: 2.9278922
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877247, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_Offset.x
-      value: 0.008647919
+      value: 0.12107595
       objectReference: {fileID: 0}
     - target: {fileID: 2009617174237877247, guid: ed55784190e46f34a99921f30646a4f2, type: 3}
       propertyPath: m_Offset.y
@@ -7773,7 +7782,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.757782
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -8241,9 +8250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  attack: 10
-  defense: 0
-  magic: 0
+  attack: 12
+  defense: 3
+  magic: 6
   healthBar: {fileID: 8455820372579728862}
 --- !u!114 &8455820371055547502
 MonoBehaviour:
@@ -8259,15 +8268,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRate: 2
   detectRange: 10
-  acceleration: 5
-  distance: 10
+  acceleration: 10
+  distance: 0.01
+  boss: 1
   audioSource: []
   grindSound: {fileID: 8455820371055547503}
   dieSound: {fileID: 429598740874720757}
   animator: {fileID: 8455820371055547498}
   zahl: 0
   fireballProjectile: {fileID: 806743496607515004, guid: 1bd32004f41cc314c9c3f5d172743ab9, type: 3}
-  fireBallCooldown: 3
+  fireBallCooldown: 5
 --- !u!82 &8455820371055547503
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8288,7 +8298,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.7713165
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -8401,8 +8411,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.9, y: 1.5}
+  m_Offset: {x: 0.020592852, y: -0.049857065}
+  m_Size: {x: 2.3366072, y: 2.2365093}
   m_Direction: 1
 --- !u!50 &8455820371055547508
 Rigidbody2D:
@@ -8467,7 +8477,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b4bb6e98966db1346adeb2dc6978e8c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 1.4}

@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
     private static PlayerController current = null;
     private static PlayerController playerInstance;
 
+    int quit = 0;
+
     DialogueManager dm;
 
     void Start()
@@ -190,6 +192,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            quit++;
+            if (quit >= 15)
+            {
+                SceneManager.LoadScene(0);
+            }
+        }
 /*        if (Input.GetKeyDown(InputManager.attack))
         {
             if (attackAvailable)

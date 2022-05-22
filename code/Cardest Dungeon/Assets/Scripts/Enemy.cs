@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     private float acceleration;
     [SerializeField]
     private float distance;
+    [SerializeField]
+    private bool boss;
     private float accelerationfactor = 1;
 
     private Vector3 directionToPlayer;
@@ -74,6 +76,15 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (boss == true)
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                Shoot();
+                nextAttackTime = Time.time + 1f / fireBallCooldown;
+            }
+        }
+
         //movement for ranged enemies
         if (this.tag == "RangeEnemy")
         {
@@ -226,6 +237,11 @@ public class Enemy : MonoBehaviour
         //transform.position += Vector3.forward;
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
+
+        if (boss == true)
+        {
+            dm.Victory();
+        }
     }
 
     IEnumerator DieLater()
