@@ -32,6 +32,7 @@ public class MapManager : MonoBehaviour
 
     private void OnEnable()
     {
+        current = FindObjectOfType<MapManager>();
         //OnCollisionEnter seems to trigger before Start. So Map Pieces will not to be found before Start. "Danke, Henrik -_-"
         FindAllMapPieces(); 
     }
