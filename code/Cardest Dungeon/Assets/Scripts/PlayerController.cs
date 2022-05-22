@@ -222,8 +222,13 @@ public class PlayerController : MonoBehaviour
     public int TakeDamage(int attackValue)
     {
         return playerStats.TakeDamage(attackValue);
+        
     }
 
+    public static void Die()
+    {
+        UIManager.instance.isGameOver = true;
+    }
     /// <summary>
     /// Switches the state of the visual map between visible and invisible
     /// </summary>

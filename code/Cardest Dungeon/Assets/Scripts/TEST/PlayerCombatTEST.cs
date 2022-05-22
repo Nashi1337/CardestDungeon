@@ -71,10 +71,10 @@ public class PlayerCombatTEST : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            Debug.Log(enemy.name + " getroffen!");
+            //Debug.Log(enemy.name + " getroffen!");
             //Damage Calculation
-            //enemy.GetComponent<Enemy>().TakeDamage(damage);
-            Debug.Log(enemy.GetComponent<Enemy>().TakeDamage(damage));
+            enemy.GetComponent<Enemy>().TakeDamage(damage);
+            //Debug.Log(enemy.GetComponent<Enemy>().TakeDamage(damage));
             //Knockback Calculation
             Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
             enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
@@ -91,7 +91,7 @@ public class PlayerCombatTEST : MonoBehaviour
     void Heal()
     {
         //animator
-        playerStats.Heal(Inventory.instance.GetMagicModifier());
+        playerStats.Heal(Inventory.instance.GetMagicModifier()+playerStats.Magic);
         Inventory.instance.heals--;
     }
 

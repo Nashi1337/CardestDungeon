@@ -12,6 +12,7 @@ TagManager:
   - Dungeon
   - Obstacle
   - DungeonWall
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -43,23 +43,29 @@ public class ProjectileTEST : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
+        //Debug.Log(collision.gameObject.name);
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
-        if (collision.gameObject.tag.Equals("DungeonWall"))
-        {
-            Destroy(gameObject);
-        }
         //Fireball is not supposed to collide with Player
-        else if (!collision.gameObject.tag.Equals("Player"))
-            {
+        if (collision.gameObject.tag.Equals("Projectile") || collision.gameObject.tag.Equals("Player"))
+        {
+            //mach goar nix
+            Debug.Log(collision.gameObject.name + "a");
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        {
 
             if(enemy != null)
             {
                 enemy.TakeDamage(damage);
             }
-
+            Debug.Log(collision.gameObject.name + "b");
             Destroy(gameObject);
         }
-        
+        if (collision.gameObject.tag.Equals("DungeonWall"))
+        {
+            Debug.Log(collision.gameObject.name + "c");
+            Destroy(gameObject);
+        }        
     }
 }

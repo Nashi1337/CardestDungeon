@@ -75,7 +75,11 @@ public class CharacterStats : MonoBehaviour
 
     public void Heal(int magicValue)
     {
-        CurrHealth += magicValue*10;
+        CurrHealth += magicValue*2;
+        if (currHealth > maxHealth)
+        {
+            currHealth = maxHealth;
+        }
         UpdateStats();
         CheckHealth();
     }
@@ -94,13 +98,15 @@ public class CharacterStats : MonoBehaviour
         if(CurrHealth <= 0)
         {
             IsDead = true;
-            Die();
+            CharacterDie();
         }
     }
 
-    public virtual void Die()
+    public virtual void CharacterDie()
     {
-        //was passiert beim Sterben? Spieler, Monster,...
-        //Debug.Log(transform.name + " died");
+        if (gameObject.tag.Equals("Player"))
+        {
+            PlayerStats.Die();
+        }
     }
 }

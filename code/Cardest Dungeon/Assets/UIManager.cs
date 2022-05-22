@@ -11,27 +11,35 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject gameoverpanel;
     [SerializeField]
-    private Text restartText;
-    private bool isGameOver = false;
+    private Button restartButton;
+    [SerializeField]
+    private Button quitButton;
+    [SerializeField]
+    private Animator animator;
+    public bool isGameOver = false;
+
+    public static UIManager instance;
 
     void Start()
     {
+        instance = this;
         gameoverpanel.SetActive(false);
-        restartText.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G) && !isGameOver)
+/*        if(Input.GetKeyDown(KeyCode.G) && !isGameOver)
         {
             isGameOver = true;
-            StartCoroutine(GameOverSequence());
-        }
+        }*/
 
         if (isGameOver)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            StartCoroutine(GameOverSequence());
+/*            if (Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
@@ -40,18 +48,19 @@ public class UIManager : MonoBehaviour
             {
                 print("Application Quit");
                 Application.Quit();
-            }
+            }*/
         }
     }
 
         
-        private IEnumerator GameOverSequence()
-             {
+    private IEnumerator GameOverSequence()
+    {
         
-                gameoverpanel.SetActive(true);
+    gameoverpanel.SetActive(true);
         
-            yield return new WaitForSeconds(5.0f);
+    yield return new WaitForSeconds(3.0f);
 
-            restartText.gameObject.SetActive(true);
-            }
+    restartButton.gameObject.SetActive(true);
+    quitButton.gameObject.SetActive(true);
+    }
 }
