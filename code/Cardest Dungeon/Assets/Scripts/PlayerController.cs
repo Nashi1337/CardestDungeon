@@ -239,8 +239,7 @@ public class PlayerController : MonoBehaviour
 
     private void AssignMapManager()
     {
-        //mapeditor = MapManager.Current.gameObject;
-        mapeditor = FindObjectOfType<MapManager>()./*transform.parent.*/gameObject;
+        mapeditor = MapManager.Current.gameObject;
     }
 
     private void AssignInventoryManager()
