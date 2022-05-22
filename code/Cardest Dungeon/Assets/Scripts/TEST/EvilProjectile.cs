@@ -12,6 +12,7 @@ public class EvilProjectile : MonoBehaviour
     private void Start()
     {
         targetDir = (PlayerController.Current.transform.position - transform.position).normalized;
+        StartCoroutine(ProjectileLifespan());
     }
 
     private void FixedUpdate()
@@ -44,5 +45,11 @@ public class EvilProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator ProjectileLifespan()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }

@@ -9,15 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: bb6c2c916eab6e94e98ff4957ae5029a
   - enabled: 1
-    path: Assets/Scenes/Dungeon.unity
-    guid: fb72e0e74a5096e4cb8310ba5177f01b
-  - enabled: 1
-    path: Assets/Scenes/Altes/BattleUI.unity
-    guid: 8056d40dd6f774148a4cda2b3993f20f
-  - enabled: 0
-    path: Assets/Scenes/Altes/BattleMerge.unity
-    guid: 19a917073d9da434fbac83291d19c4d1
-  - enabled: 0
-    path: Assets/Scenes/Altes/DungeonWinterExpo.unity
-    guid: 0b5ce407e79f57f4288fc5d23ff8c607
+    path: Assets/Scenes/PlayTesting.unity
+    guid: 05f26ee1db100ad46aac3eb5ebe2372f
   m_configObjects: {}

@@ -17,6 +17,7 @@ public class ProjectileTEST : MonoBehaviour
         if (player.GetComponent<Transform>().localScale.x < 0)
             left = true;
         damage += Inventory.instance.GetMagicModifier();
+        StartCoroutine(ProjectileLifespan());
     }
 
     private void Update()
@@ -67,5 +68,11 @@ public class ProjectileTEST : MonoBehaviour
             Debug.Log(collision.gameObject.name + "c");
             Destroy(gameObject);
         }        
+    }
+
+    IEnumerator ProjectileLifespan()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }
