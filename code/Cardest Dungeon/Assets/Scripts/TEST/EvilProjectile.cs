@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EvilProjectile : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    public float moveSpeed = 10f;
     public int damage = 6;
 
     Vector3 targetDir;
