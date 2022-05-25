@@ -6,13 +6,19 @@ using System;
 public class WaterScript : MonoBehaviour
 {
     [SerializeField]
+    private GameObject streamPrefab;
+    [SerializeField]
+    private GameObject sourcePrefab;
+    [SerializeField]
     private float speed;
-
-    private bool isFlowing;
+    [SerializeField]
+    private bool isSource = false;
+    private int isFlowing = 0;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
+    private Vector3 startingPosition;
     private Vector3 startingScale;
-    private WaterScript parent;
+    private WaterScript[] children;
     [NonSerialized]
     public GameObject pointOfOrigin;
 
@@ -21,35 +27,55 @@ public class WaterScript : MonoBehaviour
     {
         spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
         unitsPerSecond = speed / spriteSize.x;
+        startingPosition = transform.position;
         startingScale = transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isFlowing)
+        if (isFlowing != 0)
         {
-            float addedScale = unitsPerSecond * Time.deltaTime;
-            transform.localScale += new Vector3(addedScale, 0, 0);
-            float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-            Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
-            transform.position += addedPosition;
+            if (isFlowing == -1)
+                if (Mathf.Abs(transform.localScale.x) < 0.5f)
+                {
+                    if (isSource)
+                    {
+                        GameObject newWater = Instantiate(sourcePrefab, startingPosition, transform.rotation);
+                        newWater.transform.localScale = startingScale;
+                    }
+                    Destroy(gameObject);
+                    foreach (WaterScript stream in children)
+                    {
+                        stream.DryOut();
+                    }
+                }
+
+                float addedScale = unitsPerSecond * Time.deltaTime * isFlowing;
+                transform.localScale += new Vector3(addedScale, 0, 0);
+                float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+                Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
+                transform.position += addedPosition;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             StartFlowing();
         }
+        if(Input.GetKeyDown(KeyCode.R) && isSource)
+        {
+            DryOut();
+        }
     }
 
     public void StartFlowing()
     {
-        isFlowing = true;
+        isFlowing = 1;
     }
 
     private void StopFlowing()
     {
-        isFlowing = false;
+        isFlowing = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,13 +97,19 @@ public class WaterScript : MonoBehaviour
             Vector2[] flowDirections = new Vector2[wcp.FlowDirections.Length];
             Array.Copy(wcp.FlowDirections, flowDirections, flowDirections.Length);
             flowDirections = RemoveOriginDirection(flowDirections);
-            
+            children = new WaterScript[flowDirections.Length];
+
             foreach (Vector2 flowDirection in flowDirections)
             {
                 StartCoroutine(CreateNewWater(flowDirection, collision.gameObject.transform.position, collision.bounds.size.x, collision.gameObject));
             }
 
         }
+    }
+
+    public void DryOut()
+    {
+        isFlowing = -1;
     }
 
     /// <summary>
@@ -101,13 +133,13 @@ public class WaterScript : MonoBehaviour
             angle.z = Mathf.Acos(flowDirection.x) * Mathf.Rad2Deg;
         }
 
-        GameObject newWater = null;
-        newWater = Instantiate(gameObject, origin, Quaternion.Euler(angle));
+        GameObject newWater = Instantiate(streamPrefab, origin, Quaternion.Euler(angle));
         newWater.transform.localScale = startingScale;
+
+        AddWaterToChildren(newWater.GetComponent<WaterScript>());
 
         WaterScript waterScript = newWater.GetComponent<WaterScript>();
         waterScript.pointOfOrigin = controlPoint;
-        waterScript.parent = this;
         waterScript.StartFlowing();
     }
 
@@ -137,5 +169,20 @@ public class WaterScript : MonoBehaviour
             Array.Resize(ref directions, directions.Length - 1);
         }
         return directions;
+    }
+
+    private void AddWaterToChildren(WaterScript water)
+    {
+        int index = 0;
+        while(index < children.Length)
+        {
+            if(children[index] == null)
+            {
+                children[index] = water;
+                return;
+            }
+            index++;
+        }
+        throw new Exception("There was no place left for another child of " + this);
     }
 }
