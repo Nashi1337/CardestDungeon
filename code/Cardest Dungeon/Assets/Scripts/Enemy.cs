@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
     private float accelerationfactor = 1;
 
     private Vector3 directionToPlayer;
-    private Vector3 localScale; //May become redundant soon
     private Rigidbody2D rb;
 
     public AudioSource[] audioSource;
@@ -67,10 +66,22 @@ public class Enemy : MonoBehaviour
         grindSound = audioSource[0];
         dieSound = audioSource[1];
         enemystats = GetComponent<EnemyStats>();
-        localScale = transform.localScale;
         spriterenderer = GetComponent<SpriteRenderer>();
         dm = FindObjectOfType<DialogueManager>();
 
+        float scaleModifier = 0.5f;
+        scaleModifier += enemystats.Defense / 18f;
+        if(enemystats.Magic != 0)
+        {
+            scaleModifier += enemystats.Attack / 36f;
+            scaleModifier += enemystats.Magic / 18f;
+        }
+        else
+        {
+            scaleModifier += enemystats.Magic / 36f;
+            scaleModifier += enemystats.Attack / 18f;
+        }
+        transform.localScale *= scaleModifier;
     }
 
     // Update is called once per frame
@@ -163,14 +174,12 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (rb.velocity.x > 0)
+        Vector3 scale = transform.localScale;
+        if (rb.velocity.x < 0)
         {
-            transform.localScale = new Vector3(localScale.x, localScale.y, localScale.z);
+            scale.x = -scale.x;
         }
-        else if (rb.velocity.x < 0)
-        {
-            transform.localScale = new Vector3(-localScale.x, localScale.y, localScale.z);
-        }
+        transform.localScale = scale;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
