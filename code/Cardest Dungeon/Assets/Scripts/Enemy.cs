@@ -80,8 +80,11 @@ public class Enemy : MonoBehaviour
         {
             if (Time.time >= nextAttackTime)
             {
-                Shoot();
-                nextAttackTime = Time.time + 1f / fireBallCooldown;
+                if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
+                {
+                    Shoot();
+                    nextAttackTime = Time.time + 1f / fireBallCooldown;
+                }
             }
         }
 
