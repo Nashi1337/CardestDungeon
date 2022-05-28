@@ -25,21 +25,27 @@ public class MapManager : MonoBehaviour
 
     [SerializeField]
     private GameObject playerIcon;
-
-    private MapPiece[] allMapPieces = null;
+    private MapPiece[,] allMapPieces = null;
     private static MapManager current = null;
-    private GameObject player;
+    private List<WaterScript> allSources;
+    private DungeonAttributes dungeonAttributes;
+
+    private void Start()
+    {
+        allSources = new List<WaterScript>();
+        foreach (WaterScript water in FindObjectsOfType<WaterScript>())
+        {
+            allSources.Add(water);
+        }
+
+    }
 
     private void OnEnable()
     {
         current = FindObjectOfType<MapManager>();
+        dungeonAttributes = FindObjectOfType<DungeonAttributes>();
         //OnCollisionEnter seems to trigger before Start. So Map Pieces will not to be found before Start. "Danke, Henrik -_-"
         FindAllMapPieces(); 
-    }
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     /// <summary>
@@ -57,7 +63,14 @@ public class MapManager : MonoBehaviour
     /// </summary>
     private void FindAllMapPieces()
     {
-        allMapPieces = FindObjectsOfType<MapPiece>();
+        allMapPieces = new MapPiece[dungeonAttributes.DungeonWidth, dungeonAttributes.DungeonHeight];
+
+        MapPiece[] allMapPiecesUnsorted = FindObjectsOfType<MapPiece>();
+        foreach(MapPiece mapPiece in allMapPiecesUnsorted)
+        {
+            (int, int) pos = ExtractdungeonPartPosition(mapPiece.dungeonPart);
+            allMapPieces[pos.Item1, pos.Item2] = mapPiece;
+        }
     }
 
     /// <summary>
@@ -69,21 +82,24 @@ public class MapManager : MonoBehaviour
     {
 
         float shortestDistance = float.MaxValue;
-        int index = 0;
+        int indexi = 0;
+        int indexj = 0;
 
-        for (int i = 0; i < allMapPieces.Length; i++)
+        for (int i = 0; i < allMapPieces.GetLength(0); i++)
         {
-            float currentDistance = (pos - allMapPieces[i].dungeonPart.transform.position).magnitude;
-
-            if (currentDistance < shortestDistance)
+            for (int j = 0; j < allMapPieces.GetLength(1); j++)
             {
-                shortestDistance = currentDistance;
-                index = i;
-            }
+                float currentDistance = (pos - allMapPieces[i, j].dungeonPart.transform.position).magnitude;
 
-            Debug.Log(currentDistance + " "+ allMapPieces[i]);
+                if (currentDistance < shortestDistance)
+                {
+                    shortestDistance = currentDistance;
+                    indexi = i;
+                    indexj = j;
+                }
+            }
         }
-        return allMapPieces[index];
+        return allMapPieces[indexi, indexj];
     }
 
     /// <summary>
@@ -97,22 +113,27 @@ public class MapManager : MonoBehaviour
     {
 
         float shortestDistance = float.MaxValue;
-        int index = 0;
+        int indexi = 0;
+        int indexj = 0;
 
-        for(int i = 0; i < allMapPieces.Length; i++)
+        for(int i = 0; i < allMapPieces.GetLength(0); i++)
         {
-            float currentDistance = (mapPiece.transform.position - allMapPieces[i].transform.position).magnitude;
-            
-            if(currentDistance < shortestDistance && mapPiece != allMapPieces[i])
+            for (int j = 0; j < allMapPieces.GetLength(1); j++)
             {
-                shortestDistance = currentDistance;
-                index = i;
+                float currentDistance = (mapPiece.transform.position - allMapPieces[i, j].transform.position).magnitude;
+
+                if (currentDistance < shortestDistance && mapPiece != allMapPieces[i, j])
+                {
+                    shortestDistance = currentDistance;
+                    indexi = i;
+                    indexj = j;
+                }
             }
         }
 
         if (shortestDistance < distanceCap)
         {
-            return allMapPieces[index];
+            return allMapPieces[indexi, indexj];
         }
         else
         {
@@ -127,6 +148,11 @@ public class MapManager : MonoBehaviour
     /// <returns>True if swap succeded. Else false</returns>
     public bool SwapMapPieces(MapPiece piece1, MapPiece piece2)
     {
+        if(piece1 == piece2)
+        {
+            return false;
+        }
+
         MapPiece playersLocation = playerIcon.transform.parent.GetComponent<MapPiece>();
         if (playersLocation.Equals(piece1) || playersLocation.Equals(piece2))
         {
@@ -141,6 +167,37 @@ public class MapManager : MonoBehaviour
             piece1.ChangePosition(piece2.PositionBeforeDrag, piece2.DungeonPartPosition);
             piece2.ChangePosition(piece1Pos, piece1DungeonPos);
 
+            (int, int) pos1 = FindMapPiecePositionInArray(piece1);
+            (int, int) pos2 = FindMapPiecePositionInArray(piece2);
+            MapPiece temp = allMapPieces[pos1.Item1, pos1.Item2];
+            allMapPieces[pos1.Item1, pos1.Item2] = allMapPieces[pos2.Item1, pos2.Item2];
+            allMapPieces[pos2.Item1, pos2.Item2] = temp;
+
+            //Set elements on inactive if in elemental region
+            foreach(Transform child in allMapPieces[pos1.Item1, pos1.Item2].dungeonPart.transform)
+            {
+                ElementBehaviour elementBehaviour = child.GetComponent<ElementBehaviour>();
+                if (elementBehaviour != null)
+                {
+                    child.gameObject.SetActive(elementBehaviour.ElementWeakness != dungeonAttributes.Elements[pos1.Item1, pos1.Item2]);
+                }
+            }
+            foreach (Transform child in allMapPieces[pos2.Item1, pos2.Item2].dungeonPart.transform)
+            {
+                ElementBehaviour elementBehaviour = child.GetComponent<ElementBehaviour>();
+                if (elementBehaviour != null)
+                {
+                    child.gameObject.SetActive(elementBehaviour.ElementWeakness != dungeonAttributes.Elements[pos2.Item1, pos2.Item2]);
+                }
+            }
+
+            WaterScript[] oldSources = allSources.ToArray();
+            foreach(WaterScript source in oldSources)
+            {
+                allSources.Remove(source);
+                allSources.Add(source.TrackNewPath());
+            }
+            
             return true;
         }
         return false;
@@ -162,5 +219,40 @@ public class MapManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Extracts the position written in the name. E.g.: 1_0 ==> (1,0)
+    /// </summary>
+    /// <param name="dungeonPart"></param>
+    /// <returns></returns>
+    private (int, int) ExtractdungeonPartPosition(GameObject dungeonPart)
+    {
+        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        int indexOfX = dungeonPart.name.IndexOfAny(numbers);
+        int indexOfY = indexOfX + 2;
+
+        (int, int) pos;
+        pos.Item1 = int.Parse(dungeonPart.name[indexOfX].ToString());
+        pos.Item2 = int.Parse(dungeonPart.name[indexOfY].ToString());
+
+        return pos;
+    }
+
+    private (int, int) FindMapPiecePositionInArray(MapPiece mapPiece)
+    {
+        for (int i = 0; i < allMapPieces.GetLength(0); i++)
+        {
+            for (int j = 0; j < allMapPieces.GetLength(1); j++)
+            {
+                if(mapPiece == allMapPieces[i,j])
+                {
+                    return (i, j);
+                }
+            }
+        }
+
+        throw new System.Exception("mapPiece could not be found");
     }
 }

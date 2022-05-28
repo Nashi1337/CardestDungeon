@@ -109,4 +109,9 @@ public class CharacterStats : MonoBehaviour
             PlayerStats.Die();
         }
     }
+
+    public HealthBar GetHealthBar()
+    {
+        return healthBar;
+    }
 }

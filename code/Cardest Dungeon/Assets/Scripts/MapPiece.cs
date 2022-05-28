@@ -30,7 +30,6 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.LogWarning("Ich wurder gedrückt");
         if (IsUnlocked)
         {
             positionBeforeDrag = transform.position;
@@ -49,11 +48,9 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         MapPiece other = mapManager.FindClosestMapPiece(this, maxDistanceForSnapping);
 
-        Debug.LogWarning("Ich versuche zu tauschen");
         //If pieces could not be swapped.
         if(other == null || !mapManager.SwapMapPieces(this, other))
         {
-            Debug.LogWarning("Ich wurde ausgetauscht");
             transform.position = positionBeforeDrag;
         }
     }

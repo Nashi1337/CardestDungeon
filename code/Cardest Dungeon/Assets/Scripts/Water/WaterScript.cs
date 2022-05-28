@@ -13,7 +13,7 @@ public class WaterScript : MonoBehaviour
     private float speed;
     [SerializeField]
     private bool isSource = false;
-    private int isFlowing = 0;
+    private int isFlowing = 1;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
     private Vector3 startingPosition;
@@ -21,6 +21,7 @@ public class WaterScript : MonoBehaviour
     private WaterScript[] children;
     [NonSerialized]
     public GameObject pointOfOrigin;
+    private SpriteRenderer spriteRender;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class WaterScript : MonoBehaviour
         unitsPerSecond = speed / spriteSize.x;
         startingPosition = transform.position;
         startingScale = transform.localScale;
+        spriteRender = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -37,34 +39,25 @@ public class WaterScript : MonoBehaviour
         if (isFlowing != 0)
         {
             if (isFlowing == -1)
+            {
                 if (Mathf.Abs(transform.localScale.x) < 0.5f)
                 {
-                    if (isSource)
-                    {
-                        GameObject newWater = Instantiate(sourcePrefab, startingPosition, transform.rotation);
-                        newWater.transform.localScale = startingScale;
-                    }
                     Destroy(gameObject);
-                    foreach (WaterScript stream in children)
+                    if (children != null && children.Length != 0)
                     {
-                        stream.DryOut();
+                        foreach (WaterScript stream in children)
+                        {
+                            stream.DryOut();
+                        }
                     }
                 }
+            }
 
-                float addedScale = unitsPerSecond * Time.deltaTime * isFlowing;
-                transform.localScale += new Vector3(addedScale, 0, 0);
-                float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-                Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
-                transform.position += addedPosition;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartFlowing();
-        }
-        if(Input.GetKeyDown(KeyCode.R) && isSource)
-        {
-            DryOut();
+            float addedScale = unitsPerSecond * Time.deltaTime * isFlowing;
+            transform.localScale += new Vector3(addedScale, 0, 0);
+            float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+            Vector3 addedPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * unitsPerSecond * Time.deltaTime * spriteSize * 0.5f;
+            transform.position += addedPosition;
         }
     }
 
@@ -80,7 +73,7 @@ public class WaterScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(pointOfOrigin == collision.gameObject)
+        if(pointOfOrigin == collision.gameObject || isFlowing < 0)
         {
             return;
         }
@@ -115,6 +108,27 @@ public class WaterScript : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
+    /// <returns>the source that replaces the old source.</returns>
+    public WaterScript TrackNewPath()
+    {
+        DryOut();
+        if (isSource)
+        {
+            GameObject newWater = Instantiate(sourcePrefab, startingPosition, transform.rotation);
+            newWater.transform.localScale = startingScale;
+            newWater.GetComponent<SpriteRenderer>().size = startingScale;
+            newWater.GetComponent<WaterScript>().StartFlowing();
+            newWater.GetComponent<WaterScript>().sourcePrefab = sourcePrefab;
+            return newWater.GetComponent<WaterScript>();
+        }
+
+        return null;
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="flowDirection">The normalized direction of the water flow</param>
     /// <param name="origin"></param>
     /// <param name="colliderSize">The diameter of the collider the water collided with</param>
@@ -135,11 +149,13 @@ public class WaterScript : MonoBehaviour
 
         GameObject newWater = Instantiate(streamPrefab, origin, Quaternion.Euler(angle));
         newWater.transform.localScale = startingScale;
+        newWater.GetComponent<SpriteRenderer>().size = startingScale;
 
         AddWaterToChildren(newWater.GetComponent<WaterScript>());
 
         WaterScript waterScript = newWater.GetComponent<WaterScript>();
         waterScript.pointOfOrigin = controlPoint;
+        waterScript.streamPrefab = streamPrefab;
         waterScript.StartFlowing();
     }
 
@@ -185,4 +201,5 @@ public class WaterScript : MonoBehaviour
         }
         throw new Exception("There was no place left for another child of " + this);
     }
+
 }

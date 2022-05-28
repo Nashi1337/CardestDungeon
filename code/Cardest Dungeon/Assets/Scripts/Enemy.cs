@@ -69,19 +69,22 @@ public class Enemy : MonoBehaviour
         spriterenderer = GetComponent<SpriteRenderer>();
         dm = FindObjectOfType<DialogueManager>();
 
-        float scaleModifier = 0.5f;
-        scaleModifier += enemystats.Defense / 18f;
+
+        //Scale calculation. Falls Diesen Block löschen, falls es nicht gut aussieht.
+        float scaleModifier = 0.4f;
+        scaleModifier += enemystats.Defense / 15f;
         if(enemystats.Magic != 0)
         {
-            scaleModifier += enemystats.Attack / 36f;
-            scaleModifier += enemystats.Magic / 18f;
+            scaleModifier += enemystats.Attack / 45f;
+            scaleModifier += enemystats.Magic / 15f;
         }
         else
         {
-            scaleModifier += enemystats.Magic / 36f;
-            scaleModifier += enemystats.Attack / 18f;
+            scaleModifier += enemystats.Magic / 30f;
+            scaleModifier += enemystats.Attack / 15f;
         }
-        transform.localScale *= scaleModifier;
+        transform.localScale = Vector3.one * scaleModifier;
+        //Block Ende
     }
 
     // Update is called once per frame
@@ -175,11 +178,15 @@ public class Enemy : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 scale = transform.localScale;
+        Vector3 healthbarScale = enemystats.GetHealthBar().transform.localScale;
         if (rb.velocity.x < 0)
         {
             scale.x = -scale.x;
+            healthbarScale.x = -healthbarScale.x;
+
         }
         transform.localScale = scale;
+        enemystats.GetHealthBar().transform.localScale = healthbarScale;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
