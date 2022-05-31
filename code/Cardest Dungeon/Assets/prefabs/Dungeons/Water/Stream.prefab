@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6113892685446909144}
   - component: {fileID: 6113892685446909093}
   - component: {fileID: 6113892685446909092}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Stream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
