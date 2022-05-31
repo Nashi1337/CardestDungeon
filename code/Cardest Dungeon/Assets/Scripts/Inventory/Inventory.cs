@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -20,18 +21,27 @@ public class Inventory : MonoBehaviour
 
 	#endregion
 
-	PlayerStats playerStats;
-    // Callback which is triggered when
-    // an item gets added/removed.
-    public delegate void OnItemChanged();
-	public OnItemChanged onItemChangedCallback;
-
+	[SerializeField]
+	private Text mergeButtonText;
+	[SerializeField]
+	private Sprite attackCardSprite;
+	[SerializeField]
+	private Sprite defenceCardSprite;
+	[SerializeField]
+	private Sprite magicCardSprite;
+	private PlayerStats playerStats;
 	private int attackModifier;
 	private int defenseModifier;
 	private int magicModifier;
+
+
 	public bool fireball;
 	public bool heal;
 	public int heals;
+    public delegate void OnItemChanged();
+	public OnItemChanged onItemChangedCallback;
+	public GameObject isSelectedPrefab;
+	public bool canCardsBeSelected;
 
 	public int space;  // Amount of slots in inventory, set via SerializeField in Scene(default 10)
 
@@ -107,6 +117,41 @@ public class Inventory : MonoBehaviour
 			onItemChangedCallback.Invoke();
 	}
 
+	private EffectItem MergeItem(Item[] items, EffectItem effectItem)
+    {
+		int attack = 0, defence = 0, magic = 0;
+
+		foreach(Item item in items)
+        {
+			attack += item.attackModifier;
+			defence += item.defenseModifier;
+			magic += item.magicModifier;
+        }
+
+		EffectItem mergedItem = new EffectItem();
+
+		if(attack >= defence && attack >= magic)
+        {
+			mergedItem.attackModifier = attack;
+			mergedItem.icon = attackCardSprite;
+
+        }
+		else if(defence >= magic)
+        {
+			mergedItem.defenseModifier = defence;
+			mergedItem.icon = defenceCardSprite;
+		}
+		else
+        {
+			mergedItem.magicModifier = magic;
+			mergedItem.icon = magicCardSprite;
+        }
+
+		mergedItem.SetEffect(effectItem.GetEffect());
+
+		return mergedItem;
+    }
+
 	public int GetAttackModifier()
     {
 		return attackModifier;
@@ -121,4 +166,33 @@ public class Inventory : MonoBehaviour
     {
 		return magicModifier;
     }
+
+	public void OnMergeButtonPress()
+    {
+		if (!canCardsBeSelected)
+		{
+			canCardsBeSelected = true;
+			mergeButtonText.text = "Merge selected cards";
+		}
+		else
+        {
+			canCardsBeSelected = false;
+			InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
+
+			List<Item> allSelectedItems = new List<Item>();
+			EffectItem effectItem = null;
+
+			foreach(InventorySlot slot in allItems)
+            {
+				if(slot.Item != null && slot.selectedEffect != null)
+                {
+					//Hier weiter machen
+					//if(typof(slot.Item))
+					allSelectedItems.Add(slot.Item);
+                }
+            }
+
+			MergeItem(allSelectedItems.ToArray(), effectItem);
+        }
+	}
 }
