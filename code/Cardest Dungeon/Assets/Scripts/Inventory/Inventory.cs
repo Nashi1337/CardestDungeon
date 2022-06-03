@@ -33,15 +33,16 @@ public class Inventory : MonoBehaviour
 	private int attackModifier;
 	private int defenseModifier;
 	private int magicModifier;
-
+	[SerializeField]
+	private float mergeAmplifier;
 
 	public bool fireball;
 	public bool heal;
+	public bool canCardsBeSelected;
 	public int heals;
     public delegate void OnItemChanged();
 	public OnItemChanged onItemChangedCallback;
 	public GameObject isSelectedPrefab;
-	public bool canCardsBeSelected;
 
 	public int space;  // Amount of slots in inventory, set via SerializeField in Scene(default 10)
 
@@ -60,12 +61,12 @@ public class Inventory : MonoBehaviour
 	}
     public bool Add(Item item)
 	{
-		Debug.Log("Space: " + space);
-		Debug.Log("Item count: " + items.Count);
+		//Debug.Log("Space: " + space);
+		//Debug.Log("Item count: " + items.Count);
 			// Check if out of space
 			if (items.Count >= space)
 			{
-				Debug.Log("Not enough room.");
+				//Debug.Log("Not enough room.");
 				return false;
 			}
 
@@ -117,55 +118,48 @@ public class Inventory : MonoBehaviour
 			onItemChangedCallback.Invoke();
 	}
 
-	private EffectItem MergeItem(Item[] items, EffectItem effectItem)
-    {
+	/// <summary>
+	/// Sums up each the attack, defence and magic modifier. The returned card will only have the effect with the highest sum. If an effect Item is added the returned card will have a special effect
+	/// </summary>
+	/// <param name="items"></param>
+	/// <param name="effectItem"></param>
+	/// <returns></returns>
+	private Item MergeItem(Item[] items, Item effectItem = null)
+	{
 		int attack = 0, defence = 0, magic = 0;
 
-		foreach(Item item in items)
-        {
+		foreach (Item item in items)
+		{
 			attack += item.attackModifier;
 			defence += item.defenseModifier;
 			magic += item.magicModifier;
-        }
+		}
 
-		EffectItem mergedItem = new EffectItem();
+		Item mergedItem = ScriptableObject.CreateInstance<Item>();
 
-		if(attack >= defence && attack >= magic)
-        {
-			mergedItem.attackModifier = attack;
+		if (attack >= defence && attack >= magic)
+		{
+			mergedItem.attackModifier = Mathf.CeilToInt(attack * mergeAmplifier);
 			mergedItem.icon = attackCardSprite;
 
-        }
-		else if(defence >= magic)
-        {
-			mergedItem.defenseModifier = defence;
+		}
+		else if (defence >= magic)
+		{
+			mergedItem.defenseModifier = Mathf.CeilToInt(defence * mergeAmplifier);
 			mergedItem.icon = defenceCardSprite;
 		}
 		else
-        {
-			mergedItem.magicModifier = magic;
+		{
+			mergedItem.magicModifier = Mathf.CeilToInt(magic * mergeAmplifier);
 			mergedItem.icon = magicCardSprite;
-        }
+		}
 
-		mergedItem.SetEffect(effectItem.GetEffect());
-
+		if (effectItem != null)
+		{
+			mergedItem.effect = effectItem.effect;
+		}
 		return mergedItem;
-    }
-
-	public int GetAttackModifier()
-    {
-		return attackModifier;
-    }
-
-	public int GetDefenseModifier()
-    {
-		return defenseModifier;
-    }
-
-	public int GetMagicModifier()
-    {
-		return magicModifier;
-    }
+	}
 
 	public void OnMergeButtonPress()
     {
@@ -176,23 +170,60 @@ public class Inventory : MonoBehaviour
 		}
 		else
         {
-			canCardsBeSelected = false;
 			InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 
 			List<Item> allSelectedItems = new List<Item>();
-			EffectItem effectItem = null;
+			Item effectItem = null;
 
 			foreach(InventorySlot slot in allItems)
             {
 				if(slot.Item != null && slot.selectedEffect != null)
                 {
-					//Hier weiter machen
-					//if(typof(slot.Item))
-					allSelectedItems.Add(slot.Item);
+					if (slot.Item.effect != Item.Effect.NONE && effectItem == null)
+					{
+						effectItem = slot.Item;
+					}
+					else
+					{
+						allSelectedItems.Add(slot.Item);
+					}
+					slot.SwitchSelected();
                 }
             }
+			
+			mergeButtonText.text = "Activate selection";
+			canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
-			MergeItem(allSelectedItems.ToArray(), effectItem);
-        }
+			if (allSelectedItems.Count > 1)
+			{
+				Item mergedItem = MergeItem(allSelectedItems.ToArray(), effectItem);
+				Add(mergedItem);
+				foreach(Item item in allSelectedItems)
+                {
+					Remove(item);
+                }
+			}
+			else
+            {
+				//Here a text should be displayed that you cannot merge
+				Debug.LogWarning("Missing text message for player. See Code comment");
+            }
+		}
 	}
+
+	public int GetAttackModifier()
+	{
+		return attackModifier;
+	}
+
+	public int GetDefenseModifier()
+	{
+		return defenseModifier;
+	}
+
+	public int GetMagicModifier()
+	{
+		return magicModifier;
+	}
+
 }

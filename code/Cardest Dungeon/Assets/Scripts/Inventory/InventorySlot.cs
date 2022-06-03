@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler
+public class InventorySlot : MonoBehaviour
 {
     public GameObject selectedEffect;
     public Item Item { get { return item; } }
     public Image icon;
 
+    public
     Item item;
 
     public void AddItem(Item newItem)
@@ -27,9 +28,9 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler
         icon.enabled = false;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void SwitchSelected()
     {
-        if (Inventory.instance.canCardsBeSelected)
+        if (Inventory.instance.canCardsBeSelected && item != null)
         {
             if (selectedEffect == null)
             {
@@ -40,10 +41,5 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler
                 Destroy(selectedEffect);
             }
         }
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-
     }
 }

@@ -30,11 +30,11 @@ public class InventoryManager : MonoBehaviour
         {
             current = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("Awake if");
+            //Debug.Log("Awake if");
         }
         else
         {
-            Debug.Log("Awake else");
+            //Debug.Log("Awake else");
             Destroy(gameObject);
         }
     }

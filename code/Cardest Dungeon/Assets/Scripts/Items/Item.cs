@@ -5,6 +5,11 @@
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+	public enum Effect
+	{
+		NONE
+
+	}
 
 	new public string name = "New Item";    // Name of the item
 	public Sprite icon = null;              // Item icon
@@ -12,9 +17,9 @@ public class Item : ScriptableObject
 	public int defenseModifier;
 	public int attackModifier;
 	public int magicModifier;
-
 	public bool fireball;
 	public bool heal;
+	public Effect effect;
 
 	//// Called when the item is pressed in the inventory
 	//public virtual void Use()

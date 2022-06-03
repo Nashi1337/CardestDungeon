@@ -178,13 +178,13 @@ public class PlayerController : MonoBehaviour
 
                     if (collider.GetComponent<ItemPickup>() != null)
                     {
-                        Debug.Log("Das kollidierte Objekt ist ein Item");
+                        //Debug.Log("Das kollidierte Objekt ist ein Item");
                         collider.GetComponent<ItemPickup>().Interact();
                         //break;
                     }
                     if (collider.GetComponent<DialogueTrigger>() != null)
                     {
-                        Debug.Log("Das kollidierte Objekt hat einen Dialog und ist interagierbar");
+                        //Debug.Log("Das kollidierte Objekt hat einen Dialog und ist interagierbar");
                         collider.GetComponent<DialogueTrigger>().TriggerDialogue();
                         //break;
                     }

@@ -61,7 +61,7 @@ public class CharacterStats : MonoBehaviour
 
         UpdateStats();
 
-        Debug.Log(transform.name + " takes " + attackValue + " damage. characterstats");
+        //Debug.Log(transform.name + " takes " + attackValue + " damage. characterstats");
 
         CheckHealth();
 
