@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
 	#endregion
 
 	[SerializeField]
+	private int[] possibleCardStrengthValuesASCENDING;
+	[SerializeField]
 	private Text mergeButtonText;
 	[SerializeField]
 	private Sprite attackCardSprite;
@@ -33,8 +35,6 @@ public class Inventory : MonoBehaviour
 	private int attackModifier;
 	private int defenseModifier;
 	private int magicModifier;
-	[SerializeField]
-	private float mergeAmplifier;
 
 	public bool fireball;
 	public bool heal;
@@ -58,6 +58,8 @@ public class Inventory : MonoBehaviour
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
+
+		gameObject.SetActive(false);
 	}
     public bool Add(Item item)
 	{
@@ -139,18 +141,18 @@ public class Inventory : MonoBehaviour
 
 		if (attack >= defence && attack >= magic)
 		{
-			mergedItem.attackModifier = Mathf.CeilToInt(attack * mergeAmplifier);
+			mergedItem.attackModifier = ReturningClosestStrengthValues(attack);
 			mergedItem.icon = attackCardSprite;
 
 		}
 		else if (defence >= magic)
 		{
-			mergedItem.defenseModifier = Mathf.CeilToInt(defence * mergeAmplifier);
+			mergedItem.defenseModifier = ReturningClosestStrengthValues(defence);
 			mergedItem.icon = defenceCardSprite;
 		}
 		else
 		{
-			mergedItem.magicModifier = Mathf.CeilToInt(magic * mergeAmplifier);
+			mergedItem.magicModifier = ReturningClosestStrengthValues(magic);
 			mergedItem.icon = magicCardSprite;
 		}
 
@@ -158,8 +160,23 @@ public class Inventory : MonoBehaviour
 		{
 			mergedItem.effect = effectItem.effect;
 		}
+
 		return mergedItem;
 	}
+
+	private int ReturningClosestStrengthValues(int value)
+    {
+
+		for (int i = possibleCardStrengthValuesASCENDING.Length - 1; i >= 0; i--)
+		{
+			if(possibleCardStrengthValuesASCENDING[i] <= value)
+            {
+				return possibleCardStrengthValuesASCENDING[i];
+            }
+		}
+
+		throw new System.Exception("Lol was ist hier passiert");
+    }
 
 	public void OnMergeButtonPress()
     {
