@@ -112,14 +112,19 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove == true)
         {
+            Vector2 walkDirectionAsVector = InputManager.CalculateMovement();
+            float walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                rig.velocity = InputManager.CalculateMovement() * runningSpeed;
+                rig.velocity = walkDirectionAsVector * runningSpeed;
             }
             else
             {
-                rig.velocity = InputManager.CalculateMovement() * speed;
+                rig.velocity = walkDirectionAsVector * speed;
             }
+            animator.SetFloat("walkDirection", walkDirectionInDegree);
+            Debug.Log("Ich laufe in Richtung: " + walkDirectionInDegree);
             //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
 
