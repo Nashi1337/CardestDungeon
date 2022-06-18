@@ -19,7 +19,9 @@ public class Item : ScriptableObject
 	public int magicModifier;
 	public bool fireball;
 	public bool heal;
+	public bool isMergable;
 	public Effect effect;
+
 
 	//// Called when the item is pressed in the inventory
 	//public virtual void Use()
@@ -34,5 +36,4 @@ public class Item : ScriptableObject
 	//{
 	//	Inventory.instance.Remove(this);
 	//}
-
 }

@@ -484,6 +484,7 @@ MonoBehaviour:
   canCardsBeSelected: 0
   heals: 0
   isSelectedPrefab: {fileID: 1609924802926225425, guid: f0232ee8920f4094ea4a5641b4904da8, type: 3}
+  isNotMergablePrefab: {fileID: 307124880356872555, guid: c98bc5716dd6c84409724bd3a094ad18, type: 3}
   space: 10
   items: []
 --- !u!1001 &1760134377878301614

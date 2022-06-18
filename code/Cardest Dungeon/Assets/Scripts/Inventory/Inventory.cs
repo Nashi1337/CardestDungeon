@@ -43,6 +43,7 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();
 	public OnItemChanged onItemChangedCallback;
 	public GameObject isSelectedPrefab;
+	public GameObject isNotMergablePrefab;
 
 	public int space;  // Amount of slots in inventory, set via SerializeField in Scene(default 10)
 
@@ -138,6 +139,7 @@ public class Inventory : MonoBehaviour
 		}
 
 		Item mergedItem = ScriptableObject.CreateInstance<Item>();
+		mergedItem.isMergable = true;
 
 		if (attack >= defence && attack >= magic)
 		{
@@ -180,15 +182,22 @@ public class Inventory : MonoBehaviour
 
 	public void OnMergeButtonPress()
     {
+		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 		if (!canCardsBeSelected)
 		{
 			canCardsBeSelected = true;
 			mergeButtonText.text = "Merge selected cards";
+
+			foreach(InventorySlot slot in allItems)
+            {
+				if(slot.item != null && !slot.item.isMergable)
+                {
+					slot.AddIsNotMergableBorder();
+                }
+            }
 		}
 		else
         {
-			InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
-
 			List<Item> allSelectedItems = new List<Item>();
 			Item effectItem = null;
 
@@ -206,7 +215,8 @@ public class Inventory : MonoBehaviour
 					}
 					slot.SwitchSelected();
                 }
-            }
+				slot.RemoveIsNotMergableBorder();
+			}
 			
 			mergeButtonText.text = "Activate selection";
 			canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
