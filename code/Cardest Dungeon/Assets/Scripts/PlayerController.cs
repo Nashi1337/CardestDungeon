@@ -259,6 +259,9 @@ public class PlayerController : MonoBehaviour
         //inventoryManager = InventoryManager.Current.gameObject;
         inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
+
+        Debug.Log(inventoryManager);
+        Debug.Log(inventoryUI);
     }
 
     

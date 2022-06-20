@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         movement.y -= Input.GetKey(backward) ? 1 : 0;
         movement.x += Input.GetKey(right) ? 1 : 0;
         movement.x -= Input.GetKey(left) ? 1 : 0;
+
         return movement;
     }
 }

@@ -548,7 +548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &137772462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5592,7 +5592,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865745471}
-  - component: {fileID: 1865745470}
   - component: {fileID: 1865745472}
   m_Layer: 0
   m_Name: GameManager
@@ -5601,30 +5600,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1865745470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865745469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96278d1e1b586a4ebcd678f41b5b5bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mergeButtonText: {fileID: 0}
-  attackCardSprite: {fileID: 0}
-  defenceCardSprite: {fileID: 0}
-  magicCardSprite: {fileID: 0}
-  mergeAmplifier: 0
-  fireball: 0
-  heal: 0
-  canCardsBeSelected: 0
-  heals: 0
-  isSelectedPrefab: {fileID: 0}
-  space: 10
-  items: []
 --- !u!4 &1865745471
 Transform:
   m_ObjectHideFlags: 0
@@ -8821,7 +8796,7 @@ Animator:
   m_GameObject: {fileID: 2009617175413936851}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50ce87ed2a2757c4683ecc463052ac13, type: 2}
+  m_Controller: {fileID: 9100000, guid: ec3b92ea001e2cb408544d88f1f01b06, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
