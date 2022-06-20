@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         
         AssignInventoryManager();
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-        inventoryUI.SetActive(false);
+        //inventoryUI.SetActive(false);
 
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
@@ -205,16 +205,6 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
-/*        if (Input.GetKeyDown(InputManager.attack))
-        {
-            if (attackAvailable)
-            {
-                Attack();
-                attackAvailable = false;
-
-                StartCoroutine(StartAttackCooldown());
-            }
-        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

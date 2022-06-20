@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 1760134379271361130}
   - component: {fileID: 1760134379271361127}
   - component: {fileID: 1760134379271361124}
+  - component: {fileID: 7980170555469845624}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -461,6 +462,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef964f97dae5b0846bbe78bde48b8897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7980170555469845624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760134379271361128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96278d1e1b586a4ebcd678f41b5b5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleCardStrengthValuesASCENDING: 01000000020000000500000008000000
+  mergeButtonText: {fileID: 0}
+  attackCardSprite: {fileID: 21300000, guid: ff6b238ab1ff39743a4db82160f6f0a9, type: 3}
+  defenceCardSprite: {fileID: 21300000, guid: a9c574ed75c3ae1488786582dc6f09bb, type: 3}
+  magicCardSprite: {fileID: 21300000, guid: 9a535ad9cb646c04ab0ad8588532da35, type: 3}
+  fireball: 0
+  heal: 0
+  canCardsBeSelected: 0
+  heals: 0
+  isSelectedPrefab: {fileID: 1609924802926225425, guid: f0232ee8920f4094ea4a5641b4904da8, type: 3}
+  isNotMergablePrefab: {fileID: 307124880356872555, guid: c98bc5716dd6c84409724bd3a094ad18, type: 3}
+  space: 10
+  items: []
 --- !u!1001 &1760134377878301614
 PrefabInstance:
   m_ObjectHideFlags: 0
