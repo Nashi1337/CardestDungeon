@@ -188,7 +188,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnSkipButton()
     {
-        dialogueText.text = "Player chose to skip the battle"!;
+        dialogueText.text = "Player chose to skip the battle!";
         state = BattleState.WON;
         EndBattle();
     }

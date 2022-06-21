@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
 
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
+    public float walkDirectionInDegree;
+    float lookDirection;
 
     private static PlayerController current = null;
     private static PlayerController playerInstance;
@@ -115,32 +117,44 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove == true)
         {
+            Vector2 walkDirectionAsVector = InputManager.CalculateMovement();
+
+            walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
+            if (walkDirectionAsVector.magnitude > 0)
+            {
+                lookDirection = walkDirectionInDegree;
+                Debug.Log("Meine Guckrichtung ist: " + lookDirection);
+            }
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                rig.velocity = InputManager.CalculateInputDirection() * runningSpeed;
+                rig.velocity = walkDirectionAsVector * runningSpeed;
             }
             else
             {
-                rig.velocity = InputManager.CalculateInputDirection() * speed;
+                rig.velocity = walkDirectionAsVector * speed;
             }
+            animator.SetFloat("walkDirection", walkDirectionInDegree);
+            animator.SetFloat("lookDirection", lookDirection);
+            Debug.Log("Ich laufe in Richtung: " + walkDirectionInDegree);
             //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
+
 
             if (spriterRenderer == null)
                 Debug.LogError("Renderer missing");
 
-            if (rig.velocity.x < 0)
-            {
-                Vector3 scale = transform.localScale;
-                scale.x = Mathf.Abs(scale.x) * -1;
-                transform.localScale = scale;
-            }
-            else if (rig.velocity.x > 0)
-            {
-                Vector3 scale = transform.localScale;
-                scale.x = Mathf.Abs(scale.x);
-                transform.localScale = scale;
-            }
+            //if (rig.velocity.x < 0)
+            //{
+            //    Vector3 scale = transform.localScale;
+            //    scale.x = Mathf.Abs(scale.x) * -1;
+            //    transform.localScale = scale;
+            //}
+            //else if (rig.velocity.x > 0)
+            //{
+            //    Vector3 scale = transform.localScale;
+            //    scale.x = Mathf.Abs(scale.x);
+            //    transform.localScale = scale;
+            //}
         }
 
     }
@@ -164,10 +178,7 @@ public class PlayerController : MonoBehaviour
             ShowHideInventory();
         }
 
-        if (InputManager.GetActionDown(InputManager.attack))
-        {
-            playerCombatTEST.Attack();
-        }
+        //Reihenfolge muss angepasst werden. An Spielsituation denken
         else if (InputManager.GetActionDown(InputManager.action))
         {
             //Debug.Log("Aktionstaste gedrückt");
@@ -261,6 +272,9 @@ public class PlayerController : MonoBehaviour
         //inventoryManager = InventoryManager.Current.gameObject;
         inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
+
+        Debug.Log(inventoryManager);
+        Debug.Log(inventoryUI);
     }
 
     

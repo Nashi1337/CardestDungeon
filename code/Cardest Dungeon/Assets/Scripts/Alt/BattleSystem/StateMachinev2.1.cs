@@ -93,7 +93,7 @@ namespace MethodStateMachine
         /// <param name="nameOfTarget">Name of the state to which the state machine will transition.</param>
         public void TransitionToState(string nameOfTarget)
         {
-            Transition transition = adjacencyList[states.IndexOf(activeState)].Find(transition => transition.GetTargetName() == nameOfTarget);
+            Transition transition = adjacencyList[states.IndexOf(activeState)].Find(tra => tra.GetTargetName() == nameOfTarget);
             activeState = states.Find(state => state.GetName() == nameOfTarget);
             
             transition?.Invoke();
