@@ -35,14 +35,14 @@ public class PlayerCombatTEST : MonoBehaviour
     {
         if(Time.time >= nextAttackTime)
         {
-            if (Input.GetKeyDown(InputManager.attack))
+            if (InputManager.GetActionDown(InputManager.attack))
             {
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
             if (inventory.fireball)
             {
-                if (Input.GetKeyDown(InputManager.fireball))
+                if (InputManager.GetActionDown(InputManager.fireball))
                 {
                     Fireball();
                     nextAttackTime = Time.time + 1f / fireBallCooldown;
@@ -50,7 +50,7 @@ public class PlayerCombatTEST : MonoBehaviour
             }
             if(Inventory.instance.heal == true && Inventory.instance.heals>0)
             {
-                if (Input.GetKeyDown(InputManager.heal))
+                if (InputManager.GetActionDown(InputManager.heal))
                 {
                     Heal();
                 }

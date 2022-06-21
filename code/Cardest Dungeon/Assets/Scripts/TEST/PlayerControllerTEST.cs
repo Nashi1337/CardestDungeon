@@ -53,7 +53,7 @@ public class PlayerControllerTEST : MonoBehaviour {
             spriteRenderer.flipX = false;
         }
 
-        if (Input.GetKeyDown(InputManager.action))
+        if (InputManager.GetActionDown(InputManager.action))
         {
             Debug.Log("Aktionstaste gedrückt");
 

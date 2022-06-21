@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(InputManager.map))
+        if (InputManager.GetActionDown(InputManager.map))
         {
             if (mapeditor == null)
             {
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
             ShowHideMap();
         }
-        if (Input.GetKeyDown(InputManager.inventory))
+        if (InputManager.GetActionDown(InputManager.inventory))
         {
             if (inventoryManager == null)
             {
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
             ShowHideInventory();
         }
 
-        if (Input.GetKeyDown(InputManager.action))
+        if (InputManager.GetActionDown(InputManager.action))
         {
             //Debug.Log("Aktionstaste gedrückt");
             List<Collider2D> results;
