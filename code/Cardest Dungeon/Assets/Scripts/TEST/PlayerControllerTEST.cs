@@ -35,11 +35,11 @@ public class PlayerControllerTEST : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rig.velocity = InputManager.CalculateMovement() * runningSpeed;
+            rig.velocity = InputManager.CalculateInputDirection() * runningSpeed;
         }
         else
         {
-            rig.velocity = InputManager.CalculateMovement() * speed;
+            rig.velocity = InputManager.CalculateInputDirection() * speed;
         }
 
         animator.SetFloat("a_Speed", rig.velocity.magnitude);

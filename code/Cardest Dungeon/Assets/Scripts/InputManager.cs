@@ -15,21 +15,21 @@ public class InputManager : MonoBehaviour
     public static KeyCode[] map = new KeyCode[] { KeyCode.M, KeyCode.Joystick1Button3};
     public static KeyCode[] inventory = new KeyCode[] { KeyCode.I, KeyCode.Joystick1Button2 };
     public static KeyCode[] cancel = new KeyCode[] { KeyCode.B };
-    public static KeyCode[] action = new KeyCode[] { KeyCode.E };
+    public static KeyCode[] action = new KeyCode[] { KeyCode.E, KeyCode.Joystick1Button0 };
     public static KeyCode[] attack = new KeyCode[] { KeyCode.Space, KeyCode.Joystick1Button0};
     public static KeyCode[] fireball = new KeyCode[] { KeyCode.F, KeyCode.Joystick1Button1 };
-    public static KeyCode[] heal = new KeyCode[] { KeyCode.H };
+    public static KeyCode[] heal = new KeyCode[] { KeyCode.H, KeyCode.Joystick1Button4 };
 
     /// <summary>
-    /// Calculates the movement by checking the forward, backward, left and right keys.
+    /// Calculates the input direction by checking the forward, backward, left and right keys.
     /// </summary>
-    /// <returns>Returns a Vector2 which contains values for x and y between -1 and 1</returns>
-    public static Vector2 CalculateMovement()
+    /// <returns>Returns a normalized vector2 which represents the input direction</returns>
+    public static Vector2 CalculateInputDirection()
     {
         Vector2 movement = new Vector2(0, 0);
 
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
         if (movement.x == 0 && movement.y == 0)
         {
             movement.y += GetActionDown(forward) ? 1 : 0;
@@ -37,7 +37,8 @@ public class InputManager : MonoBehaviour
             movement.x += GetActionDown(right) ? 1 : 0;
             movement.x -= GetActionDown(left) ? 1 : 0;
         }
-        return movement;
+
+        return movement.normalized;
     }
 
     /// <summary>

@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private GameObject mapeditor = default;
     private GameObject inventoryManager = default;
     private GameObject inventoryUI = default;
+    private PlayerCombatTEST playerCombatTEST = null;
     //private Transform[] allchildrenofmap = default;
     //private Transform[] allchildrenofinventory = default;
     //private Item[] inventoryItems = default;
@@ -101,6 +102,8 @@ public class PlayerController : MonoBehaviour
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
 
+        playerCombatTEST = GetComponent<PlayerCombatTEST>();
+
         //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
         dm = FindObjectOfType<DialogueManager>();
         dm.Tutorial1();
@@ -114,11 +117,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                rig.velocity = InputManager.CalculateMovement() * runningSpeed;
+                rig.velocity = InputManager.CalculateInputDirection() * runningSpeed;
             }
             else
             {
-                rig.velocity = InputManager.CalculateMovement() * speed;
+                rig.velocity = InputManager.CalculateInputDirection() * speed;
             }
             //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
@@ -161,7 +164,11 @@ public class PlayerController : MonoBehaviour
             ShowHideInventory();
         }
 
-        if (InputManager.GetActionDown(InputManager.action))
+        if (InputManager.GetActionDown(InputManager.attack))
+        {
+            playerCombatTEST.Attack();
+        }
+        else if (InputManager.GetActionDown(InputManager.action))
         {
             //Debug.Log("Aktionstaste gedrückt");
             List<Collider2D> results;
