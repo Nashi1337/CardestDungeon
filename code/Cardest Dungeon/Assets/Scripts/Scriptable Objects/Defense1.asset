@@ -19,3 +19,5 @@ MonoBehaviour:
   magicModifier: 0
   fireball: 0
   heal: 0
+  isMergable: 1
+  effect: 0

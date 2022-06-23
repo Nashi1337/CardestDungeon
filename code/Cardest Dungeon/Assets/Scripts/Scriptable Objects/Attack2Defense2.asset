@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Attack2Defense2
   icon: {fileID: 21300000, guid: bb6cabffc9d864e45a087e21713c8952, type: 3}
-  isDefaultItem: 0
   defenseModifier: 2
   attackModifier: 2
+  magicModifier: 0
   fireball: 0
+  heal: 0
+  isMergable: 0
+  effect: 0

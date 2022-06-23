@@ -35,22 +35,17 @@ public class PlayerCombatTEST : MonoBehaviour
     {
         if(Time.time >= nextAttackTime)
         {
-            if (Input.GetKeyDown(InputManager.attack))
-            {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
-            }
+            //Close range attack is initiated in Playercontroller
             if (inventory.fireball)
             {
-                if (Input.GetKeyDown(InputManager.fireball))
+                if (InputManager.GetActionDown(InputManager.fireball))
                 {
                     Fireball();
-                    nextAttackTime = Time.time + 1f / fireBallCooldown;
                 }
             }
             if(Inventory.instance.heal == true && Inventory.instance.heals>0)
             {
-                if (Input.GetKeyDown(InputManager.heal))
+                if (InputManager.GetActionDown(InputManager.heal))
                 {
                     Heal();
                 }
@@ -58,8 +53,11 @@ public class PlayerCombatTEST : MonoBehaviour
         }
     }
 
-    void Attack()
+    public void Attack()
     {
+        if (Time.time < nextAttackTime)
+            return;
+
         animator.SetTrigger("Attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -79,17 +77,23 @@ public class PlayerCombatTEST : MonoBehaviour
             Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
             enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         }
+
+        nextAttackTime = Time.time + 1f / attackRate;
     }
 
     void Fireball()
     {
-        //animator
+        if (Time.time < nextAttackTime)
+            return;
 
         Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.identity);
-
+        nextAttackTime = Time.time + 1f / fireBallCooldown;
     }
     void Heal()
     {
+        if (Time.time < nextAttackTime)
+            return;
+
         //animator
         playerStats.Heal(Inventory.instance.GetMagicModifier()+playerStats.Magic);
         Inventory.instance.heals--;

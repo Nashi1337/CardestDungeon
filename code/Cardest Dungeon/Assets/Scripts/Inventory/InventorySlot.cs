@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour
 {
+    public GameObject isNotMergableEffect;
     public GameObject selectedEffect;
     public Item Item { get { return item; } }
     public Image icon;
@@ -30,7 +31,7 @@ public class InventorySlot : MonoBehaviour
 
     public void SwitchSelected()
     {
-        if (Inventory.instance.canCardsBeSelected && item != null)
+        if (Inventory.instance.canCardsBeSelected && item != null && item.isMergable)
         {
             if (selectedEffect == null)
             {
@@ -41,5 +42,16 @@ public class InventorySlot : MonoBehaviour
                 Destroy(selectedEffect);
             }
         }
+    }
+
+    public void AddIsNotMergableBorder()
+    {
+        isNotMergableEffect = Instantiate(Inventory.instance.isNotMergablePrefab, transform);
+    }
+
+    public void RemoveIsNotMergableBorder()
+    {
+        Destroy(isNotMergableEffect);
+        isNotMergableEffect = null;
     }
 }
