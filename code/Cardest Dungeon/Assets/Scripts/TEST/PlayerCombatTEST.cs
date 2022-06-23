@@ -93,6 +93,18 @@ public class PlayerCombatTEST : MonoBehaviour
         //animator
         playerStats.Heal(Inventory.instance.GetMagicModifier()+playerStats.Magic);
         Inventory.instance.heals--;
+        
+        for(int i=0; i < 10; i++)
+        {
+            if (Inventory.instance.items[i].name == "Heal")
+            {
+                Debug.Log("Found heal");
+            }
+        }
+
+        //der findet heal nicht
+        //int index = Inventory.instance.items.IndexOf(Heal);
+
     }
 
     private void OnDrawGizmosSelected()

@@ -10,10 +10,10 @@ public class WaterScript : MonoBehaviour
     [SerializeField]
     private GameObject sourcePrefab;
     [SerializeField]
-    private float speed;
+    public float speed;
     [SerializeField]
     private bool isSource = false;
-    private int isFlowing = 1;
+    public int isFlowing = 1;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
     private Vector3 startingPosition;
@@ -23,7 +23,7 @@ public class WaterScript : MonoBehaviour
     public GameObject pointOfOrigin;
     private SpriteRenderer spriteRender;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         spriteSize = GetComponent<SpriteRenderer>().sprite.bounds.size;
