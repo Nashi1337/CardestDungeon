@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    private static InventoryManager current = null;
+    private InventorySlot[] allInventorySlots = null;
     public static InventoryManager Current
     {
         get
@@ -21,8 +23,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private InventorySlot[] allInventorySlots = null;
-    private static InventoryManager current = null;
 
     private void Awake()
     {
