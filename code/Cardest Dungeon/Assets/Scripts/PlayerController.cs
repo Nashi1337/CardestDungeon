@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         
         AssignInventoryManager();
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-        //inventoryUI.SetActive(false);
+        inventoryUI.SetActive(false);
 
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove == true)
         {
-            Vector2 walkDirectionAsVector = InputManager.CalculateMovement();
+            Vector2 walkDirectionAsVector = InputManager.CalculateInputDirection();
 
             walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
             if (walkDirectionAsVector.magnitude > 0)
@@ -218,6 +218,8 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
