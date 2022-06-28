@@ -229,6 +229,8 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

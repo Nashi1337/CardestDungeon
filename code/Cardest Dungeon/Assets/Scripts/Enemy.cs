@@ -181,8 +181,8 @@ public class Enemy : MonoBehaviour
         Vector3 healthbarScale = enemystats.GetHealthBar().transform.localScale;
         if (rb.velocity.x < 0)
         {
-            scale.x = -scale.x;
-            healthbarScale.x = -healthbarScale.x;
+            //scale.x = -scale.x;
+            //healthbarScale.x = -healthbarScale.x;
 
         }
         transform.localScale = scale;
