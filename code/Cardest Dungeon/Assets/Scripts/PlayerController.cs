@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         AssignInventoryManager();
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-        //inventoryUI.SetActive(false);
+        inventoryUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -126,6 +126,8 @@ public class PlayerController : MonoBehaviour
             {
                 lookDirection = walkDirectionInDegree;
                 Debug.Log("Meine Guckrichtung ist: " + lookDirection);
+                attackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
+                Debug.Log(walkDirectionAsVector);
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -203,7 +205,7 @@ public class PlayerController : MonoBehaviour
                         bool success = collider.GetComponent<ItemPickup>().Interact();
                         if (!interactedSuccessfully)
                             interactedSuccessfully = success;
-                        break;
+                        //break;
                     }
                     if (collider.GetComponent<DialogueTrigger>() != null)
                     {

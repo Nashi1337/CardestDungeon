@@ -59258,7 +59258,7 @@ MonoBehaviour:
   speed: 10
   runningSpeed: 20
   animator: {fileID: 2009617175413936840}
-  attackPoint: {fileID: 2009617175414553261}
+  attackPoint: {fileID: 2009617173590688234}
   interactionRadius: 1.4
   walkDirectionInDegree: 0
 --- !u!70 &2009617175413936850
