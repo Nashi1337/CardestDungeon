@@ -92,24 +92,26 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
-
-        AssignMapManager();
-        //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
-        mapeditor.SetActive(false);
-        
-        AssignInventoryManager();
-        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-        //inventoryUI.SetActive(false);
+        playerCombatTEST = GetComponent<PlayerCombatTEST>();
 
         //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
 
-        playerCombatTEST = GetComponent<PlayerCombatTEST>();
 
         //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
         dm = FindObjectOfType<DialogueManager>();
         dm.Tutorial1();
-        
+
+        //---------------------------------------------------------------------
+        //An den Schluss verschoben, weil die immer so viele Probleme machen :(
+        //---------------------------------------------------------------------
+        AssignMapManager();
+        //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
+        mapeditor.SetActive(false);
+
+        AssignInventoryManager();
+        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+        //inventoryUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -117,7 +119,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove == true)
         {
-            Vector2 walkDirectionAsVector = InputManager.CalculateMovement();
+            Vector2 walkDirectionAsVector = InputManager.CalculateInputDirection();
 
             walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
             if (walkDirectionAsVector.magnitude > 0)
@@ -179,7 +181,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Reihenfolge muss angepasst werden. An Spielsituation denken
-        else if (InputManager.GetActionDown(InputManager.action))
+        if (InputManager.GetActionDown(InputManager.action))
         {
             //Debug.Log("Aktionstaste gedrückt");
             List<Collider2D> results;
@@ -187,6 +189,7 @@ public class PlayerController : MonoBehaviour
             ContactFilter2D contactFilter = new ContactFilter2D();
 
             Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
+            bool interactedSuccessfully = false;
             foreach(Collider2D collider in results)
             {
 
@@ -197,17 +200,25 @@ public class PlayerController : MonoBehaviour
                     if (collider.GetComponent<ItemPickup>() != null)
                     {
                         //Debug.Log("Das kollidierte Objekt ist ein Item");
-                        collider.GetComponent<ItemPickup>().Interact();
-                        //break;
+                        bool success = collider.GetComponent<ItemPickup>().Interact();
+                        if (!interactedSuccessfully)
+                            interactedSuccessfully = success;
+                        break;
                     }
                     if (collider.GetComponent<DialogueTrigger>() != null)
                     {
-                        //Debug.Log("Das kollidierte Objekt hat einen Dialog und ist interagierbar");
                         collider.GetComponent<DialogueTrigger>().TriggerDialogue();
-                        //break;
                     }
                 }
             }
+            if(!interactedSuccessfully)
+            {
+                playerCombatTEST.Attack();
+            }
+        }
+        if(InputManager.GetActionDown(InputManager.attack))
+        {
+            playerCombatTEST.Attack();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -269,8 +280,8 @@ public class PlayerController : MonoBehaviour
     {
 
         //Braucht man den noch?
-        //inventoryManager = InventoryManager.Current.gameObject;
-        inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
+        inventoryManager = InventoryManager.Current.gameObject;
+        //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
 
         Debug.Log(inventoryManager);

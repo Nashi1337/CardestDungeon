@@ -55,6 +55,7 @@ public class PlayerCombatTEST : MonoBehaviour
 
     public void Attack()
     {
+        Debug.LogWarning("ICh kann angreifen: " + (Time.time < nextAttackTime));
         if (Time.time < nextAttackTime)
             return;
 
