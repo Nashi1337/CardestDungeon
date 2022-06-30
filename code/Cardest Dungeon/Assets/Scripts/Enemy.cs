@@ -126,20 +126,24 @@ public class Enemy : MonoBehaviour
 
         if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
-            if(!grindSound.isPlaying)
+            if (!grindSound.isPlaying)
             {
                 grindSound.Play();
             }
             MoveEnemy();
+            animator.SetBool("chasingPlayer", true);
+            float enemyPlayerDeltaX = PlayerController.Current.transform.position.x - transform.position.x;
+            spriterenderer.flipX = enemyPlayerDeltaX < 0;
         }
-                else
-                {
-                    if (grindSound.isPlaying)
-                    {
-                        rb.velocity = Vector2.zero;
-                        grindSound.Pause();
-                    }
-                }
+        else
+        {
+            if (grindSound.isPlaying)
+            {
+                grindSound.Pause();
+            }
+            rb.velocity = Vector2.zero;
+            animator.SetBool("chasingPlayer", false);
+        }
 
         if (zahl != 0)
         {
@@ -219,7 +223,9 @@ public class Enemy : MonoBehaviour
         int actualDamage = enemystats.TakeDamage(attackValue);
         if(actualDamage > 0)
         {
-            animator.SetBool("Hurt", true);
+            //animator.SetBool("Hurt", true);
+
+            animator.SetTrigger("isHit");
         }
         if(enemystats.IsDead)
         {
@@ -241,19 +247,21 @@ public class Enemy : MonoBehaviour
     {
         if (this.tag == "Obstacle")
         {
-            StartCoroutine(DieLater());
+            StartCoroutine(DeactivateObjectAfterWait());
         }
         else
-        { 
-            animator.SetBool("IsDead", true);
+        {
+            detectRange = -1;
+
+            animator.SetBool("chasingPlayer", false);
+            animator.SetBool("isDead", true);
             Destroy(GetComponent<Collider2D>());
-            spriterenderer.sortingOrder = -1;
-            enabled = false;
             dieSound.Play();
+            StartCoroutine(DieWithDelay());
         }
-        //Debug.Log(this.name + " died!");
+
         grindSound?.Pause();
-        //transform.position += Vector3.forward;
+
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
 
@@ -263,13 +271,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator DieLater()
+    IEnumerator DieWithDelay()
+    {
+        yield return new WaitForSeconds(1.1f);
+        Destroy(gameObject);
+    }
+
+    IEnumerator DeactivateObjectAfterWait()
     {
         yield return new WaitForSeconds(1.0f);
         dieSound.Play();
         //dieSound.enabled = false;
         Destroy(GetComponent<Collider2D>());
-        animator.SetBool("IsDead", true);
+        //animator.SetBool("IsDead", true);
         spriterenderer.sortingOrder = -1;
         enabled = false;
     }
