@@ -247,19 +247,21 @@ public class Enemy : MonoBehaviour
     {
         if (this.tag == "Obstacle")
         {
-            StartCoroutine(DieLater());
+            StartCoroutine(DeactivateObjectAfterWait());
         }
         else
-        { 
-            //animator.SetBool("IsDead", true);
+        {
+            detectRange = -1;
+
+            animator.SetBool("chasingPlayer", false);
+            animator.SetBool("isDead", true);
             Destroy(GetComponent<Collider2D>());
-            spriterenderer.sortingOrder = -1;
-            enabled = false;
             dieSound.Play();
+            StartCoroutine(DieWithDelay());
         }
-        //Debug.Log(this.name + " died!");
+
         grindSound?.Pause();
-        //transform.position += Vector3.forward;
+
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
 
@@ -269,7 +271,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator DieLater()
+    IEnumerator DieWithDelay()
+    {
+        yield return new WaitForSeconds(1.1f);
+        Destroy(gameObject);
+    }
+
+    IEnumerator DeactivateObjectAfterWait()
     {
         yield return new WaitForSeconds(1.0f);
         dieSound.Play();
