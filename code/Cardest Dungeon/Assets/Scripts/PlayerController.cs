@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     }
 
     [SerializeField]
-    private int inventorySize; 
+    private int inventorySize;
     [SerializeField]
     private float attackRate;
     [SerializeField]
@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator; //animator Variable um für den Player Animationen zu steuern
     [SerializeField]
     private Transform attackPoint;
+    [SerializeField]
+    private Transform rangeAttackPoint;
     [SerializeField]
     private float interactionRadius;
     private PlayerStats playerStats;
@@ -65,7 +67,8 @@ public class PlayerController : MonoBehaviour
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
     public float walkDirectionInDegree;
-    float lookDirection;
+    public float lookDirection;
+    public Vector3 lookDirectionAsVector;
 
     private static PlayerController current = null;
     private static PlayerController playerInstance;
@@ -125,9 +128,11 @@ public class PlayerController : MonoBehaviour
             if (walkDirectionAsVector.magnitude > 0)
             {
                 lookDirection = walkDirectionInDegree;
-                Debug.Log("Meine Guckrichtung ist: " + lookDirection);
+                //Debug.Log("Meine Guckrichtung ist: " + lookDirection);
                 attackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
-                Debug.Log(walkDirectionAsVector);
+                //Debug.Log(walkDirectionAsVector);
+                rangeAttackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
+                lookDirectionAsVector = walkDirectionAsVector;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {

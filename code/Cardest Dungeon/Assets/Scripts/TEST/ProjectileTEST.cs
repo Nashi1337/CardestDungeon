@@ -4,42 +4,28 @@ using UnityEngine;
 
 public class ProjectileTEST : MonoBehaviour
 {
-    public float moveSpeed = 15f;
+    public float moveSpeed = 1f;
     public int damage;
-    private bool left = false;
 
     PlayerController player;
 
+    Vector3 flightDirection;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
-        if (player.GetComponent<Transform>().localScale.x < 0)
-            left = true;
-        player.walkDirectionInDegree
         damage += Inventory.instance.GetMagicModifier();
         StartCoroutine(ProjectileLifespan());
+        flightDirection = player.lookDirectionAsVector;
     }
 
     private void Update()
     {
-        if (left)
-        {
             transform.position = new Vector3(
-            transform.position.x - (moveSpeed * Time.deltaTime),
-            transform.position.y,
-            transform.position.z
-            );
-        }
-        else
-        {
-
-            transform.position = new Vector3(
-                transform.position.x + (moveSpeed * Time.deltaTime),
-                transform.position.y,
+                transform.position.x + (moveSpeed * Time.deltaTime * flightDirection.x),
+                transform.position.y + (moveSpeed * Time.deltaTime * flightDirection.y),
                 transform.position.z
-                );
-        }
+            );
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

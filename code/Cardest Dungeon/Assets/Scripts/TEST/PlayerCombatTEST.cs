@@ -59,7 +59,7 @@ public class PlayerCombatTEST : MonoBehaviour
         if (Time.time < nextAttackTime)
             return;
 
-        animator.SetTrigger("Attack");
+        animator.SetTrigger("attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
@@ -89,6 +89,7 @@ public class PlayerCombatTEST : MonoBehaviour
 
         Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.identity);
         nextAttackTime = Time.time + 1f / fireBallCooldown;
+        Debug.Log("fireball was fired at position " + rangeAttackPoint.position);
     }
     void Heal()
     {
