@@ -16,8 +16,8 @@ public class ProjectileTEST : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         if (player.GetComponent<Transform>().localScale.x < 0)
             left = true;
-        player.walkDirectionInDegree
-        damage += Inventory.instance.GetMagicModifier();
+        //player.walkDirectionInDegree
+        //damage += Inventory.instance.GetMagicModifier();
         StartCoroutine(ProjectileLifespan());
     }
 
