@@ -332,7 +332,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 548a90755541f174da5ff1bce47201e6, type: 3}
+  m_Sprite: {fileID: 4282269359984589520, guid: 66cdbc664fef5ab4ebb988505d0c5d38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -374,7 +374,7 @@ Animator:
   m_GameObject: {fileID: 8455820372413024402}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 63787c77b5243154ba6ad8f416733776, type: 2}
+  m_Controller: {fileID: 9100000, guid: 78272ba250f3d6441ac06c22159ca267, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -528,6 +528,7 @@ MonoBehaviour:
   detectRange: 10
   acceleration: 5
   distance: 8
+  boss: 0
   audioSource: []
   grindSound: {fileID: 8455820372413024397}
   dieSound: {fileID: 429598740085303575}

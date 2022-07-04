@@ -252,6 +252,7 @@ public class Enemy : MonoBehaviour
         else
         {
             detectRange = -1;
+            nextAttackTime = float.MaxValue;
 
             animator.SetBool("chasingPlayer", false);
             animator.SetBool("isDead", true);
