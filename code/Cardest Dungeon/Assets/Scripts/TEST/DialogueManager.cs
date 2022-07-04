@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     public Queue<string> sentences;
 
     public Text nameText;
-    public Text dialogue;
+    public TMP_Text dialogue;
 
     public Animator animator;
 
@@ -83,7 +84,7 @@ public class DialogueManager : MonoBehaviour
 
     public void Tutorial1()
     {
-        nameText.text = "Tutorial";
+        nameText.text = "Tutorial #1";
         //PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
         dialogue.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
