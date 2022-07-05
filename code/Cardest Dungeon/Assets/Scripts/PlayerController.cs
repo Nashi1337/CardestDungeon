@@ -303,8 +303,8 @@ public class PlayerController : MonoBehaviour
         //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
 
-        Debug.Log(inventoryManager);
-        Debug.Log(inventoryUI);
+        //Debug.Log(inventoryManager);
+        //Debug.Log(inventoryUI);
     }
     
     private IEnumerator StartAttackCooldown()
