@@ -103,6 +103,41 @@ public class MapManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Extracts the position written in the name. E.g.: 1_0 ==> (1,0)
+    /// </summary>
+    /// <param name="dungeonPart"></param>
+    /// <returns></returns>
+    private (int, int) ExtractdungeonPartPosition(GameObject dungeonPart)
+    {
+        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+        int indexOfX = dungeonPart.name.IndexOfAny(numbers);
+        int indexOfY = indexOfX + 2;
+
+        (int, int) pos;
+        pos.Item1 = int.Parse(dungeonPart.name[indexOfX].ToString());
+        pos.Item2 = int.Parse(dungeonPart.name[indexOfY].ToString());
+
+        return pos;
+    }
+
+    private (int, int) FindMapPiecePositionInArray(MapPiece mapPiece)
+    {
+        for (int i = 0; i < allMapPieces.GetLength(0); i++)
+        {
+            for (int j = 0; j < allMapPieces.GetLength(1); j++)
+            {
+                if (mapPiece == allMapPieces[i, j])
+                {
+                    return (i, j);
+                }
+            }
+        }
+
+        throw new System.Exception("mapPiece could not be found");
+    }
+
+    /// <summary>
     /// Searches for the closest map piece to mapPiece that is within distanceCap and returns it. This is intended for use within
     /// the MapPiece class only.
     /// </summary>
@@ -221,38 +256,14 @@ public class MapManager : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// Extracts the position written in the name. E.g.: 1_0 ==> (1,0)
-    /// </summary>
-    /// <param name="dungeonPart"></param>
-    /// <returns></returns>
-    private (int, int) ExtractdungeonPartPosition(GameObject dungeonPart)
+    public MapPiece GetMapPiece(int x, int y)
     {
-        char[] numbers = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-        int indexOfX = dungeonPart.name.IndexOfAny(numbers);
-        int indexOfY = indexOfX + 2;
-
-        (int, int) pos;
-        pos.Item1 = int.Parse(dungeonPart.name[indexOfX].ToString());
-        pos.Item2 = int.Parse(dungeonPart.name[indexOfY].ToString());
-
-        return pos;
-    }
-
-    private (int, int) FindMapPiecePositionInArray(MapPiece mapPiece)
-    {
-        for (int i = 0; i < allMapPieces.GetLength(0); i++)
+        if(x < 0 || y < 0 || x >= allMapPieces.GetLength(0) || y >= allMapPieces.GetLength(1))
         {
-            for (int j = 0; j < allMapPieces.GetLength(1); j++)
-            {
-                if(mapPiece == allMapPieces[i,j])
-                {
-                    return (i, j);
-                }
-            }
+            Debug.LogWarning("x and y were outside of bounds. x is:" + x + ". y is:" + y);
+            return null;
         }
 
-        throw new System.Exception("mapPiece could not be found");
+        return allMapPieces[x, y];
     }
 }

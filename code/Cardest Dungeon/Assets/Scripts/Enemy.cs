@@ -284,8 +284,8 @@ public class Enemy : MonoBehaviour
         dieSound.Play();
         //dieSound.enabled = false;
         Destroy(GetComponent<Collider2D>());
-        //animator.SetBool("IsDead", true);
-        spriterenderer.sortingOrder = -1;
+        animator.SetBool("isDead", true);
+        spriterenderer.sortingOrder = 0;
         enabled = false;
     }
 

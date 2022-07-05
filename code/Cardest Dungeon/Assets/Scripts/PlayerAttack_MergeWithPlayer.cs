@@ -15,7 +15,7 @@ public class PlayerAttack_MergeWithPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(InputManager.GetActionDown(InputManager.action))
+        if(InputManager.GetActionDown(InputManager.actionAndAttack))
         {
             //Player flipping not taken into account, yet. Needs to be done after Merging this script with PlayerController
             GameObject attack = Instantiate(attackPrefab, transform);
