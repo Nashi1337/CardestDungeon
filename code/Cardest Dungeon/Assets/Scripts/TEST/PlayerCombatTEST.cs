@@ -88,8 +88,9 @@ public class PlayerCombatTEST : MonoBehaviour
             return;
 
         Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.identity);
+        playerStats.UseMana(1);
         nextAttackTime = Time.time + 1f / fireBallCooldown;
-        Debug.Log("fireball was fired at position " + rangeAttackPoint.position);
+        //Debug.Log("fireball was fired at position " + rangeAttackPoint.position);
     }
     void Heal()
     {

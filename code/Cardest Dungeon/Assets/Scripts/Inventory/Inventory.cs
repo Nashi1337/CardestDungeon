@@ -89,6 +89,7 @@ public class Inventory : MonoBehaviour
 			heals = 3;
         }
 
+        playerStats.UseMana(-item.magicModifier);
 		playerStats.UpdateStats();
 
 		// Trigger callback

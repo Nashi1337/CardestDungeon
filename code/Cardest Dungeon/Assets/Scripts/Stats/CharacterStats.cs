@@ -21,12 +21,16 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private int defense;
     [SerializeField]
-    private int magic;
+    protected int magic;
     private int currHealth;
     private bool isDead;
+    //private int mana = 0;
 
     [SerializeField]
 	private HealthBar healthBar;
+
+    //[SerializeField]
+    //private ManaBar manaBar;
 
     void Start()
     {
@@ -36,15 +40,24 @@ public class CharacterStats : MonoBehaviour
     public void Initialize()
     {
         CurrHealth = MaxHealth;
+
+        //mana = magic;
         healthBar.SetMaxHealth(maxHealth);
+        //manaBar.SetMaxMana(mana);
+        //StartCoroutine(RefillMana());
         UpdateStats();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10, 0);
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    //TakeDamage(10, 0);
+        //    UseMana(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    UseMana(-1);
+        //}
     }
 
     /// <summary>
@@ -68,6 +81,12 @@ public class CharacterStats : MonoBehaviour
         return attackValue;
     }
 
+    //public void UseMana(int used)
+    //{
+    //    mana = mana - used;
+    //    UpdateStats();
+    //}
+
     public virtual int TakeDamage(int attackValue)
     {
         return TakeDamage(attackValue, Defense);
@@ -86,7 +105,10 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void UpdateStats()
     {
+        magic = 5 + Inventory.instance.GetMagicModifier();
         healthBar.SetHealth(currHealth);
+        //manaBar.SetMaxMana(magic);
+        //manaBar.SetMana(mana);
     }
 
     public virtual void CheckHealth()
@@ -114,4 +136,20 @@ public class CharacterStats : MonoBehaviour
     {
         return healthBar;
     }
+
+    //public ManaBar GetManaBar()
+    //{
+    //    return manaBar;
+    //}
+
+    //IEnumerator RefillMana()
+    //{
+    //    yield return new WaitForSeconds(15);
+    //    if (mana < magic)
+    //    {
+    //        mana++;
+    //        UpdateStats();
+    //    }
+    //    StartCoroutine(RefillMana());
+    //}
 }

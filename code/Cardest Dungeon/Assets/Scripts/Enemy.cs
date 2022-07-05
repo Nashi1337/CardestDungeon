@@ -259,6 +259,15 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
             StartCoroutine(DieWithDelay());
+
+            if (UnityEngine.Random.Range(0, 100) <= 50)
+            {
+                Debug.Log("Drop card");
+            }
+            else
+            {
+                Debug.Log("No drop today");
+            }
         }
 
         grindSound?.Pause();
@@ -270,6 +279,8 @@ public class Enemy : MonoBehaviour
         {
             dm.Victory();
         }
+
+
     }
 
     IEnumerator DieWithDelay()

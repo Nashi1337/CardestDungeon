@@ -14,6 +14,11 @@ public class PlayerStats : CharacterStats
     [SerializeField]
     private Text magicText;
 
+    private int mana = 0;
+
+    [SerializeField]
+    private ManaBar manaBar;
+
     public GameObject gameOver;
 
     new private AudioSource audio;
@@ -21,8 +26,24 @@ public class PlayerStats : CharacterStats
     void Start()
     {
         Initialize();
+        mana = magic;
+        manaBar.SetMaxMana(mana);
+        StartCoroutine(RefillMana());
+
         audio = GetComponent<AudioSource>();
-        //gameOver = FindObjectOfType<GameOver>().gameObject.GetComponent<GameOver>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            //TakeDamage(10, 0);
+            UseMana(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            UseMana(-1);
+        }
     }
 
     //Do not Use this except if you are the PlayerController. Else use either the SetStats or the UpdateStats of player controller
@@ -30,9 +51,17 @@ public class PlayerStats : CharacterStats
     {
         attackText.text = (Attack + Inventory.instance.GetAttackModifier()).ToString();
         defenseText.text = (Defense + Inventory.instance.GetDefenseModifier()).ToString();
-        magicText.text = (Magic + Inventory.instance.GetMagicModifier()).ToString();
+        magicText.text = Magic.ToString();
         healthText.text = CurrHealth.ToString();
+        manaBar.SetMaxMana(magic);
+        manaBar.SetMana(mana);
         base.UpdateStats();
+    }
+
+    public void UseMana(int used)
+    {
+        mana = mana - used;
+        UpdateStats();
     }
 
     public override int TakeDamage(int attackValue)
@@ -59,5 +88,21 @@ public class PlayerStats : CharacterStats
         Debug.Log("Du bist tot. Hier sollte jetzt etwas passieren.");
         PlayerController.canMove = false;
         PlayerController.Die();
+    }
+
+    public ManaBar GetManaBar()
+    {
+        return manaBar;
+    }
+
+    IEnumerator RefillMana()
+    {
+        yield return new WaitForSeconds(15);
+        if (mana < magic)
+        {
+            mana++;
+            UpdateStats();
+        }
+        StartCoroutine(RefillMana());
     }
 }
