@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 31fa09583983dd446b112e4d53d0c4ab
+guid: f2891530d063d3847b5c425386453b20
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7417437591687307896
-    second: phantom_idle_anim_left_strip_4_0
+      213: 5312428451507328441
+    second: phantom_idle_anim_right_strip_4_0
   - first:
-      213: -876451187531980870
-    second: phantom_idle_anim_left_strip_4_1
+      213: 3010108412618056395
+    second: phantom_idle_anim_right_strip_4_1
   - first:
-      213: -2999530461563777285
-    second: phantom_idle_anim_left_strip_4_2
+      213: -4408528444297098564
+    second: phantom_idle_anim_right_strip_4_2
   - first:
-      213: 2873693206936216093
-    second: phantom_idle_anim_left_strip_4_3
+      213: -3385823658217346026
+    second: phantom_idle_anim_right_strip_4_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -151,7 +151,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: phantom_idle_anim_left_strip_4_0
+      name: phantom_idle_anim_right_strip_4_0
       rect:
         serializedVersion: 2
         x: 0
@@ -165,14 +165,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88d59d34fc7ff0990800000000000000
-      internalID: -7417437591687307896
+      spriteID: 9b5d5cab78989b940800000000000000
+      internalID: 5312428451507328441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: phantom_idle_anim_left_strip_4_1
+      name: phantom_idle_anim_right_strip_4_1
       rect:
         serializedVersion: 2
         x: 16
@@ -186,14 +186,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abfdf20e94836d3f0800000000000000
-      internalID: -876451187531980870
+      spriteID: bc2a38d27ad06c920800000000000000
+      internalID: 3010108412618056395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: phantom_idle_anim_left_strip_4_2
+      name: phantom_idle_anim_right_strip_4_2
       rect:
         serializedVersion: 2
         x: 32
@@ -207,14 +207,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfe0789ffe68f56d0800000000000000
-      internalID: -2999530461563777285
+      spriteID: cba477fbcb2c1d2c0800000000000000
+      internalID: -4408528444297098564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: phantom_idle_anim_left_strip_4_3
+      name: phantom_idle_anim_right_strip_4_3
       rect:
         serializedVersion: 2
         x: 48
@@ -228,8 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d12e2e80fb861e720800000000000000
-      internalID: 2873693206936216093
+      spriteID: 61c67db52532301d0800000000000000
+      internalID: -3385823658217346026
       vertices: []
       indices: 
       edges: []

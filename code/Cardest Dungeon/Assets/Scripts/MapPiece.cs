@@ -14,7 +14,7 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             if (value)
             {
-                GetComponent<Image>().color = Color.white;
+                GetComponent<RawImage>().color = Color.white;
             }
             isUnlocked = value;
         }
@@ -33,8 +33,8 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private static int maxDistanceForSnapping = 50;
     private void Start()
     {
-        //IsUnlocked = Debug.isDebugBuild;
-        //Debug.LogWarning("All MapPieces are unlocked in Debug builds. Remove this line before release!!");
+        IsUnlocked = Debug.isDebugBuild;
+        Debug.LogWarning("All MapPieces are unlocked in Debug builds. Remove this line before release!!");
 
         positionBeforeDrag = transform.position;
         dungeonPiecePosition = dungeonPart.transform.position;
