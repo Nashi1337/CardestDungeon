@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform attackPoint;
     [SerializeField]
+    private Transform rangeAttackPoint;
+    [SerializeField]
     private float interactionRadius;
     private PlayerStats playerStats;
 
@@ -100,8 +102,8 @@ public class PlayerController : MonoBehaviour
 
 
         //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
-        dm = FindObjectOfType<DialogueManager>();
-        dm.Tutorial1();
+        //dm = FindObjectOfType<DialogueManager>();
+        //dm.Tutorial1();
 
         //---------------------------------------------------------------------
         //An den Schluss verschoben, weil die immer so viele Probleme machen :(
@@ -297,6 +299,7 @@ public class PlayerController : MonoBehaviour
 
         //Braucht man den noch?
         inventoryManager = InventoryManager.Current.gameObject;
+        Debug.Log(inventoryManager);
         //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
 

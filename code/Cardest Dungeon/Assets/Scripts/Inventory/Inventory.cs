@@ -55,12 +55,14 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+		
+
 		playerStats = FindObjectOfType<PlayerStats>();
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
 
-		//gameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
     public bool Add(Item item)
 	{

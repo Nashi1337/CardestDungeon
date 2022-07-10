@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnityEngine;
 
 namespace MethodStateMachine
 {
 
-    /// <summary>
-    /// Implementation of a (probably simple) finite state machine which has methods as code blocks.
-    /// </summary>
     public class StateMachine
     {
         private int numberOfStates = 0;
@@ -24,20 +20,24 @@ namespace MethodStateMachine
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a new instance of a state machine and adds a first state. The machine will start in this state.
-        /// </summary>
-        /// <param name="nameOfState">Name of the first state of the state machine.</param>
-        /// <param name="body">the body method that will be connected to the state.</param>
+        //It will start in this state
+        //public StateMachine(string nameOfState)
+        //{
+        //    Initialize(new State(nameOfState));
+        //}
+
+        //It will start in this state
+        //public StateMachine(State firstState)
+        //{
+        //    Initialize(firstState);
+        //}
+
+        //It will start in this state
         public StateMachine(string nameOfState, Action body)
         {
             Initialize(new State(nameOfState, body));
         }
 
-        /// <summary>
-        /// Sets up all important variables and containers
-        /// </summary>
-        /// <param name="firstState"></param>
         private void Initialize(State firstState)
         {
             activeState = firstState;
@@ -54,26 +54,18 @@ namespace MethodStateMachine
         #endregion Constructors
 
         /// <summary>
-        /// Üerforms the active state's body (exactly once per call).
+        /// Run performs the active state's body.
         /// </summary>
         public void Run()
         {
             activeState.Run();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>The name of the state in which the state machine currently is.</returns>
         public string GetActiveStateName()
         {
             return activeState.GetName();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>The name of all states within the state machine.</returns>
         public string[] GetNameOfAllStates()
         {
             string[] allNames = new string[states.Count];
@@ -87,13 +79,12 @@ namespace MethodStateMachine
         }
 
         /// <summary>
-        /// Transitions the state machine into another state. Will always work.
-        /// If no valid transition was found, it will still change state.
+        /// Will always work. If no valid transition found it will still change state.
         /// </summary>
-        /// <param name="nameOfTarget">Name of the state to which the state machine will transition.</param>
+        /// <param name="nameOfState"></param>
         public void TransitionToState(string nameOfTarget)
         {
-            Transition transition = adjacencyList[states.IndexOf(activeState)].Find(tra => tra.GetTargetName() == nameOfTarget);
+            Transition transition = adjacencyList[states.IndexOf(activeState)].Find(transition => transition.GetTargetName() == nameOfTarget);
             activeState = states.Find(state => state.GetName() == nameOfTarget);
             
             transition?.Invoke();
@@ -102,10 +93,10 @@ namespace MethodStateMachine
 
 
         /// <summary>
-        /// Directly changes the state of the state machine without using any transition.
+        /// Forces the state machine to switch state regardless if there is a valid transition. No transition will be executed.
         /// </summary>
         /// <param name="newStateName"></param>
-        public void ChangeState(string newStateName)
+        public void ForceActiveState(string newStateName)
         {
             activeState = states.Find(state => state.GetName() == newStateName);
         }
@@ -135,12 +126,14 @@ namespace MethodStateMachine
         /// <param name="originState">The start of the transition.</param>
         /// <param name="targetState">the target of the transition.</param>
         /// <param name="action">The method that will be performed by this transition.</param>
-        public void AddTransition(string originState, string targetState, Action action)
+        public Transition AddTransition(string originState, string targetState, Action action)
         {
             State target = FindState(targetState, "Target could not be found.");
             Transition transition = new Transition(target, action);
 
             AddTransition(originState, transition);
+
+            return transition;
         }
 
         /// <summary>
@@ -156,12 +149,6 @@ namespace MethodStateMachine
 
         #endregion AddState
 
-        /// <summary>
-        /// Searches for a state with the name nameOfState and returns it.
-        /// </summary>
-        /// <param name="nameOfState">The name of the state to search for.</param>
-        /// <param name="additionalErrorMessage">This string is added to the general error message if no state was found.</param>
-        /// <returns>The state with the name nameOfState or null if nothing was found.</returns>
         private State FindState(string nameOfState, string additionalErrorMessage = "")
         {
             State state = states.Find(x => x.GetName() == nameOfState);
@@ -174,7 +161,6 @@ namespace MethodStateMachine
         }
 
         /// <summary>
-        /// Increases the adjacency list. This should only be used if the adjacency list is close to being filled.
         /// Example: sizeDelta = 10 ==> The list will be extended by 10
         /// </summary>
         /// <param name="sizeDelta"></param>
@@ -188,9 +174,6 @@ namespace MethodStateMachine
             }
         }
 
-        /// <summary>
-        /// This class represents a state within the state machine.
-        /// </summary>
         public class State
         {
             private string name = default;
@@ -224,9 +207,6 @@ namespace MethodStateMachine
             }
         }
 
-        /// <summary>
-        /// This class represents a transition within the state machine.
-        /// </summary>
         public class Transition
         {
             /// <summary>

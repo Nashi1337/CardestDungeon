@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DungeonAttributes : MonoBehaviour
 {
+    public static DungeonAttributes Current;
+
     public int DungeonWidth { get { return dungeonWidth; } }
     public int DungeonHeight { get { return dungeonHeight; } }
-
     public Element[,] Elements
     {
         get
@@ -15,13 +16,14 @@ public class DungeonAttributes : MonoBehaviour
             {
                 elements2DArray = new Element[dungeonWidth, dungeonHeight];
                 int index = 0;
+
                 for (int j = 0; j < elements2DArray.GetLength(1); j++)
                 {
                     for (int i = 0; i < elements2DArray.GetLength(0); i++)
                     {
                         elements2DArray[i, j] = elementsLeftToRightTopToBottom[index];
                         index++;
-                        if (index >= elementsLeftToRightTopToBottom.Length)
+                        if (index > elementsLeftToRightTopToBottom.Length)
                         {
                             Debug.LogWarning("DungeonWidth * DungeonHeight does not match elements.Length");
                             return elements2DArray;
@@ -41,15 +43,21 @@ public class DungeonAttributes : MonoBehaviour
     private Element[] elementsLeftToRightTopToBottom;
 
     private Element[,] elements2DArray;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    private void OnEnable()
+    {
+        if (Current == null)
+        {
+            Current = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public Element GetElementOfArea(int x, int y)
     {
-        
+        return Elements[x,y];
     }
 }

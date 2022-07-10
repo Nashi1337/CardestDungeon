@@ -78,7 +78,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="pos">The position from which the closest map piece will be calculated.</param>
     /// <returns>Returns the closest mapPiece to pos.</returns>
-    private MapPiece FindClosestMapPieceByPosition(Vector3 pos)
+    public MapPiece FindClosestMapPieceByPosition(Vector3 pos)
     {
 
         float shortestDistance = float.MaxValue;
@@ -265,5 +265,11 @@ public class MapManager : MonoBehaviour
         }
 
         return allMapPieces[x, y];
+    }
+
+    public Element FindElementOfMapPiece(MapPiece mapPiece)
+    {
+        (int, int) pos = FindMapPiecePositionInArray(mapPiece);
+        return DungeonAttributes.Current.GetElementOfArea(pos.Item1, pos.Item2);
     }
 }
