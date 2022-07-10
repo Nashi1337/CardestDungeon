@@ -55,7 +55,7 @@ public class PlayerCombatTEST : MonoBehaviour
 
     public void Attack()
     {
-        Debug.LogWarning("ICh kann angreifen: " + (Time.time < nextAttackTime));
+        //Debug.LogWarning("ICh kann angreifen: " + (Time.time < nextAttackTime));
         if (Time.time < nextAttackTime)
             return;
 
@@ -63,7 +63,7 @@ public class PlayerCombatTEST : MonoBehaviour
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        Debug.Log(hitEnemies.Length);
+        //Debug.Log(hitEnemies.Length);
 
         int damage = Inventory.instance.GetAttackModifier()+playerStats.Attack;
         knockbackForce = damage * 20;

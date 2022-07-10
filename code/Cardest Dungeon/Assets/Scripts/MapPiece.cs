@@ -1,20 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// represents a piece on the map and of the map of a dungeon. It has a reference on its corresponding actual dungeonPart.
 /// </summary>
 public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public bool IsUnlocked { get; set; } = true;
+    public bool IsUnlocked
+    {
+        get { return isUnlocked; }
+        set
+        {
+            if (value)
+            {
+                GetComponent<RawImage>().color = Color.white;
+            }
+            isUnlocked = value;
+        }
+    }
     public Vector3 DungeonPartPosition { get { return dungeonPiecePosition; } }
     public Vector3 PositionBeforeDrag { get { return positionBeforeDrag; } }
 
     public GameObject dungeonPart;
 
+    private bool isUnlocked = false;
     private Vector3 positionBeforeDrag = default;
     private Vector3 dungeonPiecePosition = default;
     private MapManager mapManager = default;
@@ -23,6 +33,9 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private static int maxDistanceForSnapping = 50;
     private void Start()
     {
+        IsUnlocked = Debug.isDebugBuild;
+        Debug.LogWarning("All MapPieces are unlocked in Debug builds. Remove this line before release!!");
+
         positionBeforeDrag = transform.position;
         dungeonPiecePosition = dungeonPart.transform.position;
         mapManager = MapManager.Current;

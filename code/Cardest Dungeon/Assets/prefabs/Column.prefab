@@ -356,7 +356,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300120, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -467,6 +467,7 @@ MonoBehaviour:
   detectRange: 0
   acceleration: 0
   distance: 0
+  boss: 0
   audioSource: []
   grindSound: {fileID: 0}
   dieSound: {fileID: 5341359464259379256}

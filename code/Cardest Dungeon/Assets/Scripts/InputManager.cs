@@ -15,11 +15,12 @@ public class InputManager : MonoBehaviour
     public static KeyCode[] map = new KeyCode[] { KeyCode.M, KeyCode.Joystick1Button3};
     public static KeyCode[] inventory = new KeyCode[] { KeyCode.I, KeyCode.Joystick1Button2 };
     public static KeyCode[] cancel = new KeyCode[] { KeyCode.B };
-    public static KeyCode[] action = new KeyCode[] { KeyCode.E, KeyCode.Joystick1Button0 };
-    public static KeyCode[] attack = new KeyCode[] { KeyCode.Space, KeyCode.Joystick1Button0};
-    public static KeyCode[] fireball = new KeyCode[] { KeyCode.F, KeyCode.Joystick1Button1 };
+    public static KeyCode[] action = new KeyCode[] { KeyCode.E };
+    public static KeyCode[] attack = new KeyCode[] { KeyCode.Space, KeyCode.Joystick1Button0, KeyCode.Mouse0};
+    public static KeyCode[] actionAndAttack = new KeyCode[] { KeyCode.Joystick1Button0 };
+    public static KeyCode[] fireball = new KeyCode[] { KeyCode.F, KeyCode.Joystick1Button1, KeyCode.Mouse1};
     public static KeyCode[] heal = new KeyCode[] { KeyCode.H, KeyCode.Joystick1Button4 };
-
+    
     /// <summary>
     /// Calculates the input direction by checking the forward, backward, left and right keys.
     /// </summary>

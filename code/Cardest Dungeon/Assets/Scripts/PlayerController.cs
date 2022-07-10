@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     }
 
     [SerializeField]
-    private int inventorySize;
+    private int inventorySize; 
     [SerializeField]
     private float attackRate;
     [SerializeField]
@@ -46,8 +46,6 @@ public class PlayerController : MonoBehaviour
     private Animator animator; //animator Variable um für den Player Animationen zu steuern
     [SerializeField]
     private Transform attackPoint;
-    [SerializeField]
-    private Transform rangeAttackPoint;
     [SerializeField]
     private float interactionRadius;
     private PlayerStats playerStats;
@@ -144,28 +142,10 @@ public class PlayerController : MonoBehaviour
             }
             animator.SetFloat("walkDirection", walkDirectionInDegree);
             animator.SetFloat("lookDirection", lookDirection);
-            Debug.Log("Ich laufe in Richtung: " + walkDirectionInDegree);
+            //Debug.Log("Ich laufe in Richtung: " + walkDirectionInDegree);
             //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
-
-
-            if (spriterRenderer == null)
-                Debug.LogError("Renderer missing");
-
-            //if (rig.velocity.x < 0)
-            //{
-            //    Vector3 scale = transform.localScale;
-            //    scale.x = Mathf.Abs(scale.x) * -1;
-            //    transform.localScale = scale;
-            //}
-            //else if (rig.velocity.x > 0)
-            //{
-            //    Vector3 scale = transform.localScale;
-            //    scale.x = Mathf.Abs(scale.x);
-            //    transform.localScale = scale;
-            //}
         }
-
     }
 
     private void Update()
@@ -187,45 +167,21 @@ public class PlayerController : MonoBehaviour
             ShowHideInventory();
         }
 
-        //Reihenfolge muss angepasst werden. An Spielsituation denken
         if (InputManager.GetActionDown(InputManager.action))
         {
-            //Debug.Log("Aktionstaste gedrückt");
-            List<Collider2D> results;
-            results = new List<Collider2D>();
-            ContactFilter2D contactFilter = new ContactFilter2D();
-
-            Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
-            bool interactedSuccessfully = false;
-            foreach(Collider2D collider in results)
-            {
-
-                if (collider.tag.Equals("Interactable"))
-                {
-                    //Debug.Log("Versuche mit " + collider.name + "zu interagieren");
-
-                    if (collider.GetComponent<ItemPickup>() != null)
-                    {
-                        //Debug.Log("Das kollidierte Objekt ist ein Item");
-                        bool success = collider.GetComponent<ItemPickup>().Interact();
-                        if (!interactedSuccessfully)
-                            interactedSuccessfully = success;
-                        //break;
-                    }
-                    if (collider.GetComponent<DialogueTrigger>() != null)
-                    {
-                        collider.GetComponent<DialogueTrigger>().TriggerDialogue();
-                    }
-                }
-            }
-            if(!interactedSuccessfully)
-            {
-                playerCombatTEST.Attack();
-            }
+            InteractWithInteractables();
         }
         if(InputManager.GetActionDown(InputManager.attack))
         {
             playerCombatTEST.Attack();
+        }
+        if (InputManager.GetActionDown(InputManager.actionAndAttack))
+        {
+            bool interactedSuccessfully = InteractWithInteractables();
+            if (!interactedSuccessfully)
+            {
+                playerCombatTEST.Attack();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -236,8 +192,57 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
+    }
 
+    private bool InteractWithInteractables()
+    {
+        List<Collider2D> results = new List<Collider2D>();
+        ContactFilter2D contactFilter = new ContactFilter2D();
 
+        Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
+        bool interactedSuccessfully = false;
+        foreach (Collider2D collider in results)
+        {
+            if (collider.tag.Equals("Interactable"))
+            {
+                ItemPickup itemPickup = collider.GetComponent<ItemPickup>();
+                if (itemPickup != null)
+                {
+                    bool success = itemPickup.Interact();
+                    if (!interactedSuccessfully)
+                        interactedSuccessfully = success;
+                    break;
+                }
+            }
+        }
+        foreach (Collider2D collider in results)
+        {
+            if (collider.tag.Equals("Interactable"))
+            {
+                DialogueTrigger dialogueTrigger = collider.GetComponent<DialogueTrigger>();
+                if (dialogueTrigger != null)
+                {
+                    dialogueTrigger.TriggerDialogue();
+                    break;
+                }
+            }
+        }
+        foreach (Collider2D collider in results)
+        {
+            if (collider.tag.Equals("Interactable"))
+            {
+                InteractableMapPiece interactable = collider.GetComponent<InteractableMapPiece>();
+                if (interactable != null)
+                {
+                    bool success = interactable.Interact();
+                    if (!interactedSuccessfully)
+                        interactedSuccessfully = success;
+                    break;
+                }
+            }
+        }
+
+        return interactedSuccessfully;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -273,11 +278,13 @@ public class PlayerController : MonoBehaviour
     private void ShowHideMap()
     {
         mapeditor.SetActive(!mapeditor.activeSelf);
+        GameTime.UpdateIsGamePaused();
     }
 
     private void ShowHideInventory()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+        GameTime.UpdateIsGamePaused();
     }
 
     private void AssignMapManager()
@@ -293,10 +300,9 @@ public class PlayerController : MonoBehaviour
         //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
 
-        Debug.Log(inventoryManager);
-        Debug.Log(inventoryUI);
+        //Debug.Log(inventoryManager);
+        //Debug.Log(inventoryUI);
     }
-
     
     private IEnumerator StartAttackCooldown()
     {

@@ -12,6 +12,10 @@ public class Interactable : MonoBehaviour
 	public float radius = 3f;               // How close do we need to be to interact?
 	public Transform interactionTransform;  // The transform from where we interact in case you want to offset it
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>true if the interaction was successfull. Else, false.</returns>
 	public virtual bool Interact()
 	{
 		//Debug.Log("Interacting with " + transform.name);
