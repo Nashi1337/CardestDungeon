@@ -14,7 +14,7 @@ public class PlayerStats : CharacterStats
     [SerializeField]
     private Text magicText;
 
-    private int mana = 0;
+    public int mana = 0;
 
     [SerializeField]
     private ManaBar manaBar;

@@ -84,7 +84,7 @@ public class PlayerCombatTEST : MonoBehaviour
 
     void Fireball()
     {
-        if (Time.time < nextAttackTime)
+        if (Time.time < nextAttackTime||playerStats.mana<1)
             return;
 
         Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.identity);
