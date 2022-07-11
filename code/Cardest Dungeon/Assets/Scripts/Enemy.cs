@@ -120,10 +120,7 @@ public class Enemy : MonoBehaviour
 
         if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
         {
-            if (!grindSound.isPlaying)
-            {
-                grindSound.Play();
-            }
+            //if (!grindSound.isPlaying){grindSound.Play();}
             MoveEnemy();
             animator.SetBool("chasingPlayer", true);
             float enemyPlayerDeltaX = PlayerController.Current.transform.position.x - transform.position.x;
@@ -131,10 +128,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (grindSound.isPlaying)
-            {
-                grindSound.Pause();
-            }
+            //if (grindSound.isPlaying){grindSound.Pause();}
             rb.velocity = Vector2.zero;
             animator.SetBool("chasingPlayer", false);
         }

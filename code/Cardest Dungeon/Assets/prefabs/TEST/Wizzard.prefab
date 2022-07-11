@@ -529,10 +529,8 @@ MonoBehaviour:
   acceleration: 5
   distance: 8
   boss: 0
-  audioSource: []
   grindSound: {fileID: 8455820372413024397}
   dieSound: {fileID: 429598740085303575}
-  animator: {fileID: 8455820372413024392}
   zahl: 0
   fireballProjectile: {fileID: 806743496607515004, guid: 1bd32004f41cc314c9c3f5d172743ab9, type: 3}
   fireBallCooldown: 3
