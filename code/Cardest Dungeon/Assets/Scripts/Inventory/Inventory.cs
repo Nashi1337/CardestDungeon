@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
 
 	public static Inventory instance;
 
-    private void Awake()
+	private void Awake()
 	{
         if (instance != null)
         {
@@ -61,7 +61,6 @@ public class Inventory : MonoBehaviour
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
-
 	}
     public bool Add(Item item)
 	{

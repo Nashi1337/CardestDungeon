@@ -30,14 +30,4 @@ public class EnemyStats : CharacterStats
     {
         return base.TakeDamage(attackValue, Defense);
     }
-
-    //public override void CheckHealth()
-    //{
-    //    base.CheckHealth();
-    //}
-
-    //public override void Die()
-    //{
-    //    base.Die();
-    //}
 }

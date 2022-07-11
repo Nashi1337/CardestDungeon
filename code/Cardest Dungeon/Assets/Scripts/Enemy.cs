@@ -25,20 +25,19 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private bool boss;
     private float accelerationfactor = 1;
+    [SerializeField]
+    private AudioSource grindSound;
+    [SerializeField]
+    private AudioSource dieSound;
 
     private Vector3 directionToPlayer;
-    private Rigidbody2D rb;
 
-    public AudioSource[] audioSource;
-    public AudioSource grindSound;
-    public AudioSource dieSound;
+    protected EnemyStats enemyStats;
+    protected Rigidbody2D rb;
+    protected Animator animator;
+    protected SpriteRenderer spriterenderer;
 
-    [SerializeField]
-    private Animator animator;
-    private EnemyStats enemystats;
-    DialogueManager dm;
-
-    private SpriteRenderer spriterenderer;
+    private DialogueManager dm;
 
     public int zahl = 0;
 
@@ -55,36 +54,31 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (EnemyManager.Instance.HasMyTimeCome(enemyIndex))
-        //{
-        //    Destroy(gameObject);
-        //}
+        Initialize();
 
-        rb = GetComponent<Rigidbody2D>();
-
-        audioSource = GetComponents<AudioSource>();
-        grindSound = audioSource[0];
-        dieSound = audioSource[1];
-        enemystats = GetComponent<EnemyStats>();
-        spriterenderer = GetComponent<SpriteRenderer>();
         dm = FindObjectOfType<DialogueManager>();
 
-
-        //Scale calculation. Falls Diesen Block löschen, falls es nicht gut aussieht.
         float scaleModifier = 0.4f;
-        scaleModifier += enemystats.Defense / 15f;
-        if(enemystats.Magic != 0)
+        scaleModifier += enemyStats.Defense / 15f;
+        if(enemyStats.Magic != 0)
         {
-            scaleModifier += enemystats.Attack / 45f;
-            scaleModifier += enemystats.Magic / 15f;
+            scaleModifier += enemyStats.Attack / 45f;
+            scaleModifier += enemyStats.Magic / 15f;
         }
         else
         {
-            scaleModifier += enemystats.Magic / 30f;
-            scaleModifier += enemystats.Attack / 15f;
+            scaleModifier += enemyStats.Magic / 30f;
+            scaleModifier += enemyStats.Attack / 15f;
         }
         transform.localScale = Vector3.one * scaleModifier;
-        //Block Ende
+    }
+
+    protected void Initialize()
+    {
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        spriterenderer = GetComponent<SpriteRenderer>();
+        enemyStats = GetComponent<EnemyStats>();
     }
 
     // Update is called once per frame
@@ -159,7 +153,7 @@ public class Enemy : MonoBehaviour
     void Shoot()
     {
         GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.identity);
-        fireball.GetComponent<EvilProjectile>().damage = enemystats.Magic;
+        fireball.GetComponent<EvilProjectile>().damage = enemyStats.Magic;
     }
 
 
@@ -181,23 +175,15 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 scale = transform.localScale;
-        Vector3 healthbarScale = enemystats.GetHealthBar().transform.localScale;
-        if (rb.velocity.x < 0)
-        {
-            //scale.x = -scale.x;
-            //healthbarScale.x = -healthbarScale.x;
-
-        }
-        transform.localScale = scale;
-        enemystats.GetHealthBar().transform.localScale = healthbarScale;
+        Vector3 healthbarScale = enemyStats.GetHealthBar().transform.localScale;
+        enemyStats.GetHealthBar().transform.localScale = healthbarScale;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (attackAvailable && collision.tag == "Player")
         {
-            collision.GetComponent<PlayerController>().TakeDamage(enemystats.Attack);
+            collision.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack);
             attackAvailable = false;
             StartCoroutine(AttackCooldown());
         }
@@ -220,14 +206,14 @@ public class Enemy : MonoBehaviour
     /// <returns>Actual damage taken.</returns>
     public int TakeDamage(int attackValue)
     {
-        int actualDamage = enemystats.TakeDamage(attackValue);
+        int actualDamage = enemyStats.TakeDamage(attackValue);
         if(actualDamage > 0)
         {
             //animator.SetBool("Hurt", true);
 
             animator.SetTrigger("isHit");
         }
-        if(enemystats.IsDead)
+        if(enemyStats.IsDead)
         {
             Die();
         }
@@ -238,7 +224,7 @@ public class Enemy : MonoBehaviour
     {
         if (victim != null)
         {
-            return victim.TakeDamage(enemystats.Attack);
+            return victim.TakeDamage(enemyStats.Attack);
         }
         return 0;
     }

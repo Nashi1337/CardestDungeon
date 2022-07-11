@@ -55,7 +55,6 @@ public class PlayerCombatTEST : MonoBehaviour
 
     public void Attack()
     {
-        //Debug.LogWarning("ICh kann angreifen: " + (Time.time < nextAttackTime));
         if (Time.time < nextAttackTime)
             return;
 
@@ -63,20 +62,20 @@ public class PlayerCombatTEST : MonoBehaviour
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        //Debug.Log(hitEnemies.Length);
-
         int damage = Inventory.instance.GetAttackModifier()+playerStats.Attack;
-        knockbackForce = damage * 20;
+        
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            //Debug.Log(enemy.name + " getroffen!");
-            //Damage Calculation
-            enemy.GetComponent<Enemy>().TakeDamage(damage);
-            //Debug.Log(enemy.GetComponent<Enemy>().TakeDamage(damage));
-            //Knockback Calculation
-            Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
-            enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            Enemy enem = enemy.GetComponent<Enemy>();
+            if (enem != null)
+            {
+                //Damage Calculation
+                knockbackForce = 20 * enemy.GetComponent<Enemy>().TakeDamage(damage);
+                //Knockback Calculation
+                Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
+                enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+            }
         }
 
         nextAttackTime = Time.time + 1f / attackRate;
