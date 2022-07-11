@@ -254,4 +254,9 @@ public class Inventory : MonoBehaviour
 		return magicModifier;
 	}
 
+	public Item[] GetAllItems()
+    {
+		return items.ToArray();
+    }
+
 }

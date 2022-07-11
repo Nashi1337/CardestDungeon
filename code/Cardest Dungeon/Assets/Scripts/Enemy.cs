@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 /// <summary>
 /// This class represents an enemy behaviour within the dungeon.
@@ -284,6 +287,23 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(attackRate);
         attackAvailable = true;
+    }
+
+    IEnumerator LoadNextDungeon(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+
+        string data = "";
+        Item[] allItems = Inventory.instance.GetAllItems();
+        IFormatter formatter = new BinaryFormatter();
+        //Stream stream = new Stream();
+
+        foreach(Item item in allItems)
+        {
+            //data += formatter.Serialize(data, item);
+        }
+
+        PlayerPrefs.SetString
     }
 
     private void OnDrawGizmosSelected()
