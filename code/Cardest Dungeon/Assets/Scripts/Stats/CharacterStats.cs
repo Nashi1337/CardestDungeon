@@ -6,11 +6,11 @@ using UnityEngine;
 //Muss das von MonoBehaviour erben? vllt Stattdessen als Variable im Enemy-/Playerskript
 public class CharacterStats : MonoBehaviour
 {
-    public int CurrHealth { get { return currHealth; } private set { currHealth = value; } }
-    public int MaxHealth { get { return maxHealth; } protected set { maxHealth = value; } }
-    public int Attack { get { return attack; } protected set { attack = value; } }
-    public int Defense { get { return defense; } protected set { defense = value; } }
-    public int Magic { get { return magic; } protected set { magic = value; } }
+    public int CurrHealth { get { return currHealth; } protected set { currHealth = value; } }
+    public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
+    public int Attack { get { return attack; } set { attack = value; } }
+    public int Defense { get { return defense; } set { defense = value; } }
+    public int Magic { get { return magic; } set { magic = value; } }
     public bool IsDead { get { return isDead; } protected set { isDead = value; } }
 
     

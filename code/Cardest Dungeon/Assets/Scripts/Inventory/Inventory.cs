@@ -61,8 +61,6 @@ public class Inventory : MonoBehaviour
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
-
-		gameObject.SetActive(false);
 	}
     public bool Add(Item item)
 	{

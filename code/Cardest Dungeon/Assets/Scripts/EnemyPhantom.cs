@@ -4,7 +4,7 @@ using UnityEngine;
 using MethodStateMachine;
 using System;
 
-public class EnemyPhantom : MonoBehaviour
+public class EnemyPhantom : Enemy
 {
     [Serializable]
     struct Behaviour
@@ -16,6 +16,15 @@ public class EnemyPhantom : MonoBehaviour
         public float retreatTime;
     }
 
+    [Serializable]
+    struct Stats
+    {
+        public int maxHealth;
+        public int attack;
+        public int defense;
+        public int magic;
+    }
+
     [SerializeField]
     private float moveRadius;
     [SerializeField]
@@ -25,32 +34,28 @@ public class EnemyPhantom : MonoBehaviour
     [SerializeField]
     private Behaviour normal_Behaviour;
 
+    [SerializeField]
+    private Stats ice_Stats;
+    [SerializeField]
+    private Stats fire_Stats;
+    [SerializeField]
+    private Stats normal_Stats;
+
     private float stateTimer;
     private Element mainState;
     private Behaviour active_Behaviour;
     private Vector3 origin;
     private Vector2 moveDirection;
-    private Animator animator;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriterenderer;
     private MapPiece homeArea;
     private StateMachine stateMachine;
 
     void Start()
     {
+        Initialize();
+
         origin = transform.position;
 
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        spriterenderer = GetComponent<SpriteRenderer>();
         homeArea = MapManager.Current.FindClosestMapPieceByPosition(transform.position);
-
-        //ice_Behaviour = new StateMachine("Init", Ice_Init);
-        //ice_Behaviour.AddState("Idle", Ice_Idling);
-        //ice_Behaviour.AddState("Move", Ice_Moving);
-        //ice_Behaviour.AddTransition("Idle", "Move", Ice_IdlingToMoving);
-        //ice_Behaviour.AddTransition("Move", "Idle", Ice_MovingToIdle);
-        //ice_Behaviour.AddTransition("Init", "Idle", Ice_MovingToIdle);
 
         stateMachine = new StateMachine("Init", Fire_Init);
         stateMachine.AddState("Idle", Fire_Idling);
@@ -65,7 +70,6 @@ public class EnemyPhantom : MonoBehaviour
 
         UpdateMainState();
 
-        Debug.LogWarning("Der Verhaltenswechsel ingame wurde noch nicht getestet.");
     }
 
     //This empty method is necessary in order to overwrite the methods from Enemy
@@ -102,14 +106,20 @@ public class EnemyPhantom : MonoBehaviour
             case Element.ICE:
                 animator.speed = 0.6f;
                 SwitchBehaviour(ice_Behaviour);
+                animator.SetBool("isRed", false);
+                ApplyStatsToEnemyStats(ice_Stats);
                 break;
             case Element.FIRE:
                 animator.speed = 1.3f;
                 SwitchBehaviour(fire_Behaviour);
+                animator.SetBool("isRed", true);
+                ApplyStatsToEnemyStats(fire_Stats);
                 break;
             case Element.NONE:
                 animator.speed = 1f;
                 SwitchBehaviour(normal_Behaviour);
+                animator.SetBool("isRed", false);
+                ApplyStatsToEnemyStats(normal_Stats);
                 break;
         }
     }
@@ -179,7 +189,7 @@ public class EnemyPhantom : MonoBehaviour
         }
         spriterenderer.flipX = moveDirection.x < 0;
 
-        mainState = MapManager.Current.FindElementOfMapPiece(homeArea);
+        UpdateMainState();
 
         stateTimer = UnityEngine.Random.Range(active_Behaviour.moveTime * 0.8f, active_Behaviour.moveTime * 1.2f);
     }
@@ -188,14 +198,14 @@ public class EnemyPhantom : MonoBehaviour
     {
         animator.SetBool("isMoving", false);
 
-        mainState = MapManager.Current.FindElementOfMapPiece(homeArea);
-        
+        UpdateMainState();
+
         Fire_ToIdle();
     }
 
     private void Fire_ToIdle()
     {
-        mainState = MapManager.Current.FindElementOfMapPiece(homeArea);
+        UpdateMainState();
 
         stateTimer = UnityEngine.Random.Range(active_Behaviour.idleTime * 0.8f, active_Behaviour.idleTime * 1.2f);
     }
@@ -217,5 +227,33 @@ public class EnemyPhantom : MonoBehaviour
     private void SwitchBehaviour(Behaviour newBehaviour)
     {
         active_Behaviour = newBehaviour;
+    }
+
+    private void ApplyStatsToEnemyStats(Stats stats)
+    {
+        enemyStats.MaxHealth = stats.maxHealth;
+        enemyStats.Attack = stats.attack;
+        enemyStats.Defense = stats.defense;
+        enemyStats.Magic = stats.magic;
+
+        enemyStats.Heal(stats.maxHealth);
+        UpdateScaleToStats();
+    }
+
+    private void UpdateScaleToStats()
+    {
+        float scaleModifier = 0.4f;
+        scaleModifier += enemyStats.Defense / 15f;
+        if (enemyStats.Magic != 0)
+        {
+            scaleModifier += enemyStats.Attack / 45f;
+            scaleModifier += enemyStats.Magic / 15f;
+        }
+        else
+        {
+            scaleModifier += enemyStats.Magic / 30f;
+            scaleModifier += enemyStats.Attack / 15f;
+        }
+        transform.localScale = Vector3.one * scaleModifier;
     }
 }
