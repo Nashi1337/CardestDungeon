@@ -299,12 +299,12 @@ public class PlayerController : MonoBehaviour
 
         //Braucht man den noch?
         inventoryManager = InventoryManager.Current.gameObject;
-        Debug.Log(inventoryManager);
+        //Debug.Log(inventoryManager);
         //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
+
         inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
 
         //Debug.Log(inventoryManager);
-        //Debug.Log(inventoryUI);
     }
     
     private IEnumerator StartAttackCooldown()

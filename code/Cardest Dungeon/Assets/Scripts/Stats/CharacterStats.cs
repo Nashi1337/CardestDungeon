@@ -105,7 +105,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void UpdateStats()
     {
-        magic = 5 + Inventory.instance.GetMagicModifier();
+        if(this.gameObject.tag=="Player")
+            magic = 5 + Inventory.instance.GetMagicModifier();
         healthBar.SetHealth(currHealth);
         //manaBar.SetMaxMana(magic);
         //manaBar.SetMana(mana);

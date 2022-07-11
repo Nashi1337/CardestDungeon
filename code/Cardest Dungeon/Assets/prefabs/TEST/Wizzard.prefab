@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 8455820372413024396}
   - component: {fileID: 429598740085303575}
   m_Layer: 7
-  m_Name: RangeStein
+  m_Name: Wizzard
   m_TagString: RangeEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
