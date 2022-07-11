@@ -2622,7 +2622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009617175413936851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.9, y: 68.51, z: 0}
+  m_LocalPosition: {x: 11.9, y: 19.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2009617173590688234}
@@ -2707,19 +2707,71 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 250131411}
+    m_TransformParent: {fileID: 610290515}
     m_Modifications:
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: ice_Behaviour.idleTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: ice_Behaviour.moveTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Behaviour.idleTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Behaviour.moveTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Behaviour.idleTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Behaviour.moveTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Behaviour.retreatTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Behaviour.sightRadius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: ice_Behaviour.acceleration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Behaviour.acceleration
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Behaviour.retreatTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Behaviour.sightRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Behaviour.acceleration
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 911715592584820579, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 911715592584820579, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.71
+      value: -78.5
       objectReference: {fileID: 0}
     - target: {fileID: 911715592584820579, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.05
+      value: -50.2
       objectReference: {fileID: 0}
     - target: {fileID: 911715592584820579, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
       propertyPath: m_LocalPosition.z
