@@ -50,16 +50,14 @@ public class Inventory : MonoBehaviour
 	// Current list of items in inventory
 	public List<Item> items = new List<Item>();
 
-    // Add a new item. If there is enough room we
-    // return true. Else we return false.
-
-    private void Start()
+	public void Initialize()
     {
 		playerStats = FindObjectOfType<PlayerStats>();
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
 	}
+
     public bool Add(Item item)
 	{
 		//Debug.Log("Space: " + space);
@@ -255,6 +253,50 @@ public class Inventory : MonoBehaviour
 	public Item[] GetAllItems()
     {
 		return items.ToArray();
+    }
+
+	public void SaveInventoryToPlayerStats()
+	{
+		string data = "";
+		Item[] allItems = Inventory.instance.GetAllItems();
+		foreach (Item item in allItems)
+		{
+			data += JsonUtility.ToJson(item) + "#";
+		}
+
+		PlayerPrefs.SetString("Inventory", data);
+	}
+
+	/// <summary>
+	/// WARNING: THIS OVERWRITES ALL ITEMS THAT ARE CURRENTLY IN THE INVENTORY
+	/// </summary>
+	public void LoadInventoryFromPlayerStats()
+    {
+		Item[] oldItems = items.ToArray();
+		foreach(Item item in oldItems)
+        {
+			Remove(item);
+        }
+		Item[] newItems = LoadItemsFromPlayerStats();
+		foreach(Item item in newItems)
+        {
+			Add(item);
+        }
+		
+    }
+
+	private Item[] LoadItemsFromPlayerStats()
+    {
+		string data = PlayerPrefs.GetString("Inventory");
+
+		string[] str_Items = data.Split(new char[] {'#'}, System.StringSplitOptions.RemoveEmptyEntries);
+		Item[] items = new Item[str_Items.Length];
+		for(int i = 0; i < str_Items.Length; i++)
+        {
+            items[i] = JsonUtility.FromJson<Item>(str_Items[i]);
+        }
+
+		return items;
     }
 
 }
