@@ -56,6 +56,8 @@ public class Inventory : MonoBehaviour
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
+
+		LoadInventoryFromPlayerStats();
 	}
 
     public bool Add(Item item)
@@ -295,6 +297,7 @@ public class Inventory : MonoBehaviour
 		Item[] items = new Item[str_Items.Length];
 		for(int i = 0; i < str_Items.Length; i++)
         {
+			Debug.Log(str_Items[i]);
             items[i] = JsonUtility.FromJson<Item>(str_Items[i]);
         }
 

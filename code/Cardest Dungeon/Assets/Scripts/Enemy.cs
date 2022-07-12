@@ -248,7 +248,6 @@ public class Enemy : MonoBehaviour
             animator.SetBool("isDead", true);
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
-            StartCoroutine(DieWithDelay());
 
             if (UnityEngine.Random.Range(0, 100) <= 50)
             {
