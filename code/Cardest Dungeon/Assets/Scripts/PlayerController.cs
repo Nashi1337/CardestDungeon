@@ -105,9 +105,6 @@ public class PlayerController : MonoBehaviour
         //dm = FindObjectOfType<DialogueManager>();
         //dm.Tutorial1();
 
-        //---------------------------------------------------------------------
-        //An den Schluss verschoben, weil die immer so viele Probleme machen :(
-        //---------------------------------------------------------------------
         AssignMapManager();
         //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
         mapeditor.SetActive(false);
@@ -302,9 +299,11 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(inventoryManager);
         //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
 
-        inventoryUI = FindObjectOfType<InventoryUI>().gameObject;
+        InventoryUI temp = FindObjectOfType<InventoryUI>();
+        inventoryUI = temp.gameObject;
 
-        //Debug.Log(inventoryManager);
+        Inventory.instance.Initialize();
+        temp.Initialize();
     }
     
     private IEnumerator StartAttackCooldown()

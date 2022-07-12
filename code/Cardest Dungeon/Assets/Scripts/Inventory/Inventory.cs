@@ -90,7 +90,9 @@ public class Inventory : MonoBehaviour
 
 		// Trigger callback
 		if (onItemChangedCallback != null)
+		{
 			onItemChangedCallback.Invoke();
+		}
 
 		return true;
 	}

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This class represents an enemy behaviour within the dungeon.
@@ -241,7 +239,6 @@ public class Enemy : MonoBehaviour
             animator.SetBool("isDead", true);
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
-            StartCoroutine(DieWithDelay());
 
             if (UnityEngine.Random.Range(0, 100) <= 50)
             {
@@ -257,10 +254,14 @@ public class Enemy : MonoBehaviour
 
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
-
         if (boss == true)
         {
+            StartCoroutine(LoadNextScene());
             dm.Victory();
+        }
+        else
+        {
+            StartCoroutine(DieWithDelay());
         }
 
 
@@ -268,7 +269,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DieWithDelay()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 
@@ -289,35 +290,16 @@ public class Enemy : MonoBehaviour
         attackAvailable = true;
     }
 
-    IEnumerator LoadNextDungeon(float waitingTime)
-    {
-        yield return new WaitForSeconds(waitingTime);
-
-        string data = "";
-        Item[] allItems = Inventory.instance.GetAllItems();
-        IFormatter formatter = new BinaryFormatter();
-        //Stream stream = new Stream();
-
-        foreach(Item item in allItems)
-        {
-            //data += formatter.Serialize(data, item);
-        }
-
-        PlayerPrefs.SetString
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
     }
 
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    ///// <returns>The equivalent of this enemy for the battle.</returns>
-    //public GameObject GetBattleObject()
-    //{
-    //    return battleEnemyToLoad;
-    //}
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(5);
+        Inventory.instance.SaveInventoryToPlayerStats();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
