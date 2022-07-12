@@ -31,6 +31,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioSource dieSound;
 
+    [SerializeField]
+    private Interactable dropAttack;
+    [SerializeField]
+    private Interactable dropDefense;
+    [SerializeField]
+    private Interactable dropMagic;
+
     private Vector3 directionToPlayer;
 
     protected EnemyStats enemyStats;
@@ -139,6 +146,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log(this.name + " says: " + dm.name + " " + dm.read[zahl]);
             if (dm.read[zahl] == zahl && isdead==false)
             {
+                zahl = 0;
                 Die();
                 isdead = true;
             }
@@ -228,6 +236,7 @@ public class Enemy : MonoBehaviour
     {
         if (this.tag == "Obstacle")
         {
+            //Debug.Log("Die Die Methode wird so oft aufgerufen");
             StartCoroutine(DeactivateObjectAfterWait());
         }
         else
@@ -239,10 +248,26 @@ public class Enemy : MonoBehaviour
             animator.SetBool("isDead", true);
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
+            StartCoroutine(DieWithDelay());
 
             if (UnityEngine.Random.Range(0, 100) <= 50)
             {
                 Debug.Log("Drop card");
+                int random = UnityEngine.Random.Range(0, 100);
+                Debug.Log("random number is: " + random);
+                Vector3 spawnPosition = transform.position;
+                spawnPosition.z -= 1;
+                if (random <= 33){
+                    Instantiate(dropAttack, spawnPosition, Quaternion.identity);
+                }
+                else if(random <= 66)
+                {
+                    Instantiate(dropDefense, transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(dropMagic, transform.position, Quaternion.identity);
+                }
             }
             else
             {
@@ -269,7 +294,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DieWithDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.1f);
         Destroy(gameObject);
     }
 
@@ -288,6 +313,23 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(attackRate);
         attackAvailable = true;
+    }
+
+    IEnumerator LoadNextDungeon(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+
+        string data = "";
+        Item[] allItems = Inventory.instance.GetAllItems();
+        IFormatter formatter = new BinaryFormatter();
+        //Stream stream = new Stream();
+
+        foreach(Item item in allItems)
+        {
+            //data += formatter.Serialize(data, item);
+        }
+
+        //PlayerPrefs.SetString
     }
 
     private void OnDrawGizmosSelected()
