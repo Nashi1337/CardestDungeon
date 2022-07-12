@@ -55,8 +55,6 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-		
-
 		playerStats = FindObjectOfType<PlayerStats>();
 		attackModifier = 0;
 		defenseModifier = 0;
