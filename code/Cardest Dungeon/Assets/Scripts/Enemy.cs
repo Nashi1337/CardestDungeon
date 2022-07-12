@@ -315,23 +315,6 @@ public class Enemy : MonoBehaviour
         attackAvailable = true;
     }
 
-    IEnumerator LoadNextDungeon(float waitingTime)
-    {
-        yield return new WaitForSeconds(waitingTime);
-
-        string data = "";
-        Item[] allItems = Inventory.instance.GetAllItems();
-        IFormatter formatter = new BinaryFormatter();
-        //Stream stream = new Stream();
-
-        foreach(Item item in allItems)
-        {
-            //data += formatter.Serialize(data, item);
-        }
-
-        //PlayerPrefs.SetString
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
