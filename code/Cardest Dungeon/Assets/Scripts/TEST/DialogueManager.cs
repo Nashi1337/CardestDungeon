@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,5 +95,12 @@ public class DialogueManager : MonoBehaviour
         nameText.text = "Victory";
         animator.SetBool("IsOpen", true);
         dialogue.text = "You did it! Congratulations! Press \"Q\" 15 times to exit the game!";
+    }
+
+    public void NextDungeon()
+    {
+        nameText.text = "Proceed";
+        //animator noch nötig?
+        dialogue.text = "You defeated Herbert the dragon. Press \"Q\" 15 times to enter the next dungeon!";
     }
 }

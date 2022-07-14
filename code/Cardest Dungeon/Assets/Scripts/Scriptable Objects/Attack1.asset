@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f96ce5d9cb5ed40b7a2855bc95244f, type: 3}
-  m_Name: Attack5
+  m_Script: {fileID: 11500000, guid: a2d7c9396a0887e41bda786e8ba29f6b, type: 3}
+  m_Name: Attack1
   m_EditorClassIdentifier: 
-  name: Attack5
-  icon: {fileID: 21300000, guid: 4aff18cb08bdbce49850e04ae26f8589, type: 3}
+  name: Attack1
+  icon: {fileID: 21300000, guid: c77bdf50c031b7145a2ccdc9e20cd779, type: 3}
   defenseModifier: 0
-  attackModifier: 5
+  attackModifier: 1
   magicModifier: 0
   fireball: 0
   heal: 0

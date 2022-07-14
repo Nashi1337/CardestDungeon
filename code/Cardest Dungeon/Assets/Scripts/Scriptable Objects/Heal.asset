@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   name: Heal
-  icon: {fileID: 21300000, guid: b8d15827a34b8464baa383ac4fb77785, type: 3}
+  icon: {fileID: 21300000, guid: 0999bbb3ad975db47be206705a938974, type: 3}
   defenseModifier: 0
   attackModifier: 0
   magicModifier: 0
   fireball: 0
   heal: 1
+  isMergable: 0
   effect: 0

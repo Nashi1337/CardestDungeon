@@ -70,6 +70,9 @@ public class PlayerController : MonoBehaviour
     public float lookDirection;
     public Vector3 lookDirectionAsVector;
 
+    public bool bossDefeated = false;
+
+
     private static PlayerController current = null;
     private static PlayerController playerInstance;
 
@@ -185,10 +188,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            quit++;
+            if(bossDefeated == true)
+            {
+                quit++;
+            }
             if (quit >= 15)
             {
-                SceneManager.LoadScene(0);
+                StartCoroutine(LoadNextScene());
             }
         }
     }
@@ -320,5 +326,12 @@ public class PlayerController : MonoBehaviour
         }
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(5);
+        Inventory.instance.SaveInventoryToPlayerStats();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8625098507041435509
+--- !u!1 &1132335927808414503
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4882026304292297285}
-  - component: {fileID: 5613900832838427752}
-  - component: {fileID: 8959041377068843808}
-  - component: {fileID: 4375338151345387569}
-  - component: {fileID: 5516124940347272648}
-  - component: {fileID: 8625098507041435508}
+  - component: {fileID: 4306617639015196183}
+  - component: {fileID: 3885702621041825850}
+  - component: {fileID: 310946596821745522}
+  - component: {fileID: 4952849357784073315}
+  - component: {fileID: 3785674103953314202}
   m_Layer: 0
-  m_Name: Defense1Card
+  m_Name: Attack1Card
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4882026304292297285
+--- !u!4 &4306617639015196183
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
+  m_GameObject: {fileID: 1132335927808414503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -20.22, z: 0}
+  m_LocalPosition: {x: 0.02, y: -20.22, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5613900832838427752
+--- !u!212 &3885702621041825850
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
+  m_GameObject: {fileID: 1132335927808414503}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,25 +73,25 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a9c574ed75c3ae1488786582dc6f09bb, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c77bdf50c031b7145a2ccdc9e20cd779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.31, y: 0.48}
+  m_Size: {x: 1.5, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8959041377068843808
+--- !u!61 &310946596821745522
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
+  m_GameObject: {fileID: 1132335927808414503}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -104,7 +103,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.31, y: 0.48}
-    newSize: {x: 0.31, y: 0.48}
+    newSize: {x: 1.5, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -112,29 +111,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4931251, y: 2.0017548}
   m_EdgeRadius: 0
---- !u!114 &4375338151345387569
+--- !u!114 &4952849357784073315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
+  m_GameObject: {fileID: 1132335927808414503}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7bae235161f1554ab89b60c21b76d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.59
-  interactionTransform: {fileID: 4882026304292297285}
-  item: {fileID: 11400000, guid: 641b60fb46ca6594cb11e92aa36d40b1, type: 2}
---- !u!82 &5516124940347272648
+  radius: 0.6
+  interactionTransform: {fileID: 4306617639015196183}
+  item: {fileID: 11400000, guid: dd340ef876afb75468fc6da4e36be636, type: 2}
+--- !u!82 &3785674103953314202
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1132335927808414503}
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5ab8fc664ca4d604f820e255005a664a, type: 3}
@@ -223,22 +222,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8625098507041435508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 526745d367986ed489e267bd9813f068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-    name: Tutorial #3
-    sentences:
-    - Fight enemies by pressing "SPACE"
-  dm: {fileID: 0}
-  textnumber: 2
-  key: 0

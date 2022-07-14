@@ -26,11 +26,11 @@ public class Inventory : MonoBehaviour
 	[SerializeField]
 	private Text mergeButtonText;
 	[SerializeField]
-	private Sprite attackCardSprite;
+	private Sprite[] attackCardSprites;
 	[SerializeField]
-	private Sprite defenceCardSprite;
+	private Sprite[] defenceCardSprites;
 	[SerializeField]
-	private Sprite magicCardSprite;
+	private Sprite[] magicCardSprites;
 	private PlayerStats playerStats;
 	private int attackModifier;
 	private int defenseModifier;
@@ -145,18 +145,48 @@ public class Inventory : MonoBehaviour
 		if (attack >= defence && attack >= magic)
 		{
 			mergedItem.attackModifier = ReturningClosestStrengthValues(attack);
-			mergedItem.icon = attackCardSprite;
+			if (mergedItem.attackModifier == 8)
+            {
+				mergedItem.icon = attackCardSprites[3];
+				mergedItem.isMergable = false;
+            }
+			else if (mergedItem.attackModifier == 5)
+				mergedItem.icon = attackCardSprites[2];
+			else if (mergedItem.attackModifier == 2)
+				mergedItem.icon = attackCardSprites[1];
+			else
+				mergedItem.icon = attackCardSprites[0];
 
 		}
 		else if (defence >= magic)
 		{
 			mergedItem.defenseModifier = ReturningClosestStrengthValues(defence);
-			mergedItem.icon = defenceCardSprite;
+			if (mergedItem.defenseModifier == 8)
+            {
+				mergedItem.icon = defenceCardSprites[3];
+				mergedItem.isMergable = false;
+            }
+			else if (mergedItem.defenseModifier == 5)
+				mergedItem.icon = defenceCardSprites[2];
+			else if (mergedItem.defenseModifier == 2)
+				mergedItem.icon = defenceCardSprites[1];
+			else
+				mergedItem.icon = defenceCardSprites[0];
 		}
 		else
 		{
 			mergedItem.magicModifier = ReturningClosestStrengthValues(magic);
-			mergedItem.icon = magicCardSprite;
+			if (mergedItem.magicModifier == 8)
+            {
+				mergedItem.icon = magicCardSprites[3];
+				mergedItem.isMergable = false;
+            }
+			else if (mergedItem.magicModifier == 5)
+				mergedItem.icon = magicCardSprites[2];
+			else if (mergedItem.magicModifier == 2)
+				mergedItem.icon = magicCardSprites[1];
+			else
+				mergedItem.icon = magicCardSprites[0];
 		}
 
 		if (effectItem != null)
@@ -237,6 +267,8 @@ public class Inventory : MonoBehaviour
 				Debug.LogWarning("Missing text message for player. See Code comment");
 			}
 		}
+
+		playerStats.UpdateStats();
 	}
 
 	public int GetAttackModifier()

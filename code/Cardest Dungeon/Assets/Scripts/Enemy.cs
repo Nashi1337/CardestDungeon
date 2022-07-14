@@ -250,7 +250,7 @@ public class Enemy : MonoBehaviour
             dieSound.Play();
 
             Debug.LogWarning("Bosse droppen momentan nichts. Sollten die nicht lieber immer dieselbe Karte fallen lassen?");
-            if (boss && UnityEngine.Random.Range(0, 100) <= 50)
+            if (UnityEngine.Random.Range(0, 100) <= 50)
             {
                 Debug.Log("Drop card");
                 int random = UnityEngine.Random.Range(0, 100);
@@ -281,8 +281,9 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector3.zero;
         if (boss == true)
         {
-            StartCoroutine(LoadNextScene());
-            dm.Victory();
+            //StartCoroutine(LoadNextScene());
+            PlayerController.Current.bossDefeated = true;
+            dm.NextDungeon();
         }
         else
         {
