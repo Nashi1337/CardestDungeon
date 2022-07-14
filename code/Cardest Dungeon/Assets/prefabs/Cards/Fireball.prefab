@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4471593174624182948}
   - component: {fileID: 3469652236914072713}
-  - component: {fileID: 115637740729187265}
   - component: {fileID: 4717073788013527248}
+  - component: {fileID: -706098605243740136}
   - component: {fileID: 3549695412131583273}
   m_Layer: 0
   m_Name: Fireball
@@ -85,32 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &115637740729187265
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755683515131582356}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0038994178, y: -0.029217124}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 2}
-    newSize: {x: 1.5, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.3504089, y: 0.40221298}
-  m_EdgeRadius: 0
 --- !u!114 &4717073788013527248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +100,32 @@ MonoBehaviour:
   radius: 3
   interactionTransform: {fileID: 4471593174624182948}
   item: {fileID: 11400000, guid: 3b90286e5dfd11141b77462e31af7670, type: 2}
+--- !u!61 &-706098605243740136
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755683515131582356}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.96875, y: 1.5}
+    newSize: {x: 1.5, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.96875, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!82 &3549695412131583273
 AudioSource:
   m_ObjectHideFlags: 0

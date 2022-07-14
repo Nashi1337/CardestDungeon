@@ -255,6 +255,7 @@ public class Inventory : MonoBehaviour
 			if (allSelectedItems.Count > 1)
 			{
 				Item mergedItem = MergeItem(allSelectedItems.ToArray(), effectItem);
+				Debug.LogAssertion(mergedItem != null);
 				Add(mergedItem);
 				foreach (Item item in allSelectedItems)
 				{

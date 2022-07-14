@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4830370588710061217}
   - component: {fileID: 5557451199376063116}
-  - component: {fileID: 8979181301249433028}
   - component: {fileID: 4355209153583359701}
+  - component: {fileID: -4688096870002094068}
   - component: {fileID: 5495987021940273964}
   m_Layer: 0
   m_Name: Attack2Card
@@ -85,7 +85,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8979181301249433028
+--- !u!114 &4355209153583359701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609224559189471633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bae235161f1554ab89b60c21b76d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.5
+  interactionTransform: {fileID: 4830370588710061217}
+  item: {fileID: 11400000, guid: f3c9862b620be04499682506864677b8, type: 2}
+--- !u!61 &-4688096870002094068
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,30 +117,15 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.31, y: 0.48}
+    oldSize: {x: 0.96875, y: 1.5}
     newSize: {x: 0.31, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2}
+  m_Size: {x: 0.96875, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &4355209153583359701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8609224559189471633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bae235161f1554ab89b60c21b76d52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
-  interactionTransform: {fileID: 4830370588710061217}
-  item: {fileID: 11400000, guid: f3c9862b620be04499682506864677b8, type: 2}
 --- !u!82 &5495987021940273964
 AudioSource:
   m_ObjectHideFlags: 0

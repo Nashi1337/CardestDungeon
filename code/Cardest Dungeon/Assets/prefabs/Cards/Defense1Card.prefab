@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4882026304292297285}
   - component: {fileID: 5613900832838427752}
-  - component: {fileID: 8959041377068843808}
   - component: {fileID: 4375338151345387569}
+  - component: {fileID: -8137391224108615718}
   - component: {fileID: 5516124940347272648}
   - component: {fileID: 8625098507041435508}
   m_Layer: 0
@@ -86,32 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8959041377068843808
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0005515218, y: -0.0020313263}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.31, y: 0.48}
-    newSize: {x: 0.31, y: 0.48}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.4931251, y: 2.0017548}
-  m_EdgeRadius: 0
 --- !u!114 &4375338151345387569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +101,32 @@ MonoBehaviour:
   radius: 0.59
   interactionTransform: {fileID: 4882026304292297285}
   item: {fileID: 11400000, guid: 641b60fb46ca6594cb11e92aa36d40b1, type: 2}
+--- !u!61 &-8137391224108615718
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8625098507041435509}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.96875, y: 1.5}
+    newSize: {x: 0.31, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.96875, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!82 &5516124940347272648
 AudioSource:
   m_ObjectHideFlags: 0
