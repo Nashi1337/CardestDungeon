@@ -249,7 +249,8 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
 
-            if (UnityEngine.Random.Range(0, 100) <= 50)
+            Debug.LogWarning("Bosse droppen momentan nichts. Sollten die nicht lieber immer dieselbe Karte fallen lassen?");
+            if (boss && UnityEngine.Random.Range(0, 100) <= 50)
             {
                 Debug.Log("Drop card");
                 int random = UnityEngine.Random.Range(0, 100);
@@ -287,8 +288,6 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(DieWithDelay());
         }
-
-
     }
 
     IEnumerator DieWithDelay()

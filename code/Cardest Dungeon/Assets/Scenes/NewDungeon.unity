@@ -12004,6 +12004,49 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &333615146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333615148}
+  - component: {fileID: 333615147}
+  m_Layer: 0
+  m_Name: PlayerPrefsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &333615147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333615146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b0cfe2e317a63478b18f7905af07da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &333615148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333615146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &351542721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33827,6 +33870,9 @@ MonoBehaviour:
   boss: 0
   grindSound: {fileID: 1363829635}
   dieSound: {fileID: 1363829639}
+  dropAttack: {fileID: 0}
+  dropDefense: {fileID: 0}
+  dropMagic: {fileID: 0}
   zahl: 9
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 0
@@ -88855,11 +88901,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6041061020328274144, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.4
+      value: -20.44
       objectReference: {fileID: 0}
     - target: {fileID: 6041061020328274144, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20
+      value: -19.97
       objectReference: {fileID: 0}
     - target: {fileID: 6041061020328274144, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -88896,6 +88942,14 @@ PrefabInstance:
     - target: {fileID: 6041061020328274149, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: attack
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: defense
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: manaBar
@@ -121514,6 +121568,9 @@ MonoBehaviour:
   boss: 1
   grindSound: {fileID: 8455820371055547503}
   dieSound: {fileID: 429598740874720757}
+  dropAttack: {fileID: 0}
+  dropDefense: {fileID: 0}
+  dropMagic: {fileID: 0}
   zahl: 0
   fireballProjectile: {fileID: 806743496607515004, guid: 1bd32004f41cc314c9c3f5d172743ab9, type: 3}
   fireBallCooldown: 5
