@@ -153,4 +153,10 @@ public class CharacterStats : MonoBehaviour
     //    }
     //    StartCoroutine(RefillMana());
     //}
+
+    public void UpdateMaxHealth()
+    {
+        healthBar.SetMaxHealth(maxHealth);
+        UpdateStats();
+    }
 }

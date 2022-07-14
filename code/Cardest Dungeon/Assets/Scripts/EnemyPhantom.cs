@@ -99,7 +99,12 @@ public class EnemyPhantom : Enemy
 
     public void UpdateMainState()
     {
-        mainState = MapManager.Current.FindElementOfMapPiece(homeArea);
+        Element newState = MapManager.Current.FindElementOfMapPiece(homeArea);
+        if(newState == mainState)
+        {
+            return;
+        }
+        mainState = newState;
 
         switch(mainState)
         {
@@ -122,6 +127,8 @@ public class EnemyPhantom : Enemy
                 ApplyStatsToEnemyStats(normal_Stats);
                 break;
         }
+
+        enemyStats.UpdateMaxHealth();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

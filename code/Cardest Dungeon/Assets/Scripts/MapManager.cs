@@ -232,9 +232,28 @@ public class MapManager : MonoBehaviour
                 allSources.Remove(source);
                 allSources.Add(source.TrackNewPath());
             }
-            
+
+            foreach(Transform child in piece1.dungeonPart.transform)
+            {
+                IDungeonSwapMessage reciever = child.GetComponent<IDungeonSwapMessage>();
+                if(reciever != null)
+                {
+                    reciever.OnDungeonSwap();
+                }
+            }
+
+            foreach (Transform child in piece2.dungeonPart.transform)
+            {
+                IDungeonSwapMessage reciever = child.GetComponent<IDungeonSwapMessage>();
+                if (reciever != null)
+                {
+                    reciever.OnDungeonSwap();
+                }
+            }
+
             return true;
         }
+
         return false;
     }
 
