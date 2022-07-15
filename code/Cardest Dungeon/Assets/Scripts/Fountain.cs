@@ -22,8 +22,19 @@ public class Fountain : MonoBehaviour, IDungeonSwapMessage
     private void ChangeSprite()
     {
         Element newElement = MapManager.Current.FindElementOfMapPiece(homeArea);
-        Debug.Log(newElement);
-
         animator.SetInteger("Element", (int)newElement);
+
+        float animSpeed = 1;
+        switch(newElement)
+        {
+            case Element.FIRE:
+                animSpeed = 1;
+                break;
+            case Element.ICE:
+                animSpeed = 0.6f;
+                break;
+        }
+
+        animator.speed = animSpeed;
     }
 }
