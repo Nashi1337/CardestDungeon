@@ -448,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   attack: 0
-  defense: 5
+  defense: 100
   magic: 0
   healthBar: {fileID: 2829619990842809273}
 --- !u!114 &2829619991239301596
@@ -468,10 +468,11 @@ MonoBehaviour:
   acceleration: 0
   distance: 0
   boss: 0
-  audioSource: []
   grindSound: {fileID: 0}
   dieSound: {fileID: 5341359464259379256}
-  animator: {fileID: 2829619991239301601}
+  dropAttack: {fileID: 0}
+  dropDefense: {fileID: 0}
+  dropMagic: {fileID: 0}
   zahl: 2
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3

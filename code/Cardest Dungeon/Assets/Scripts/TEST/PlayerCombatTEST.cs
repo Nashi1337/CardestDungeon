@@ -22,7 +22,8 @@ public class PlayerCombatTEST : MonoBehaviour
 
     Inventory inventory;
 
-
+    [SerializeField]
+    private float knockbackModifierForEnemies;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -71,7 +72,7 @@ public class PlayerCombatTEST : MonoBehaviour
             if (enem != null)
             {
                 //Damage Calculation
-                knockbackForce = 20 * enemy.GetComponent<Enemy>().TakeDamage(damage);
+                knockbackForce = knockbackModifierForEnemies * enemy.GetComponent<Enemy>().TakeDamage(damage);
                 //Knockback Calculation
                 Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
                 enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);

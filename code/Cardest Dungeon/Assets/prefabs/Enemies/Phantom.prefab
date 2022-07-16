@@ -203,7 +203,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &505508949522192128
 MonoBehaviour:
@@ -224,9 +224,9 @@ MonoBehaviour:
   boss: 0
   grindSound: {fileID: 6441008574745194194}
   dieSound: {fileID: 3621705537655045608}
-  dropAttack: {fileID: 0}
-  dropDefense: {fileID: 0}
-  dropMagic: {fileID: 0}
+  dropAttack: {fileID: 4952849357784073315, guid: d9193efc685a519459eb2fc299a26857, type: 3}
+  dropDefense: {fileID: 4375338151345387569, guid: ab4d8cc9c12b81442b7431edc3ca185a, type: 3}
+  dropMagic: {fileID: 7664108723397186347, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
   zahl: 0
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3

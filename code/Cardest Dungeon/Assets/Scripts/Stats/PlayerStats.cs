@@ -85,7 +85,7 @@ public class PlayerStats : CharacterStats
     public static void Die()
     {
         //base.Die();
-        Debug.Log("Du bist tot. Hier sollte jetzt etwas passieren.");
+        //Debug.Log("Du bist tot. Hier sollte jetzt etwas passieren.");
         PlayerController.canMove = false;
         PlayerController.Die();
     }
