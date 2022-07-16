@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0.6
   interactionTransform: {fileID: 4306617639015196183}
-  item: {fileID: 11400000, guid: dd340ef876afb75468fc6da4e36be636, type: 2}
+  item: {fileID: 11400000, guid: b85d1743e77f8a54ca7fca23d56ee487, type: 2}
 --- !u!61 &-4800620848121002994
 BoxCollider2D:
   m_ObjectHideFlags: 0

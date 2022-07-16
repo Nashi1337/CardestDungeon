@@ -62,8 +62,6 @@ public class Inventory : MonoBehaviour
 
 	public bool Add(Item item)
 	{
-		//Debug.Log("Space: " + space);
-		//Debug.Log("Item count: " + items.Count);
 		// Check if out of space
 		if (items.Count >= space)
 		{
@@ -255,12 +253,11 @@ public class Inventory : MonoBehaviour
 			if (allSelectedItems.Count > 1)
 			{
 				Item mergedItem = MergeItem(allSelectedItems.ToArray(), effectItem);
-				Debug.Assert(mergedItem != null, mergedItem, mergedItem);
-				Add(mergedItem);
 				foreach (Item item in allSelectedItems)
 				{
 					Remove(item);
 				}
+				Add(mergedItem);
 			}
 			else
 			{

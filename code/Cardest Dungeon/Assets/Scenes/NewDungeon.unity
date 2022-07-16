@@ -40986,10 +40986,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7980170555469845624, guid: 7ba170ef2369c5f4687ce6d94f9dcbae, type: 3}
-      propertyPath: fireball
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7980170555469845624, guid: 7ba170ef2369c5f4687ce6d94f9dcbae, type: 3}
       propertyPath: magicCardSprites.Array.size
       value: 4
       objectReference: {fileID: 0}

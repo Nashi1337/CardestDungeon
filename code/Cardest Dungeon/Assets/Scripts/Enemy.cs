@@ -184,7 +184,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (attackAvailable && collision.tag == "Player")
+        if (attackAvailable && tag != "Obstacle" && collision.tag == "Player")
         {
             collision.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack);
             attackAvailable = false;
@@ -275,7 +275,10 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        grindSound?.Pause();
+        if(grindSound != null)
+        {
+            grindSound.Pause();
+        }
 
         rb.isKinematic = true; //Disables enemy physics
         rb.velocity = Vector3.zero;
@@ -285,7 +288,7 @@ public class Enemy : MonoBehaviour
             PlayerController.Current.bossDefeated = true;
             dm.NextDungeon();
         }
-        else
+        else if (tag != "Obstacle")
         {
             StartCoroutine(DieWithDelay());
         }
@@ -305,6 +308,7 @@ public class Enemy : MonoBehaviour
         Destroy(GetComponent<Collider2D>());
         animator.SetBool("isDead", true);
         spriterenderer.sortingOrder = 0;
+        transform.position += new Vector3(0, 0, -0.1f);
         enabled = false;
     }
 
