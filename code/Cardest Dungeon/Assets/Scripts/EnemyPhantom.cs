@@ -68,6 +68,9 @@ public class EnemyPhantom : Enemy
         stateMachine.AddTransition("AttackPlayer", "RetreatFromPlayer", Fire_ToRetreat);
         stateMachine.AddTransition("RetreatFromPlayer", "Idle", Fire_ToIdle);
 
+        ApplyStatsToEnemyStats(normal_Stats);
+        active_Behaviour =normal_Behaviour;
+
         UpdateMainState();
 
     }
@@ -135,7 +138,6 @@ public class EnemyPhantom : Enemy
     {
         if(mainState != Element.ICE && stateMachine.GetActiveStateName().Equals("AttackPlayer") && collision.gameObject.tag.Equals("Player"))
         {
-            Debug.LogWarning("Retreat from Player should probaly happen in another place. Recheck this after adding enemy behaviour to Phantom.");
             stateMachine.TransitionToState("RetreatFromPlayer");
         }
     }

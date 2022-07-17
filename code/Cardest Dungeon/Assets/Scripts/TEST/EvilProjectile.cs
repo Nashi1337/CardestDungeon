@@ -7,11 +7,10 @@ public class EvilProjectile : MonoBehaviour
     public float moveSpeed = 10f;
     public int damage = 6;
 
-    Vector3 targetDir;
+    public Vector3 targetDir;
 
     private void Start()
     {
-        targetDir = (PlayerController.Current.transform.position - transform.position).normalized;
         StartCoroutine(ProjectileLifespan());
     }
 

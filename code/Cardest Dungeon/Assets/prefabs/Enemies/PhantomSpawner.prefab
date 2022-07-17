@@ -52,6 +52,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6321913859986895208}
     m_Modifications:
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Stats.attack
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: ice_Stats.defense
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: fire_Stats.defense
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Stats.attack
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 505508949522192128, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
+      propertyPath: normal_Stats.defense
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 911715592584820579, guid: 8b0b7433f8992554ca8379a5cc137248, type: 3}
       propertyPath: m_RootOrder
       value: 0
