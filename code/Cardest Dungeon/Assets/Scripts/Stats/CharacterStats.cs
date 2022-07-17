@@ -67,8 +67,12 @@ public class CharacterStats : MonoBehaviour
     /// <returns>Actual Damge taken.</returns>
     protected int TakeDamage(int attackValue, int defenseValue)
     {
+        //alte Berechnung
         attackValue -= defenseValue;
         attackValue = Mathf.Max(attackValue, 0);
+
+        //NeueBerechnung
+        //attackValue = Mathf.RoundToInt((attackValue - (float)defenseValue) / 3 + attackValue / (float)defenseValue);
 
         CurrHealth -= attackValue;
 
