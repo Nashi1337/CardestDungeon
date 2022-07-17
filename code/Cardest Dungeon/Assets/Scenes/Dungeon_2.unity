@@ -6978,11 +6978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247192, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: attack
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247192, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: defense
-      value: 13
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247192, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: maxHealth

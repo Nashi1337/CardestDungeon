@@ -536,7 +536,7 @@ MonoBehaviour:
   dropMagic: {fileID: 7664108723397186347, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
   zahl: 0
   fireballProjectile: {fileID: 806743496607515004, guid: 1bd32004f41cc314c9c3f5d172743ab9, type: 3}
-  fireBallCooldown: 3
+  fireBallCooldown: 2
 --- !u!82 &429598740085303575
 AudioSource:
   m_ObjectHideFlags: 0
