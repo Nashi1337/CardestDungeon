@@ -105,8 +105,6 @@ public class PlayerController : MonoBehaviour
 
 
         //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
-        //dm = FindObjectOfType<DialogueManager>();
-        //dm.Tutorial1();
 
         AssignMapManager();
         //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
@@ -115,6 +113,9 @@ public class PlayerController : MonoBehaviour
         AssignInventoryManager();
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
         inventoryUI.SetActive(false);
+
+        dm = FindObjectOfType<DialogueManager>();
+        dm.Tutorial1();
     }
 
     // Update is called once per frame
