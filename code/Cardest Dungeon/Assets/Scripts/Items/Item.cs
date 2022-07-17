@@ -18,6 +18,7 @@ public class Item : ScriptableObject
 	public int defenseModifier;
 	public int attackModifier;
 	public int magicModifier;
+	public int hpModifier;
 	public bool fireball;
 	public bool heal;
 	public bool isMergable;
@@ -32,6 +33,7 @@ public class Item : ScriptableObject
 		si.defenseModifier = defenseModifier;
 		si.attackModifier = attackModifier;
 		si.magicModifier = magicModifier;
+		si.hpModifier = hpModifier;
 		si.fireball = fireball;
 		si.heal = heal;
 		si.isMergable = isMergable;
@@ -48,6 +50,7 @@ public class Item : ScriptableObject
 		item.defenseModifier = sERIALIZABLE_Item.defenseModifier;
 		item.attackModifier = sERIALIZABLE_Item.attackModifier;
 		item.magicModifier = sERIALIZABLE_Item.magicModifier;
+		item.hpModifier = sERIALIZABLE_Item.hpModifier;
 		item.fireball = sERIALIZABLE_Item.fireball;
 		item.heal = sERIALIZABLE_Item.heal;
 		item.isMergable = sERIALIZABLE_Item.isMergable;
@@ -68,6 +71,7 @@ public class Item : ScriptableObject
 		public int defenseModifier;
 		public int attackModifier;
 		public int magicModifier;
+		public int hpModifier;
 		public bool fireball;
 		public bool heal;
 		public bool isMergable;

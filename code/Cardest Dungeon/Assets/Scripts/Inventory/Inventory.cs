@@ -35,6 +35,7 @@ public class Inventory : MonoBehaviour
 	private int attackModifier;
 	private int defenseModifier;
 	private int magicModifier;
+	private int hpModifier;
 
 	public bool fireball;
 	public bool heal;
@@ -56,6 +57,7 @@ public class Inventory : MonoBehaviour
 		attackModifier = 0;
 		defenseModifier = 0;
 		magicModifier = 0;
+		hpModifier = 0;
 
 		LoadInventoryFromPlayerStats();
 	}
@@ -74,6 +76,7 @@ public class Inventory : MonoBehaviour
 		attackModifier += item.attackModifier;
 		defenseModifier += item.defenseModifier;
 		magicModifier += item.magicModifier;
+		hpModifier += item.hpModifier;
 
 		if (item.fireball)
 		{
@@ -86,6 +89,7 @@ public class Inventory : MonoBehaviour
 		}
 
 		playerStats.UseMana(-item.magicModifier);
+		playerStats.Heal(item.hpModifier);
 		playerStats.UpdateStats();
 
 		// Trigger callback
@@ -105,6 +109,7 @@ public class Inventory : MonoBehaviour
 		attackModifier -= item.attackModifier;
 		defenseModifier -= item.defenseModifier;
 		magicModifier -= item.magicModifier;
+		hpModifier -= item.hpModifier;
 
 		if (item.fireball)
 		{
@@ -128,13 +133,14 @@ public class Inventory : MonoBehaviour
 	/// <returns></returns>
 	private Item MergeItem(Item[] items, Item effectItem = null)
 	{
-		int attack = 0, defence = 0, magic = 0;
+		int attack = 0, defence = 0, magic = 0, hpPlus = 0;
 
 		foreach (Item item in items)
 		{
 			attack += item.attackModifier;
 			defence += item.defenseModifier;
 			magic += item.magicModifier;
+			hpPlus += item.hpModifier;
 		}
 
 		Item mergedItem = ScriptableObject.CreateInstance<Item>();
@@ -163,6 +169,7 @@ public class Inventory : MonoBehaviour
             {
 				mergedItem.icon = defenceCardSprites[3];
 				mergedItem.isMergable = false;
+				mergedItem.hpModifier = 5;
             }
 			else if (mergedItem.defenseModifier == 5)
 				mergedItem.icon = defenceCardSprites[2];
@@ -283,6 +290,11 @@ public class Inventory : MonoBehaviour
 	{
 		return magicModifier;
 	}
+
+	public int GetHPModifier()
+    {
+		return hpModifier;
+    }
 
 	public Item[] GetAllItems()
 	{
