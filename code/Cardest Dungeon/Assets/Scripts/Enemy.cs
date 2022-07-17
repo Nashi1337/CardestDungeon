@@ -210,12 +210,14 @@ public class Enemy : MonoBehaviour
     public int TakeDamage(int attackValue)
     {
         int actualDamage = enemyStats.TakeDamage(attackValue);
-        if(actualDamage > 0)
+        if(actualDamage < 0)
         {
+            actualDamage = 1;
+        }
             //animator.SetBool("Hurt", true);
 
             animator.SetTrigger("isHit");
-        }
+
         if(enemyStats.IsDead)
         {
             Die();

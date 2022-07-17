@@ -89,18 +89,18 @@ public class PlayerCombatTEST : MonoBehaviour
         Vector3 rotation;
         rotation.z = PlayerController.Current.lookDirection;
         Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.Euler(0,0,PlayerController.Current.lookDirectionAsVector.z));
-        //playerStats.UseMana(1);
+        playerStats.UseMana(1);
         nextAttackTime = Time.time + 1f / fireBallCooldown;
         //Debug.Log("fireball was fired at position " + rangeAttackPoint.position);
     }
     void Heal()
     {
-        if (Time.time < nextAttackTime)
+        if (Time.time < nextAttackTime||playerStats.mana<2)
             return;
 
         //animator
         playerStats.Heal(Inventory.instance.GetMagicModifier()+playerStats.Magic);
-        Inventory.instance.heals--;
+        playerStats.UseMana(2);
         
         for(int i=0; i < 10; i++)
         {
