@@ -86,9 +86,8 @@ public class PlayerCombatTEST : MonoBehaviour
     {
         if (Time.time < nextAttackTime||playerStats.mana<1)
             return;
-        Vector3 rotation;
-        rotation.z = PlayerController.Current.lookDirection;
-        Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.Euler(0,0,PlayerController.Current.lookDirectionAsVector.z));
+        float rotation = PlayerController.Current.lookDirection;
+        Instantiate(fireballProjectile, rangeAttackPoint.position, Quaternion.Euler(0, 0, rotation));
         playerStats.UseMana(1);
         nextAttackTime = Time.time + 1f / fireBallCooldown;
         //Debug.Log("fireball was fired at position " + rangeAttackPoint.position);

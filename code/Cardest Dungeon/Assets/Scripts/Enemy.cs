@@ -18,13 +18,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float attackRate;
     [SerializeField]
-    private float detectRange;
+    protected float detectRange;
     [SerializeField]
     private float acceleration;
     [SerializeField]
     private float distance;
     [SerializeField]
-    private bool boss;
+    protected bool boss;
     private float accelerationfactor = 1;
     [SerializeField]
     private AudioSource grindSound;
@@ -156,7 +156,9 @@ public class Enemy : MonoBehaviour
     void Shoot()
     {
         GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.identity);
-        fireball.GetComponent<EvilProjectile>().damage = enemyStats.Magic;
+        EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
+        evil.damage = enemyStats.Magic;
+        evil.targetDir = (PlayerController.Current.transform.position - transform.position).normalized;
     }
 
 

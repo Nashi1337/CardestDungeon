@@ -252,17 +252,17 @@ MonoBehaviour:
   ice_Stats:
     maxHealth: 20
     attack: 5
-    defense: 15
+    defense: 10
     magic: 0
   fire_Stats:
     maxHealth: 8
-    attack: 15
-    defense: 5
+    attack: 12
+    defense: 3
     magic: 0
   normal_Stats:
     maxHealth: 14
-    attack: 10
-    defense: 10
+    attack: 8
+    defense: 8
     magic: 0
 --- !u!114 &3774593398217332181
 MonoBehaviour:
