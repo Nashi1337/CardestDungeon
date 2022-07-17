@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 
-    private IEnumerator LoadNextScene()
+    public IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(5);
         Inventory.instance.SaveInventoryToPlayerStats();

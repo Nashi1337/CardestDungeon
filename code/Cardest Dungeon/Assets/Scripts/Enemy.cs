@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
     private Interactable dropDefense;
     [SerializeField]
     private Interactable dropMagic;
+    [SerializeField]
+    private Interactable dropBoss;
 
     private Vector3 directionToPlayer;
 
@@ -251,14 +253,21 @@ public class Enemy : MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             dieSound.Play();
 
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.z -= 1;
+
             Debug.LogWarning("Bosse droppen momentan nichts. Sollten die nicht lieber immer dieselbe Karte fallen lassen?");
-            if (UnityEngine.Random.Range(0, 100) <= 50)
+            if (boss == true)
+            {
+                //spawnPosition.y += 7;
+                Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
+            }
+            
+            else if (UnityEngine.Random.Range(0, 100) <= 50)
             {
                 Debug.Log("Drop card");
                 int random = UnityEngine.Random.Range(0, 100);
                 Debug.Log("random number is: " + random);
-                Vector3 spawnPosition = transform.position;
-                spawnPosition.z -= 1;
                 if (random <= 33){
                     Instantiate(dropAttack, spawnPosition, Quaternion.identity);
                 }

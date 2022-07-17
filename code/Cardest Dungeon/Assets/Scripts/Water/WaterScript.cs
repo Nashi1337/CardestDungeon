@@ -13,6 +13,8 @@ public class WaterScript : MonoBehaviour
     public float speed;
     [SerializeField]
     private bool isSource = false;
+    [SerializeField]
+    private AudioSource waterSound;
     public int isFlowing = 1;
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
@@ -52,7 +54,8 @@ public class WaterScript : MonoBehaviour
                     }
                 }
             }
-
+            if (waterSound != null && !waterSound.isPlaying)
+                waterSound.Play();
             float addedScale = unitsPerSecond * Time.deltaTime * isFlowing;
             transform.localScale += new Vector3(addedScale, 0, 0);
             float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
@@ -63,11 +66,15 @@ public class WaterScript : MonoBehaviour
 
     public void StartFlowing()
     {
+        if (waterSound != null && !waterSound.isPlaying)
+            PlayWaterSound();
         isFlowing = 1;
     }
 
     private void StopFlowing()
     {
+        if (waterSound != null)
+            StopWaterSound();
         isFlowing = 0;
     }
 
@@ -200,6 +207,17 @@ public class WaterScript : MonoBehaviour
             index++;
         }
         throw new Exception("There was no place left for another child of " + this);
+    }
+
+    public void PlayWaterSound()
+    {
+        waterSound.Play();
+        Debug.Log("Watersound is playing");
+    }
+    public void StopWaterSound()
+    {
+        Debug.Log("Watersound is not playing");
+        waterSound.Stop();
     }
 
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4375338151345387569}
   - component: {fileID: 656702151782197876}
   - component: {fileID: 5516124940347272648}
-  - component: {fileID: 8625098507041435508}
   m_Layer: 0
   m_Name: Defense2Card
   m_TagString: Interactable
@@ -223,22 +222,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8625098507041435508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8625098507041435509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 526745d367986ed489e267bd9813f068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-    name: Tutorial #3
-    sentences:
-    - Fight enemies by pressing "SPACE"
-  dm: {fileID: 0}
-  textnumber: 2
-  key: 0

@@ -17,6 +17,7 @@ MonoBehaviour:
   defenseModifier: 5
   attackModifier: 0
   magicModifier: 0
+  hpModifier: 2
   fireball: 0
   heal: 0
   isMergable: 1

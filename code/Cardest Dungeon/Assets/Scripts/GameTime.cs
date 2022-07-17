@@ -8,10 +8,12 @@ public class GameTime : MonoBehaviour
 
     private static bool isGamePaused = false;
 
+    private static WaterScript waterScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        waterScript = FindObjectOfType<WaterScript>();
     }
 
     // Update is called once per frame
@@ -31,5 +33,11 @@ public class GameTime : MonoBehaviour
                     || MapManager.Current.gameObject.activeInHierarchy;
 
         Time.timeScale = isGamePaused ? 0 : 1;
+
+        if (isGamePaused)
+        {
+            if(waterScript!=null)
+                waterScript.StopWaterSound();
+        }
     }
 }

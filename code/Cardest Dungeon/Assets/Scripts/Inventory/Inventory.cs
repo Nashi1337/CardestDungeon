@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
@@ -120,6 +121,9 @@ public class Inventory : MonoBehaviour
 			heal = false;
 		}
 
+		playerStats.UpdateStats();
+
+
 		// Trigger callback
 		if (onItemChangedCallback != null)
 			onItemChangedCallback.Invoke();
@@ -153,9 +157,13 @@ public class Inventory : MonoBehaviour
             {
 				mergedItem.icon = attackCardSprites[3];
 				mergedItem.isMergable = false;
+				mergedItem.hpModifier = 5;
             }
 			else if (mergedItem.attackModifier == 5)
+            {
 				mergedItem.icon = attackCardSprites[2];
+				mergedItem.hpModifier = 2;
+            }
 			else if (mergedItem.attackModifier == 2)
 				mergedItem.icon = attackCardSprites[1];
 			else
@@ -172,7 +180,10 @@ public class Inventory : MonoBehaviour
 				mergedItem.hpModifier = 5;
             }
 			else if (mergedItem.defenseModifier == 5)
+            {
 				mergedItem.icon = defenceCardSprites[2];
+				mergedItem.hpModifier = 2;
+            }
 			else if (mergedItem.defenseModifier == 2)
 				mergedItem.icon = defenceCardSprites[1];
 			else
@@ -185,9 +196,13 @@ public class Inventory : MonoBehaviour
             {
 				mergedItem.icon = magicCardSprites[3];
 				mergedItem.isMergable = false;
+				mergedItem.hpModifier = 5;
             }
 			else if (mergedItem.magicModifier == 5)
+            {
 				mergedItem.icon = magicCardSprites[2];
+				mergedItem.hpModifier = 2;
+            }
 			else if (mergedItem.magicModifier == 2)
 				mergedItem.icon = magicCardSprites[1];
 			else
@@ -345,4 +360,6 @@ public class Inventory : MonoBehaviour
 		}
 		return items;
 	}
+
+
 }
