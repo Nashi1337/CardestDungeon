@@ -286,7 +286,6 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector3.zero;
         if (boss == true)
         {
-            //StartCoroutine(LoadNextScene());
             PlayerController.Current.bossDefeated = true;
             dm.NextDungeon();
         }
@@ -324,12 +323,5 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
-    }
-
-    private IEnumerator LoadNextScene()
-    {
-        yield return new WaitForSeconds(5);
-        Inventory.instance.SaveInventoryToPlayerStats();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

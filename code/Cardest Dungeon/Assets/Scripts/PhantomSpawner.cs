@@ -12,6 +12,11 @@ public class PhantomSpawner : MonoBehaviour, IDungeonSwapMessage
     // Start is called before the first frame update
     void Start()
     {
+        if(transform.childCount == 1)
+        {
+            phantomInstance = transform.GetChild(0).gameObject;
+        }
+
         TrySpawningPhantom();
     }
 
