@@ -105,17 +105,17 @@ public class CameraTintScript : MonoBehaviour
     }
     #endregion
 
-    public void SwitchToColor(Colors colors)
+    public void SwitchColor(Element element)
     {
-        switch(colors)
+        switch(element)
         {
-            case Colors.DEFAULT:
+            case Element.NONE:
                 stateMachine.TransitionToState("TintingIdle");
                 break;
-            case Colors.BLUE:
+            case Element.ICE:
                 stateMachine.TransitionToState("TintingBlue");
                 break;
-            case Colors.RED:
+            case Element.FIRE:
                 stateMachine.TransitionToState("TintingRed");
                 break;
         }

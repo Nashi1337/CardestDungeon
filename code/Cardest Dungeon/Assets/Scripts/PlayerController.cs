@@ -258,6 +258,10 @@ public class PlayerController : MonoBehaviour
             MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
             if (collidedWith != null)
             {
+                Element element = MapManager.Current.FindElementOfMapPiece(collidedWith);
+
+                CameraTintScript.Instance.SwitchColor(element);
+
                 MapManager.Current.UpdatePlayerPiece(collidedWith);
             }
         }
