@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour
     private Interactable dropMagic;
     [SerializeField]
     private Interactable dropBoss;
+    [SerializeField]
+    private Sprite defeatedBoss;
 
     private Vector3 directionToPlayer;
 
@@ -68,9 +70,14 @@ public class Enemy : MonoBehaviour
 
         dm = FindObjectOfType<DialogueManager>();
 
+        SetScale();
+    }
+
+    public void SetScale()
+    {
         float scaleModifier = 0.4f;
         scaleModifier += enemyStats.Defense / 15f;
-        if(enemyStats.Magic != 0)
+        if (enemyStats.Magic != 0)
         {
             scaleModifier += enemyStats.Attack / 45f;
             scaleModifier += enemyStats.Magic / 15f;
@@ -83,7 +90,7 @@ public class Enemy : MonoBehaviour
         transform.localScale = Vector3.one * scaleModifier;
     }
 
-    protected void Initialize()
+    public void Initialize()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -132,7 +139,10 @@ public class Enemy : MonoBehaviour
         {
             //if (!grindSound.isPlaying){grindSound.Play();}
             MoveEnemy();
-            animator.SetBool("chasingPlayer", true);
+            if (animator != null)
+            {
+                animator.SetBool("chasingPlayer", true);
+            }
             float enemyPlayerDeltaX = PlayerController.Current.transform.position.x - transform.position.x;
             spriterenderer.flipX = enemyPlayerDeltaX < 0;
         }
@@ -140,7 +150,10 @@ public class Enemy : MonoBehaviour
         {
             //if (grindSound.isPlaying){grindSound.Pause();}
             rb.velocity = Vector2.zero;
-            animator.SetBool("chasingPlayer", false);
+            if (animator != null)
+            {
+                animator.SetBool("chasingPlayer", false);
+            }
         }
 
         if (zahl != 0)
@@ -218,9 +231,12 @@ public class Enemy : MonoBehaviour
         {
             actualDamage = 1;
         }
-            //animator.SetBool("Hurt", true);
+        //animator.SetBool("Hurt", true);
 
+        if (animator != null)
+        {
             animator.SetTrigger("isHit");
+        }
 
         if(enemyStats.IsDead)
         {
@@ -250,42 +266,50 @@ public class Enemy : MonoBehaviour
             detectRange = -1;
             nextAttackTime = float.MaxValue;
 
-            animator.SetBool("chasingPlayer", false);
-            animator.SetBool("isDead", true);
+            if (animator != null)
+            {
+                animator.SetBool("chasingPlayer", false);
+                animator.SetBool("isDead", true);
+            }
             Destroy(GetComponent<Collider2D>());
-            dieSound.Play();
+            if (dieSound != null)
+            {
+                dieSound.Play();
+            }
 
             Vector3 spawnPosition = transform.position;
             spawnPosition.z -= 1;
 
-            Debug.LogWarning("Bosse droppen momentan nichts. Sollten die nicht lieber immer dieselbe Karte fallen lassen?");
             if (boss == true)
             {
                 //spawnPosition.y += 7;
                 //Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
                 Instantiate(dropBoss, this.transform.position, Quaternion.identity);
             }
-            
             else if (UnityEngine.Random.Range(0, 100) <= 50)
             {
-                Debug.Log("Drop card");
                 int random = UnityEngine.Random.Range(0, 100);
-                Debug.Log("random number is: " + random);
-                if (random <= 33){
-                    Instantiate(dropAttack, spawnPosition, Quaternion.identity);
-                }
-                else if(random <= 66)
+                if (random <= 33)
                 {
-                    Instantiate(dropDefense, transform.position, Quaternion.identity);
+                    if (dropAttack != null)
+                    {
+                        Instantiate(dropAttack, spawnPosition, Quaternion.identity);
+                    }
+                }
+                else if (random <= 66)
+                {
+                    if (dropAttack != null)
+                    {
+                        Instantiate(dropDefense, transform.position, Quaternion.identity);
+                    }
                 }
                 else
                 {
-                    Instantiate(dropMagic, transform.position, Quaternion.identity);
+                    if (dropAttack != null)
+                    {
+                        Instantiate(dropMagic, transform.position, Quaternion.identity);
+                    }
                 }
-            }
-            else
-            {
-                Debug.Log("No drop today");
             }
         }
 
@@ -299,6 +323,16 @@ public class Enemy : MonoBehaviour
         if (boss == true)
         {
             PlayerController.Current.bossDefeated = true;
+            if (defeatedBoss != null)
+            {
+                spriterenderer.sprite = defeatedBoss;
+            }
+            EnemyBoss2 boss2 = GetComponent<EnemyBoss2>();
+            if(boss2 != null)
+            {
+                boss2.KillstateMachine();
+            }
+
             dm.NextDungeon();
         }
         else if (tag != "Obstacle")
@@ -319,7 +353,10 @@ public class Enemy : MonoBehaviour
         dieSound.Play();
         //dieSound.enabled = false;
         Destroy(GetComponent<Collider2D>());
-        animator.SetBool("isDead", true);
+        if (animator != null)
+        {
+            animator.SetBool("isDead", true);
+        }
         spriterenderer.sortingOrder = 0;
         transform.position += new Vector3(0, 0, -0.1f);
         enabled = false;

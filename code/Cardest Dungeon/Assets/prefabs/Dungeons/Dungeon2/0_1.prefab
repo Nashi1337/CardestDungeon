@@ -23073,6 +23073,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FullBarrier
       objectReference: {fileID: 0}
+    - target: {fileID: 3120942875746971205, guid: e451937d3d27fe04cbeced6dd283e27a, type: 3}
+      propertyPath: m_TagString
+      value: DungeonWall
+      objectReference: {fileID: 0}
     - target: {fileID: 5848012954565316990, guid: e451937d3d27fe04cbeced6dd283e27a, type: 3}
       propertyPath: m_RootOrder
       value: 1
