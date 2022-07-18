@@ -315,10 +315,10 @@ public class Inventory : MonoBehaviour
 				}
 			}
 
-			removeButtonText.text = "activate remove selection";
+			removeButtonText.text = "Activate remove selection";
 			remove_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
-			if (allSelectedItems.Count > 1)
+			if (allSelectedItems.Count >= 1)
 			{
 				foreach (Item item in allSelectedItems)
 				{
