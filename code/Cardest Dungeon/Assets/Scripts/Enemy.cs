@@ -262,7 +262,8 @@ public class Enemy : MonoBehaviour
             if (boss == true)
             {
                 //spawnPosition.y += 7;
-                Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
+                //Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
+                Instantiate(dropBoss, this.transform.position, Quaternion.identity);
             }
             
             else if (UnityEngine.Random.Range(0, 100) <= 50)

@@ -356,6 +356,7 @@ MonoBehaviour:
   dropAttack: {fileID: 4952849357784073315, guid: d9193efc685a519459eb2fc299a26857, type: 3}
   dropDefense: {fileID: 4375338151345387569, guid: ab4d8cc9c12b81442b7431edc3ca185a, type: 3}
   dropMagic: {fileID: 7664108723397186347, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
+  dropBoss: {fileID: 0}
   zahl: 0
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3
@@ -513,7 +514,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &3509598710572470594
 MonoBehaviour:
