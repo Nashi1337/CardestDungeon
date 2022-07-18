@@ -43,7 +43,7 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (IsUnlocked)
+        if (IsUnlocked && transform.childCount == 0)
         {
             positionBeforeDrag = transform.position;
         }
@@ -51,9 +51,10 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (IsUnlocked)
+        if (IsUnlocked && transform.childCount == 0)
         {
-            transform.position = eventData.position;
+            transform.SetAsLastSibling();
+            transform.position = (Vector3)(eventData.position) + Vector3.back;
         }
     }
 
