@@ -24,6 +24,8 @@ public class PlayerCombatTEST : MonoBehaviour
 
     [SerializeField]
     private float knockbackModifierForEnemies;
+    [SerializeField]
+    private AudioSource hitSound;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -59,6 +61,7 @@ public class PlayerCombatTEST : MonoBehaviour
         if (Time.time < nextAttackTime)
             return;
 
+        hitSound.Play();
         animator.SetTrigger("attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);

@@ -18,10 +18,14 @@ public class PlayerStats : CharacterStats
 
     [SerializeField]
     private ManaBar manaBar;
+    [SerializeField]
+    private GameObject audioPlayerPrefab;
 
     public GameObject gameOver;
 
     new private AudioSource audio;
+
+    private Animator animator;
 
     void Start()
     {
@@ -31,6 +35,8 @@ public class PlayerStats : CharacterStats
         StartCoroutine(RefillMana());
 
         audio = GetComponent<AudioSource>();
+
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -68,7 +74,10 @@ public class PlayerStats : CharacterStats
     {
         if (attackValue > Defense)
         {
-            audio.Play();
+            animator.SetTrigger("isHurt");
+            GameObject audioPlayer = Instantiate(audioPlayerPrefab);
+            audioPlayer.GetComponent<AudioSource>().clip = audio.clip;
+            //audio.Play();
         }
         if (CurrHealth <= 0)
         {
