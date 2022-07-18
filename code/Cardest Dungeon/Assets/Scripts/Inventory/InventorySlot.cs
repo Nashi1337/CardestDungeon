@@ -31,7 +31,7 @@ public class InventorySlot : MonoBehaviour
 
     public void SwitchSelected()
     {
-        if (Inventory.instance.canCardsBeSelected && item != null && item.isMergable)
+        if (Inventory.instance.merge_canCardsBeSelected && item != null && item.isMergable)
         {
             if (selectedEffect == null)
             {

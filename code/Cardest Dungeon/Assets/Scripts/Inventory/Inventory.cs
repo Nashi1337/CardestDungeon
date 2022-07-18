@@ -27,6 +27,8 @@ public class Inventory : MonoBehaviour
 	[SerializeField]
 	private Text mergeButtonText;
 	[SerializeField]
+	private Text removeButtonText;
+	[SerializeField]
 	private Sprite[] attackCardSprites;
 	[SerializeField]
 	private Sprite[] defenceCardSprites;
@@ -40,7 +42,8 @@ public class Inventory : MonoBehaviour
 
 	public bool fireball;
 	public bool heal;
-	public bool canCardsBeSelected;
+	public bool merge_canCardsBeSelected;
+	public bool remove_canCardsBeSelected;
 	public int heals;
 	public delegate void OnItemChanged();
 	public OnItemChanged onItemChangedCallback;
@@ -234,9 +237,9 @@ public class Inventory : MonoBehaviour
 	public void OnMergeButtonPress()
 	{
 		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
-		if (!canCardsBeSelected)
+		if (!merge_canCardsBeSelected && !remove_canCardsBeSelected)
 		{
-			canCardsBeSelected = true;
+			merge_canCardsBeSelected = true;
 			mergeButtonText.text = "Merge selected cards";
 
 			foreach (InventorySlot slot in allItems)
@@ -269,8 +272,8 @@ public class Inventory : MonoBehaviour
 				slot.RemoveIsNotMergableBorder();
 			}
 
-			mergeButtonText.text = "Activate selection";
-			canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
+			mergeButtonText.text = "Activate merge selection";
+			merge_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
 			if (allSelectedItems.Count > 1)
 			{
@@ -285,6 +288,42 @@ public class Inventory : MonoBehaviour
 			{
 				//Here a text should be displayed that you cannot merge
 				Debug.LogWarning("Missing text message for player. See Code comment");
+			}
+		}
+
+		playerStats.UpdateStats();
+	}
+
+	public void OnRemoveButtonPress()
+	{
+		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
+		if (!remove_canCardsBeSelected && !merge_canCardsBeSelected)
+		{
+			remove_canCardsBeSelected = true;
+			removeButtonText.text = "Remove selected cards";
+		}
+		else
+		{
+			List<Item> allSelectedItems = new List<Item>();
+
+			foreach (InventorySlot slot in allItems)
+			{
+				if (slot.Item != null && slot.selectedEffect != null)
+				{
+					allSelectedItems.Add(slot.Item);
+					slot.SwitchSelected();
+				}
+			}
+
+			removeButtonText.text = "activate remove selection";
+			remove_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
+
+			if (allSelectedItems.Count > 1)
+			{
+				foreach (Item item in allSelectedItems)
+				{
+					Remove(item);
+				}
 			}
 		}
 
