@@ -284,7 +284,9 @@ public class Enemy : MonoBehaviour
             {
                 //spawnPosition.y += 7;
                 //Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
-                Instantiate(dropBoss, this.transform.position, Quaternion.identity);
+                Instantiate(dropBoss, this.transform.position + new Vector3(0,0,5), Quaternion.identity);
+                transform.localPosition = transform.localPosition + new Vector3(0,0,-1);
+                spriterenderer.sortingOrder = 0;
             }
             else if (UnityEngine.Random.Range(0, 100) <= 50)
             {
