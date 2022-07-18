@@ -34,6 +34,9 @@ public class EnemyBoss2 : Enemy
     [SerializeField]
     private MinionWave[] minionwaves;
 
+    [SerializeField]
+    private Transform bulletSpawnPoint;
+
     private float doubleShoot_shotBullets;
     private float counter;
     private float timer;
@@ -111,7 +114,7 @@ public class EnemyBoss2 : Enemy
             
             Vector2 thisToPlayer = PlayerController.Current.transform.position - transform.position;
             float angleInDegree = Mathf.Atan2(thisToPlayer.y, thisToPlayer.x) * Mathf.Rad2Deg;
-            GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.Euler(0, 0, angleInDegree));
+            GameObject fireball = Instantiate(fireballProjectile, bulletSpawnPoint.position, Quaternion.Euler(0, 0, angleInDegree));
             EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
             
             evil.damage = enemyStats.Magic;
@@ -148,7 +151,7 @@ public class EnemyBoss2 : Enemy
             for (int i = 0; i < spreadShoots_BulletsPerShot; i++)
             {
                 float bulletAngle = angleInDegree - ((spreadShoots_BulletsPerShot - 1) / 2f) * spreadShoots_angleDelta + spreadShoots_angleDelta * i;
-                GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.Euler(0, 0, bulletAngle));
+                GameObject fireball = Instantiate(fireballProjectile, bulletSpawnPoint.position, Quaternion.Euler(0, 0, bulletAngle));
                 EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
                 evil.damage = enemyStats.Magic;
                 evil.targetDir = new Vector2(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad)).normalized;
