@@ -100,6 +100,10 @@ MonoBehaviour:
   radius: 0.59
   interactionTransform: {fileID: 4882026304292297285}
   item: {fileID: 11400000, guid: 641b60fb46ca6594cb11e92aa36d40b1, type: 2}
+  bossItem: 0
+  audioPlayerPrefab: {fileID: 5570049455034958939, guid: bf6ad27e9aa84af45abd76e716f227c8, type: 3}
+  itemPickup: {fileID: 3785674103953314202, guid: d9193efc685a519459eb2fc299a26857, type: 3}
+  bossItemPickup: {fileID: 0}
 --- !u!61 &-8137391224108615718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +140,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5ab8fc664ca4d604f820e255005a664a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 07131d1f0971fa34386e3db6ee4c5246, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

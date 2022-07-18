@@ -6,6 +6,10 @@ public class ItemPickup : Interactable
 {
     public Item item;
     public bool bossItem;
+    public GameObject audioPlayerPrefab;
+    public AudioSource itemPickup;
+    public AudioSource bossItemPickup;
+
     public override bool Interact()
     {
 
@@ -21,21 +25,28 @@ public class ItemPickup : Interactable
 
         if (bossItem&&wasPickedUp)
         {
-            LoadNextScene();
+            GameObject audioPlayer = Instantiate(audioPlayerPrefab);
+            audioPlayer.GetComponent<AudioSource>().clip = bossItemPickup.clip;
+            StartCoroutine(LoadNextScene());
             return wasPickedUp;
         }
         else
         {
 
-        if(wasPickedUp)
-            Destroy(gameObject);
+            if (wasPickedUp)
+            {
+                GameObject audioPlayer = Instantiate(audioPlayerPrefab);
+                audioPlayer.GetComponent<AudioSource>().clip = itemPickup.clip;
+                Destroy(gameObject);
+
+            }
         return wasPickedUp;
         }
     }
 
-    private void LoadNextScene()
+    IEnumerator LoadNextScene()
     {
-        //yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3);
         Inventory.instance.SaveInventoryToPlayerStats();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
