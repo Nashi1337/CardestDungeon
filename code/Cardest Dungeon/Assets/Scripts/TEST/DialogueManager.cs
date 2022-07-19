@@ -101,6 +101,6 @@ public class DialogueManager : MonoBehaviour
     {
         nameText.text = "Proceed";
         //animator noch nötig?
-        dialogue.text = "You defeated Herbert the dragon. Press \"Q\" 15 times to enter the next dungeon!";
+        dialogue.text = "You defeated Herbert the dragon. Pick up your reward to enter the next dungeon!";
     }
 }
