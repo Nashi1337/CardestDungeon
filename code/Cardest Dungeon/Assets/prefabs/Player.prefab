@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037d7c3d97432a44aa014aab90080f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tintPlane: {fileID: 0}
-  defaultTint: {r: 1, g: 1, b: 1, a: 0.16862746}
+  tintPlane: {fileID: 8210675540113495299}
+  defaultTint: {r: 1, g: 1, b: 1, a: 0}
   redTint: {r: 1, g: 0, b: 0, a: 0.16862746}
   blueTint: {r: 0, g: 0.23529412, b: 1, a: 0.16862746}
 --- !u!1 &6041061020328274149
@@ -309,6 +309,7 @@ MonoBehaviour:
   magicText: {fileID: 0}
   mana: 0
   manaBar: {fileID: 0}
+  audioPlayerPrefab: {fileID: 0}
   gameOver: {fileID: 0}
 --- !u!114 &6041061020328274171
 MonoBehaviour:
@@ -359,6 +360,7 @@ MonoBehaviour:
     m_Bits: 128
   fireballProjectile: {fileID: 878551947184080376, guid: 6ed128aafca380b429fac29a2d925d91, type: 3}
   knockbackModifierForEnemies: 5
+  hitSound: {fileID: 0}
 --- !u!82 &2578147425078939017
 AudioSource:
   m_ObjectHideFlags: 0
