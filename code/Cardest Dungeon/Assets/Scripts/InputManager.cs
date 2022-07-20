@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     public static KeyCode[] right = new KeyCode[] { KeyCode.D };
     public static KeyCode[] map = new KeyCode[] { KeyCode.M, KeyCode.Joystick1Button3};
     public static KeyCode[] inventory = new KeyCode[] { KeyCode.I, KeyCode.Joystick1Button2 };
-    public static KeyCode[] cancel = new KeyCode[] { KeyCode.B };
+    public static KeyCode[] cancel = new KeyCode[] { KeyCode.Escape };
     public static KeyCode[] action = new KeyCode[] { KeyCode.E };
     public static KeyCode[] attack = new KeyCode[] { KeyCode.Space, KeyCode.Joystick1Button0, KeyCode.Mouse0};
     public static KeyCode[] actionAndAttack = new KeyCode[] { KeyCode.Joystick1Button0 };

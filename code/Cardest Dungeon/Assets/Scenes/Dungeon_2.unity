@@ -603,6 +603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6041061020328274171, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: attackRadius
+      value: 0.87
+      objectReference: {fileID: 0}
     - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: manaBar
       value: 
@@ -631,6 +635,10 @@ PrefabInstance:
       propertyPath: defenseText
       value: 
       objectReference: {fileID: 1469460167}
+    - target: {fileID: 6041061020328902811, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
 --- !u!1 &59848526 stripped

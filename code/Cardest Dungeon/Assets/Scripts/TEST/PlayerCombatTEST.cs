@@ -6,22 +6,26 @@ public class PlayerCombatTEST : MonoBehaviour
 {
     public Animator animator;
 
+
     public Transform attackPoint;
     public Transform rangeAttackPoint;
-    public float attackRange = 0.5f;
     public int attackDamage;
     public float attackRate = 2f;
     private float nextAttackTime = 0f;
     private float knockbackForce;
     public float fireBallCooldown = 3f;
-
+    public GameObject fireballProjectile;
     public LayerMask enemyLayers;
 
-    PlayerStats playerStats;
-    public GameObject fireballProjectile;
 
-    Inventory inventory;
 
+    private PlayerStats playerStats;
+    private Inventory inventory;
+
+    [SerializeField]
+    private float attackFieldWidth;
+    [SerializeField]
+    private float attackFieldHeight;
     [SerializeField]
     private float knockbackModifierForEnemies;
     [SerializeField]
@@ -64,7 +68,19 @@ public class PlayerCombatTEST : MonoBehaviour
         hitSound.Play();
         animator.SetTrigger("attack");
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Vector2 attackRect;
+        if(PlayerController.Current.lookDirection >= 45 || PlayerController.Current.lookDirection <= 90
+            || PlayerController.Current.lookDirection >= -135 || PlayerController.Current.lookDirection <= -90)
+        {
+            attackRect = new Vector2(attackFieldHeight, attackFieldWidth);
+        }
+        else
+        {
+            attackRect = new Vector2(attackFieldWidth, attackFieldHeight);
+        }
+
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, attackRect, 0, enemyLayers);
 
         int damage = Inventory.instance.GetAttackModifier()+playerStats.Attack;
         
@@ -103,18 +119,14 @@ public class PlayerCombatTEST : MonoBehaviour
         //animator
         playerStats.Heal(Inventory.instance.GetMagicModifier()+playerStats.Magic);
         playerStats.UseMana(2);
-        
-        for(int i=0; i < 10; i++)
+
+        for (int i = 0; i < 10; i++)
         {
-            if (Inventory.instance.items[i].name == "Heal")
-            {
-                Debug.Log("Found heal");
-            }
+            //if (Inventory.instance.items[i].name == "Heal")
+            //{
+            //    Debug.Log("Found heal");
+            //}
         }
-
-        //der findet heal nicht
-        //int index = Inventory.instance.items.IndexOf(Heal);
-
     }
 
     private void OnDrawGizmosSelected()
@@ -123,6 +135,6 @@ public class PlayerCombatTEST : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireCube(attackPoint.position, new Vector3(attackFieldWidth, attackFieldHeight, 1));
     }
 }

@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float attackRate;
     [SerializeField]
-    private float attackRadius = 0.5f;
-    [SerializeField]
     private float speed;
     [SerializeField]
     private float runningSpeed;
@@ -82,16 +80,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        if (playerInstance == null)
-        {
-            playerInstance = this;
-            canMove = true;
-        }
-        else
-        {
-            Destroy(gameObject);
-            canMove = true;
-        }
+        //if (playerInstance == null)
+        //{
+        //    playerInstance = this;
+        //    canMove = true;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //    canMove = true;
+        //}
 
         rig = GetComponent<Rigidbody2D>();
         spriterRenderer = GetComponent<SpriteRenderer>();
@@ -159,7 +157,10 @@ public class PlayerController : MonoBehaviour
             {
                 AssignMapManager();
             }
-            ShowHideMap();
+            if (!inventoryManager.activeInHierarchy)
+            {
+                ShowHideMap();
+            }
         }
         if (InputManager.GetActionDown(InputManager.inventory))
         {
@@ -167,23 +168,41 @@ public class PlayerController : MonoBehaviour
             {
                 AssignInventoryManager();
             }
-            ShowHideInventory();
+            if (!mapeditor.activeInHierarchy)
+            {
+                ShowHideInventory();
+            }
         }
 
-        if (InputManager.GetActionDown(InputManager.action))
+        if(InputManager.GetActionDown(InputManager.cancel))
         {
-            InteractWithInteractables();
+            if (inventoryManager.activeInHierarchy)
+            {
+                ShowHideInventory();
+            }
+            else if (mapeditor.activeInHierarchy)
+            {
+                ShowHideMap();
+            }
         }
-        if(InputManager.GetActionDown(InputManager.attack))
+
+        if (!GameTime.IsGamePaused)
         {
-            playerCombatTEST.Attack();
-        }
-        if (InputManager.GetActionDown(InputManager.actionAndAttack))
-        {
-            bool interactedSuccessfully = InteractWithInteractables();
-            if (!interactedSuccessfully)
+            if (InputManager.GetActionDown(InputManager.action))
+            {
+                InteractWithInteractables();
+            }
+            if (InputManager.GetActionDown(InputManager.attack))
             {
                 playerCombatTEST.Attack();
+            }
+            if (InputManager.GetActionDown(InputManager.actionAndAttack))
+            {
+                bool interactedSuccessfully = InteractWithInteractables();
+                if (!interactedSuccessfully)
+                {
+                    playerCombatTEST.Attack();
+                }
             }
         }
 
@@ -287,13 +306,28 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ShowHideMap()
     {
+        if(mapeditor.activeInHierarchy)
+        {
+            MapManager.Current.PrepareForClosure();
+            PlayerIcon.Instance.PauseAnimation();
+        }
+        else
+        {
+            PlayerIcon.Instance.UnpauseAnimation();
+        }
+
         mapeditor.SetActive(!mapeditor.activeSelf);
         GameTime.UpdateIsGamePaused();
     }
 
     private void ShowHideInventory()
     {
+        if(inventoryUI.activeInHierarchy)
+        {
+            Inventory.instance.ResetButtons();
+        }
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+
         GameTime.UpdateIsGamePaused();
     }
 
@@ -321,16 +355,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(attackRate);
         //attackAvailable = true;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 
     public IEnumerator LoadNextScene()

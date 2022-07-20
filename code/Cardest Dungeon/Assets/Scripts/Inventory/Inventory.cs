@@ -296,7 +296,6 @@ public class Inventory : MonoBehaviour
 
 	public void OnRemoveButtonPress()
 	{
-		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 		if (!remove_canCardsBeSelected && !merge_canCardsBeSelected)
 		{
 			remove_canCardsBeSelected = true;
@@ -304,6 +303,7 @@ public class Inventory : MonoBehaviour
 		}
 		else
 		{
+			InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 			List<Item> allSelectedItems = new List<Item>();
 
 			foreach (InventorySlot slot in allItems)
@@ -329,6 +329,27 @@ public class Inventory : MonoBehaviour
 
 		playerStats.UpdateStats();
 	}
+
+	public void ResetButtons()
+	{
+		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
+
+		foreach (InventorySlot slot in allItems)
+		{
+			if (slot.Item != null && slot.selectedEffect != null)
+			{
+				slot.SwitchSelected();
+				slot.RemoveIsNotMergableBorder();
+			}
+		}
+
+		removeButtonText.text = "Activate remove selection";
+		remove_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
+
+		mergeButtonText.text = "Activate merge selection";
+		merge_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
+	}
+
 
 	public int GetAttackModifier()
 	{

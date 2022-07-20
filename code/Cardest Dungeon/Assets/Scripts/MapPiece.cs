@@ -81,4 +81,9 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         dungeonPiecePosition = newDungeonPosition;
     }
 
+    public void ResetWithoutSwap()
+    {
+        transform.position = positionBeforeDrag;
+    }
+
 }

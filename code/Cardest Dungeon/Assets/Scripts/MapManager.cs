@@ -25,6 +25,7 @@ public class MapManager : MonoBehaviour
 
     [SerializeField]
     private GameObject playerIcon;
+    private MapPiece playerPosition;
     private MapPiece[,] allMapPieces = null;
     private static MapManager current = null;
     private List<WaterScript> allSources;
@@ -290,5 +291,13 @@ public class MapManager : MonoBehaviour
     {
         (int, int) pos = FindMapPiecePositionInArray(mapPiece);
         return DungeonAttributes.Current.GetElementOfArea(pos.Item1, pos.Item2);
+    }
+
+    public void PrepareForClosure()
+    {
+        foreach(MapPiece mapPiece in allMapPieces)
+        {
+            mapPiece.ResetWithoutSwap();
+        }
     }
 }

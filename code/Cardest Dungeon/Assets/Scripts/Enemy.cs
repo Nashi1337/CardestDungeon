@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour
             {
                 if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
                 {
-                    Shoot();
+                    ShootFireBallTowardsPlayer();
                     nextAttackTime = Time.time + 1f / fireBallCooldown;
                 }
             }
@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour
                 accelerationfactor = -1;
                 if(Time.time >= nextAttackTime)
                 {
-                    Shoot();
+                    ShootFireBallTowardsPlayer();
                     nextAttackTime = Time.time + 1f / fireBallCooldown;
                 }
             }
@@ -168,14 +168,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Shoot()
+    private void ShootFireBallTowardsPlayer()
     {
-        GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.identity);
+        Vector3 enemyToPlayer = PlayerController.Current.transform.position - transform.position;
+        float angle = Mathf.Atan2(enemyToPlayer.y, enemyToPlayer.x) * Mathf.Rad2Deg;
+
+        GameObject fireball = Instantiate(fireballProjectile, transform.position, Quaternion.Euler(0, 0, angle));
         EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
         evil.damage = enemyStats.Magic;
         evil.targetDir = (PlayerController.Current.transform.position - transform.position).normalized;
     }
-
 
     /// <summary>
     /// Contains the movement pattern of the enemy which is to directly move into the players direction.
