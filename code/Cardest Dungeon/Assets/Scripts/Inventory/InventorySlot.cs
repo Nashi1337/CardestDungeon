@@ -9,6 +9,7 @@ public class InventorySlot : MonoBehaviour
     public GameObject selectedEffect;
     public Item Item { get { return item; } }
     public Image icon;
+    public Sprite defaultIcon;
 
     public
     Item item;
@@ -25,8 +26,8 @@ public class InventorySlot : MonoBehaviour
     {
         item = null;
 
-        icon.sprite = null;
-        icon.enabled = false;
+        icon.sprite = defaultIcon;
+        //icon.enabled = false;
     }
 
     public void SwitchSelected()

@@ -42,6 +42,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Sprite defeatedBoss;
 
+    [SerializeField]
+    private int zahltrigger;
+
     private Vector3 directionToPlayer;
 
     protected EnemyStats enemyStats;
@@ -265,6 +268,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            if (zahltrigger != null)
+            {
+                dm.read[zahltrigger] = zahltrigger;
+            }
+
             detectRange = -1;
             nextAttackTime = float.MaxValue;
 

@@ -22,4 +22,21 @@ public class DialogueTrigger : MonoBehaviour
         dm.read[textnumber] = textnumber;
         audioSource.Play();
     }
+
+    public void TriggerNPC()
+    {
+        dm.StartNPC(dialogue);
+        dm.read[textnumber] = textnumber;
+        if (textnumber == 10)
+        {
+            StartCoroutine(ChangeSprite());
+        }
+    }
+
+    IEnumerator ChangeSprite()
+    {
+        yield return new WaitForSeconds(2.0f);
+        GetComponent<SpriteRenderer>().sprite = Resources.Load("Assets/Graphics/Test graphics/fakeWife.png") as Sprite;
+
+    }
 }

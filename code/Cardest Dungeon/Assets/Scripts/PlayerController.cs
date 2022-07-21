@@ -251,6 +251,15 @@ public class PlayerController : MonoBehaviour
                     break;
                 }
             }
+            if (collider.tag.Equals("NPC"))
+            {
+                DialogueTrigger dT = collider.GetComponent<DialogueTrigger>();
+                if(dT != null)
+                {
+                    dT.TriggerNPC();
+                    break;
+                }
+            }
         }
         foreach (Collider2D collider in results)
         {

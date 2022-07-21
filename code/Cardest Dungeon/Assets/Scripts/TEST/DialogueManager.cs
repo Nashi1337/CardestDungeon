@@ -11,17 +11,17 @@ public class DialogueManager : MonoBehaviour
 
     public Text nameText;
     public TMP_Text dialogue;
-
+    public Text dialogue2;
     public Animator animator;
 
-    //PlayerController pc;
+    PlayerController pc;
 
     public int[] read;
 
     // Start is called before the first frame update
     void Start()
     {
-        //pc = FindObjectOfType<PlayerController>();
+        pc = FindObjectOfType<PlayerController>();
         sentences = new Queue<string>();
     }
 
@@ -37,7 +37,23 @@ public class DialogueManager : MonoBehaviour
 
         foreach(string sentence in dialogue1.sentences)
         {
-            if(sentence != dialogue.text)
+            if(sentence != dialogue2.text)
+                sentences.Enqueue(sentence);
+        }
+
+        DisplayNextSentence();
+    }
+
+    public void StartNPC(Dialogue dialogue)
+    {
+        PlayerController.canMove = false;
+        animator.SetBool("IsOpen", true);
+        nameText.text = dialogue.name;
+        sentences.Clear();
+
+        foreach(string sentence in dialogue.sentences)
+        {
+            if (sentence != dialogue2.text)
                 sentences.Enqueue(sentence);
         }
 
@@ -59,10 +75,10 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeSentence(string sentence)
     {
-        dialogue.text = "";
+        dialogue2.text = "";
         foreach(char letter in sentence.ToCharArray())
         {
-            dialogue.text += letter;
+            dialogue2.text += letter;
             yield return null;
         }
     }
@@ -71,7 +87,7 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of conversation");
         animator.SetBool("IsOpen", false);
-        //PlayerController.canMove = true;
+        PlayerController.canMove = true;
     }
 
     public void CustomDialogue(string sentence)
@@ -79,28 +95,28 @@ public class DialogueManager : MonoBehaviour
         nameText.text = "Tutorial";
         //PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
-        dialogue.text = sentence;
+        dialogue2.text = sentence;
     }
 
     public void Tutorial1()
     {
         nameText.text = "Tutorial #1";
-        //PlayerController.canMove = false;
+        PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
-        dialogue.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
+        dialogue2.text = "Press \"W\",\"A\",\"S\",\"D\" to walk and \"E\" to interact with objects.";
     }
 
     public void Victory()
     {
         nameText.text = "Victory";
         animator.SetBool("IsOpen", true);
-        dialogue.text = "You did it! Congratulations! Press \"Q\" 15 times to exit the game!";
+        dialogue2.text = "You did it! Congratulations! Press \"Q\" 15 times to exit the game!";
     }
 
     public void NextDungeon()
     {
         nameText.text = "Proceed";
         //animator noch nötig?
-        dialogue.text = "You defeated Herbert the dragon. Pick up your reward to enter the next dungeon!";
+        dialogue2.text = "You defeated Herbert the dragon. Pick up your reward to enter the next dungeon!";
     }
 }
