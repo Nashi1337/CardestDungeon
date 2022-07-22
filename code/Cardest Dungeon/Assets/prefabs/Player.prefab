@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2995584394814775986}
   - component: {fileID: 6441679556197503926}
   - component: {fileID: 5624295059107197542}
+  - component: {fileID: 7226793919384578289}
   m_Layer: 5
   m_Name: PlayerIcon
   m_TagString: Untagged
@@ -119,6 +120,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7226793919384578289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458025931985104530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88cee22869cce243a92bdeb53fb8381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6041061020280635141
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +443,7 @@ MonoBehaviour:
   magicText: {fileID: 0}
   mana: 0
   manaBar: {fileID: 0}
-  audioPlayerPrefab: {fileID: 0}
+  audioPlayerPrefab: {fileID: 5570049455034958939, guid: bf6ad27e9aa84af45abd76e716f227c8, type: 3}
   gameOver: {fileID: 0}
 --- !u!114 &6041061020328274171
 MonoBehaviour:

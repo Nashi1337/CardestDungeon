@@ -112,8 +112,12 @@ public class PlayerController : MonoBehaviour
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
         inventoryUI.SetActive(false);
 
+
         dm = FindObjectOfType<DialogueManager>();
-        dm.Tutorial1();
+        if (dm != null)
+        {
+            dm.Tutorial1();
+        }
     }
 
     // Update is called once per frame
