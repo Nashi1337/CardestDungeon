@@ -23,8 +23,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private GameObject playerIcon;
     private MapPiece playerPosition;
     private MapPiece[,] allMapPieces = null;
     private static MapManager current = null;
@@ -53,10 +51,9 @@ public class MapManager : MonoBehaviour
     /// Changes the player location on the visual map to mapPiece by setting the parent of the player icon.
     /// </summary>
     /// <param name="mapPiece">The map piece at which the player icon will be appended.</param>
-    public void UpdatePlayerPiece(MapPiece mapPiece)
+    public void UpdatePlayerPosition(MapPiece mapPiece)
     {
-
-        playerIcon.transform.SetParent(mapPiece.transform, false);
+        playerPosition = mapPiece;
     }
 
     /// <summary>
@@ -189,8 +186,7 @@ public class MapManager : MonoBehaviour
             return false;
         }
 
-        MapPiece playersLocation = playerIcon.transform.parent.GetComponent<MapPiece>();
-        if (playersLocation.Equals(piece1) || playersLocation.Equals(piece2))
+        if (playerPosition.Equals(piece1) || playerPosition.Equals(piece2))
         {
             return false;
         }

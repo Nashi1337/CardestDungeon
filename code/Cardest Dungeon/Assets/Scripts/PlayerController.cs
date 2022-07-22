@@ -290,7 +290,7 @@ public class PlayerController : MonoBehaviour
 
                 CameraTintScript.Instance.SwitchColor(element);
 
-                MapManager.Current.UpdatePlayerPiece(collidedWith);
+                MapManager.Current.UpdatePlayerPosition(collidedWith);
             }
         }
     }

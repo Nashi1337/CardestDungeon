@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    public static bool IsGamePaused { get { return isGamePaused; } }
+    public static bool IsGamePaused { get { return isGamePaused; } set { isGamePaused = value; } }
 
     private static bool isGamePaused = false;
 
