@@ -8,6 +8,7 @@ public class EvilProjectile : MonoBehaviour
     public int damage = 6;
 
     public Vector3 targetDir;
+    public Enemy enemy;
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class EvilProjectile : MonoBehaviour
             //Debug.Log("Hab den Spieler erwischt");
             if (target != null)
             {
-                target.TakeDamage(damage);
+                target.TakeDamage(damage, enemy.EnemyStats);
             }
 
             Destroy(gameObject);

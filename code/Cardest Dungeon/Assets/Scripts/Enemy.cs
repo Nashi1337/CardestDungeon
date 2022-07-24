@@ -8,12 +8,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
-    //[SerializeField]
-    //private int enemyIndex;
-    //[SerializeField]
-    //private int health;
-    //[SerializeField]
-    //private GameObject battleEnemyToLoad;
+    public EnemyStats EnemyStats { get { return enemyStats; } }
+
     private bool attackAvailable = true;
     [SerializeField]
     private float attackRate;
@@ -71,8 +67,6 @@ public class Enemy : MonoBehaviour
     {
         Initialize();
 
-        dm = FindObjectOfType<DialogueManager>();
-
         SetScale();
     }
 
@@ -99,6 +93,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriterenderer = GetComponent<SpriteRenderer>();
         enemyStats = GetComponent<EnemyStats>();
+        dm = FindObjectOfType<DialogueManager>();
     }
 
     // Update is called once per frame
@@ -180,6 +175,7 @@ public class Enemy : MonoBehaviour
         EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
         evil.damage = enemyStats.Magic;
         evil.targetDir = (PlayerController.Current.transform.position - transform.position).normalized;
+        evil.enemy = this;
     }
 
     /// <summary>
@@ -208,7 +204,7 @@ public class Enemy : MonoBehaviour
     {
         if (attackAvailable && tag != "Obstacle" && collision.tag == "Player")
         {
-            collision.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack);
+            collision.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack, enemyStats);
             attackAvailable = false;
             StartCoroutine(AttackCooldown());
         }
@@ -229,9 +225,9 @@ public class Enemy : MonoBehaviour
     /// </summary>
     /// <param name="attackValue"></param>
     /// <returns>Actual damage taken.</returns>
-    public int TakeDamage(int attackValue)
+    public int TakeDamage(int attackValue, CharacterStats attacker)
     {
-        int actualDamage = enemyStats.TakeDamage(attackValue);
+        int actualDamage = enemyStats.TakeDamage(attackValue, attacker);
         if(actualDamage < 0)
         {
             actualDamage = 1;
@@ -254,7 +250,7 @@ public class Enemy : MonoBehaviour
     {
         if (victim != null)
         {
-            return victim.TakeDamage(enemyStats.Attack);
+            return victim.TakeDamage(enemyStats.Attack, enemyStats);
         }
         return 0;
     }
@@ -268,7 +264,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (zahltrigger != null)
+            if (zahltrigger != 0)
             {
                 dm.read[zahltrigger] = zahltrigger;
             }
@@ -339,10 +335,16 @@ public class Enemy : MonoBehaviour
             {
                 spriterenderer.sprite = defeatedBoss;
             }
+            
             EnemyBoss2 boss2 = GetComponent<EnemyBoss2>();
             if(boss2 != null)
             {
                 boss2.KillstateMachine();
+
+                //Initiate credits
+                GameTime.IsGamePaused = true;
+                FadeOutToCredits fff = gameObject.AddComponent<FadeOutToCredits>();
+                fff.timeToFadeOut = 5;
             }
 
             dm.NextDungeon();

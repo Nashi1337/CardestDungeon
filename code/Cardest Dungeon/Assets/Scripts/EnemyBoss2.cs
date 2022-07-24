@@ -119,6 +119,7 @@ public class EnemyBoss2 : Enemy
             
             evil.damage = enemyStats.Magic;
             evil.targetDir = thisToPlayer.normalized;
+            evil.enemy = this;
             doubleShoot_shotBullets++;
             
             if(doubleShoot_shotBullets == 2)
@@ -155,6 +156,7 @@ public class EnemyBoss2 : Enemy
                 EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
                 evil.damage = enemyStats.Magic;
                 evil.targetDir = new Vector2(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad)).normalized;
+                evil.enemy = this;
             }
             
             counter++;

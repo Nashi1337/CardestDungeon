@@ -48,6 +48,7 @@ public class CameraTintScript : MonoBehaviour
         stateMachine.AddState("TintingBlue", TintingBlue);
         stateMachine.AddState("TintingIdle", TintingIdle);
 
+
     }
 
     private void FixedUpdate()

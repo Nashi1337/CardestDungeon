@@ -70,7 +70,7 @@ public class PlayerStats : CharacterStats
         UpdateStats();
     }
 
-    public override int TakeDamage(int attackValue)
+    public override int TakeDamage(int attackValue, CharacterStats attacker)
     {
         if (attackValue > Defense)
         {
@@ -83,7 +83,7 @@ public class PlayerStats : CharacterStats
         {
             Die();
         }
-        return base.TakeDamage(attackValue, Defense + Inventory.instance.GetDefenseModifier());
+        return base.TakeDamage(attackValue, Defense + Inventory.instance.GetDefenseModifier(), attacker);
     }
 
     public override void CheckHealth()

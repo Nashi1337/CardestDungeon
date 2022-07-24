@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public PlayerStats PlayerStats { get { return playerStats; } }
+
     [SerializeField]
     private int inventorySize; 
     [SerializeField]
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
     public static Vector2 currentPosition = new Vector2(-10, -140);
     public float walkDirectionInDegree;
     public float lookDirection;
-    public Vector3 lookDirectionAsVector;
+    public Vector3 lookDirectionAsVector = new Vector3(1, 0, 0);
 
     public bool bossDefeated = false;
 
@@ -304,9 +306,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     /// <param name="attackValue"></param>
     /// <returns>Actual damage Taken</returns>
-    public int TakeDamage(int attackValue)
+    public int TakeDamage(int attackValue, CharacterStats attacker)
     {
-        return playerStats.TakeDamage(attackValue);
+        return playerStats.TakeDamage(attackValue, attacker);
         
     }
 

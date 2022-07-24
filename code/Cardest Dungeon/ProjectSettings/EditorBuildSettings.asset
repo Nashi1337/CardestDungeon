@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: bb6c2c916eab6e94e98ff4957ae5029a
   - enabled: 1
-    path: Assets/Scenes/NewDungeon.unity
+    path: Assets/Scenes/Dungeon_1.unity
     guid: 77afa428bb3180d4f8b35096876192d1
   - enabled: 1
     path: Assets/Scenes/Dungeon_2.unity
     guid: f66c4c1d24566fb488cf7f00ae8b7a0a
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 412a74f96681b214ebbbf2c473aa51f2
   m_configObjects: {}

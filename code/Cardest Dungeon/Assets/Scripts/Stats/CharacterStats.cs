@@ -24,13 +24,11 @@ public class CharacterStats : MonoBehaviour
     protected int magic;
     private int currHealth;
     private bool isDead;
-    //private int mana = 0;
 
     [SerializeField]
 	private HealthBar healthBar;
 
-    //[SerializeField]
-    //private ManaBar manaBar;
+    private float knockbackModifier = 5;
 
     void Start()
     {
@@ -65,7 +63,7 @@ public class CharacterStats : MonoBehaviour
     /// </summary>
     /// <param name="attackValue"></param>
     /// <returns>Actual Damge taken.</returns>
-    protected int TakeDamage(int attackValue, int defenseValue)
+    protected int TakeDamage(int attackValue, int defenseValue, CharacterStats attacker)
     {
         //alte Berechnung
         attackValue -= defenseValue;
@@ -76,10 +74,12 @@ public class CharacterStats : MonoBehaviour
 
         CurrHealth -= attackValue;
 
+        //Knockback Calculation
+        float knockbackForce = knockbackModifier * attackValue;
+        Vector2 knockbackDirection = (transform.position - attacker.transform.position).normalized;
+        GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+
         UpdateStats();
-
-        //Debug.Log(transform.name + " takes " + attackValue + " damage. characterstats");
-
         CheckHealth();
 
         return attackValue;
@@ -91,9 +91,9 @@ public class CharacterStats : MonoBehaviour
     //    UpdateStats();
     //}
 
-    public virtual int TakeDamage(int attackValue)
+    public virtual int TakeDamage(int attackValue, CharacterStats attacker)
     {
-        return TakeDamage(attackValue, Defense);
+        return TakeDamage(attackValue, Defense, attacker);
     }
 
     public void Heal(int magicValue)

@@ -26,8 +26,8 @@ public class EnemyStats : CharacterStats
         base.UpdateStats();
     }
 
-    public override int TakeDamage(int attackValue)
+    public override int TakeDamage(int attackValue, CharacterStats attacker)
     {
-        return base.TakeDamage(attackValue, Defense);
+        return base.TakeDamage(attackValue, Defense, attacker);
     }
 }

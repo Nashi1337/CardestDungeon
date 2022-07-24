@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileTEST : MonoBehaviour
 {
-    public float moveSpeed = 1f;
+    public float moveSpeed;
     public int damage;
 
     PlayerController player;
@@ -45,7 +45,7 @@ public class ProjectileTEST : MonoBehaviour
 
             if(enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, player.PlayerStats);
             }
             Debug.Log(collision.gameObject.name + "b");
             Destroy(gameObject);

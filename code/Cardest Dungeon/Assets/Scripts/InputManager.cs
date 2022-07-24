@@ -20,13 +20,18 @@ public class InputManager : MonoBehaviour
     public static KeyCode[] actionAndAttack = new KeyCode[] { KeyCode.Joystick1Button0 };
     public static KeyCode[] fireball = new KeyCode[] { KeyCode.F, KeyCode.Joystick1Button1, KeyCode.Mouse1};
     public static KeyCode[] heal = new KeyCode[] { KeyCode.H, KeyCode.Joystick1Button4 };
-    
+
+
+    private static bool ignoreInput = false;
     /// <summary>
     /// Calculates the input direction by checking the forward, backward, left and right keys.
     /// </summary>
     /// <returns>Returns a normalized vector2 which represents the input direction</returns>
     public static Vector2 CalculateInputDirection()
     {
+        if (ignoreInput)
+            return Vector2.zero;
+
         Vector2 movement = new Vector2(0, 0);
 
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -49,6 +54,9 @@ public class InputManager : MonoBehaviour
     /// <returns>Returns true, if a button for a certain action got pressed down. Else, false.</returns>
     public static bool GetAction(KeyCode[] action)
     {
+        if (ignoreInput)
+            return false;
+
         foreach (KeyCode key in action)
         {
             if (Input.GetKey(key))
@@ -66,6 +74,9 @@ public class InputManager : MonoBehaviour
     /// <returns>Returns true, if a button for a certain action was released. Else, false.</returns>
     public static bool GetActionDown(KeyCode[] action)
     {
+        if (ignoreInput)
+            return false;
+
         foreach (KeyCode key in action)
         {
             if (Input.GetKeyDown(key))
@@ -83,6 +94,9 @@ public class InputManager : MonoBehaviour
     /// <returns>Returns true, if a button for a certain action is pressed. Else, false.</returns>
     public static bool GetActionUp(KeyCode[] action)
     {
+        if (ignoreInput)
+            return false;
+
         foreach (KeyCode key in action)
         {
             if (Input.GetKeyUp(key))
@@ -91,5 +105,10 @@ public class InputManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public static void IgnoreInput()
+    {
+        ignoreInput = true;
     }
 }

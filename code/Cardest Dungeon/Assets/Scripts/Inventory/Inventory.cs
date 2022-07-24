@@ -35,15 +35,6 @@ public class Inventory : MonoBehaviour
 	[SerializeField]
 	private Sprite[] magicCardSprites;
 
-	[SerializeField]
-	private Sprite MergeButton;
-	[SerializeField]
-	private Sprite MergeButtonPressed;
-	[SerializeField]
-	private Sprite RemoveButton;
-	[SerializeField]
-	private Sprite RemoveButtonPressed;
-
 	private PlayerStats playerStats;
 	private int attackModifier;
 	private int defenseModifier;
@@ -246,14 +237,11 @@ public class Inventory : MonoBehaviour
 
 	public void OnMergeButtonPress()
 	{
-		GameObject.Find("MergeButton").GetComponent<Image>().sprite = MergeButtonPressed;
-		GameObject.Find("RemoveButton").GetComponent<Button>().interactable = false;
-
 		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 		if (!merge_canCardsBeSelected && !remove_canCardsBeSelected)
 		{
 			merge_canCardsBeSelected = true;
-			mergeButtonText.text = "Merge\nselected\ncards";
+			mergeButtonText.text = "MERGE\nSELECTED\nCARDS";
 
 			foreach (InventorySlot slot in allItems)
 			{
@@ -285,9 +273,7 @@ public class Inventory : MonoBehaviour
 				slot.RemoveIsNotMergableBorder();
 			}
 
-			mergeButtonText.text = "IT'S\nMERGIN'\nTIME";
-			GameObject.Find("MergeButton").GetComponent<Image>().sprite = MergeButton;
-			GameObject.Find("RemoveButton").GetComponent<Button>().interactable = true;
+			mergeButtonText.text = "START\nMERGING";
 			merge_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
 			if (allSelectedItems.Count > 1)
@@ -311,13 +297,10 @@ public class Inventory : MonoBehaviour
 
 	public void OnRemoveButtonPress()
 	{
-		GameObject.Find("RemoveButton").GetComponent<Image>().sprite = RemoveButtonPressed;
-		GameObject.Find("MergeButton").GetComponent<Button>().interactable = false;
-
 		if (!remove_canCardsBeSelected && !merge_canCardsBeSelected)
 		{
 			remove_canCardsBeSelected = true;
-			removeButtonText.text = "Remove\nselected\ncards";
+			removeButtonText.text = "REMOVE\nSELECTED\nCARDS";
 		}
 		else
 		{
@@ -333,9 +316,7 @@ public class Inventory : MonoBehaviour
 				}
 			}
 
-			GameObject.Find("MergeButton").GetComponent<Button>().interactable = true;
-			GameObject.Find("RemoveButton").GetComponent<Image>().sprite = RemoveButton;
-			removeButtonText.text = "REMOVE\nCARDS";
+			removeButtonText.text = "START\nREMOVING\nCARDS";
 			remove_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
 			if (allSelectedItems.Count >= 1)
@@ -359,17 +340,13 @@ public class Inventory : MonoBehaviour
 			if (slot.Item != null && slot.selectedEffect != null)
 			{
 				slot.SwitchSelected();
-				slot.RemoveIsNotMergableBorder();
 			}
+			slot.RemoveIsNotMergableBorder();
 		}
 
-		removeButtonText.text = "REMOVE\nCARDS";
+		removeButtonText.text = "START\nREMOVING\nCARDS";
 		remove_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
-		GameObject.Find("MergeButton").GetComponent<Image>().sprite = MergeButton;
-		GameObject.Find("RemoveButton").GetComponent<Image>().sprite = RemoveButton;
-		GameObject.Find("MergeButton").GetComponent<Button>().interactable= true;
-		GameObject.Find("RemoveButton").GetComponent<Button>().interactable = true;
-		mergeButtonText.text = "IT'S\nMERGIN'\nTIME";
+		mergeButtonText.text = "START\nMERGING";
 		merge_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 	}
 

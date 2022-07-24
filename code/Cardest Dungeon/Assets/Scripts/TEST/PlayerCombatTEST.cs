@@ -12,7 +12,6 @@ public class PlayerCombatTEST : MonoBehaviour
     public int attackDamage;
     public float attackRate = 2f;
     private float nextAttackTime = 0f;
-    private float knockbackForce;
     public float fireBallCooldown = 3f;
     public GameObject fireballProjectile;
     public LayerMask enemyLayers;
@@ -26,8 +25,6 @@ public class PlayerCombatTEST : MonoBehaviour
     private float attackFieldWidth;
     [SerializeField]
     private float attackFieldHeight;
-    [SerializeField]
-    private float knockbackModifierForEnemies;
     [SerializeField]
     private AudioSource hitSound;
     private void Start()
@@ -90,11 +87,7 @@ public class PlayerCombatTEST : MonoBehaviour
             Enemy enem = enemy.GetComponent<Enemy>();
             if (enem != null)
             {
-                //Damage Calculation
-                knockbackForce = knockbackModifierForEnemies * enemy.GetComponent<Enemy>().TakeDamage(damage);
-                //Knockback Calculation
-                Vector2 knockbackDirection = (enemy.transform.position - gameObject.transform.position).normalized;
-                enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+                enem.TakeDamage(damage, playerStats);
             }
         }
 
