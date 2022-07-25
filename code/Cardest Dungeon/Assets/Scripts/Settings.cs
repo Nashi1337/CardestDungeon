@@ -42,6 +42,8 @@ public class Settings : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        SetVolume(0.5f);
     }
 
     /// <summary>
@@ -51,7 +53,8 @@ public class Settings : MonoBehaviour
     public void SetVolume(float volume)
     {
         Debug.Log(volume);
-        audioMixer.SetFloat("Volume", volume);
+        //audioMixer.SetFloat("Volume", volume);
+        AudioListener.volume = volume;
     }
 
     /// <summary>
