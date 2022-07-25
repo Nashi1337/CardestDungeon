@@ -30,7 +30,8 @@ public class GameTime : MonoBehaviour
     public static void UpdateIsGamePaused()
     {
         isGamePaused = Inventory.instance.gameObject.activeInHierarchy 
-                    || MapManager.Current.gameObject.activeInHierarchy;
+                    || MapManager.Current.gameObject.activeInHierarchy
+                    || Pause.instance.gameObject.activeInHierarchy;
 
         Time.timeScale = isGamePaused ? 0 : 1;
 

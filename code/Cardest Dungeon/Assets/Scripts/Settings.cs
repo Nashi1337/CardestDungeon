@@ -43,7 +43,7 @@ public class Settings : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        SetVolume(0.5f);
+        SetVolume(0.4f);
     }
 
     /// <summary>

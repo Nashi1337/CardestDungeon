@@ -21,4 +21,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Jemand hat Quit geklickt");
         Application.Quit();
     }
+
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene(4);
+    }
 }

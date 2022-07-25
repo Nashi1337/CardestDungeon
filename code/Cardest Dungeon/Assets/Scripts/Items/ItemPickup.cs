@@ -6,6 +6,7 @@ public class ItemPickup : Interactable
 {
     public Item item;
     public bool bossItem;
+    public bool tutorialItem;
     public GameObject audioPlayerPrefab;
     public AudioSource itemPickup;
     public AudioSource bossItemPickup;
@@ -28,6 +29,13 @@ public class ItemPickup : Interactable
             GameObject audioPlayer = Instantiate(audioPlayerPrefab);
             audioPlayer.GetComponent<AudioSource>().clip = bossItemPickup.clip;
             StartCoroutine(LoadNextScene());
+            return wasPickedUp;
+        }
+        else if (tutorialItem && wasPickedUp)
+        {
+            GameObject audioPlayer = Instantiate(audioPlayerPrefab);
+            audioPlayer.GetComponent<AudioSource>().clip = bossItemPickup.clip;
+            SceneManager.LoadScene(0);
             return wasPickedUp;
         }
         else

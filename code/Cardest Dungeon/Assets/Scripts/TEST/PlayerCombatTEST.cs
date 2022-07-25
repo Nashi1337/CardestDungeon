@@ -39,19 +39,23 @@ public class PlayerCombatTEST : MonoBehaviour
     {
         if(Time.time >= nextAttackTime)
         {
-            //Close range attack is initiated in Playercontroller
-            if (inventory.fireball)
+            if (PlayerController.canMove)
             {
-                if (InputManager.GetActionDown(InputManager.fireball))
+
+                //Close range attack is initiated in Playercontroller
+                if (inventory.fireball)
                 {
-                    Fireball();
+                    if (InputManager.GetActionDown(InputManager.fireball))
+                    {
+                        Fireball();
+                    }
                 }
-            }
-            if(Inventory.instance.heal == true && Inventory.instance.heals>0)
-            {
-                if (InputManager.GetActionDown(InputManager.heal))
+                if(Inventory.instance.heal == true && Inventory.instance.heals>0)
                 {
-                    Heal();
+                    if (InputManager.GetActionDown(InputManager.heal))
+                    {
+                        Heal();
+                    }
                 }
             }
         }

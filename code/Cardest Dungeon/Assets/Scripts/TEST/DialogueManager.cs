@@ -27,7 +27,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue1)
     {
-        //PlayerController.canMove = false;
+        GameTime.UpdateIsGamePaused();
+        PlayerController.canMove = false;
         animator.SetBool("IsOpen", true);
         nameText.text = dialogue1.name;
 

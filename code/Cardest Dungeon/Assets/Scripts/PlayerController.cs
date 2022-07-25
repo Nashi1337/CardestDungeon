@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
     private float interactionRadius;
     private PlayerStats playerStats;
 
+    [SerializeField]
+    private GameObject Pause;
+
     //private bool attackAvailable = true;
     private Rigidbody2D rig = default;
     private Rigidbody2D rig2;
@@ -119,14 +122,19 @@ public class PlayerController : MonoBehaviour
         dm = FindObjectOfType<DialogueManager>();
         if (dm != null)
         {
-            dm.Tutorial1();
+            //dm.Tutorial1();
+        }
+
+        if (Pause != null)
+        {
+            Pause.SetActive(false);
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove == true)
+        if (canMove)
         {
             Vector2 walkDirectionAsVector = InputManager.CalculateInputDirection();
 
@@ -158,70 +166,89 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.GetActionDown(InputManager.map))
+        if (canMove)
         {
-            if (mapeditor == null)
-            {
-                AssignMapManager();
-            }
-            if (!inventoryManager.activeInHierarchy)
-            {
-                ShowHideMap();
-            }
-        }
-        if (InputManager.GetActionDown(InputManager.inventory))
-        {
-            if (inventoryManager == null)
-            {
-                AssignInventoryManager();
-            }
-            if (!mapeditor.activeInHierarchy)
-            {
-                ShowHideInventory();
-            }
-        }
 
-        if(InputManager.GetActionDown(InputManager.cancel))
-        {
-            if (inventoryManager.activeInHierarchy)
+            if (InputManager.GetActionDown(InputManager.map))
             {
-                ShowHideInventory();
+                if (mapeditor == null)
+                {
+                    AssignMapManager();
+                }
+                if (!inventoryManager.activeInHierarchy)
+                {
+                    ShowHideMap();
+                }
             }
-            else if (mapeditor.activeInHierarchy)
+            if (InputManager.GetActionDown(InputManager.inventory))
             {
-                ShowHideMap();
+                if (inventoryManager == null)
+                {
+                    AssignInventoryManager();
+                }
+                if (!mapeditor.activeInHierarchy)
+                {
+                    ShowHideInventory();
+                }
             }
-        }
 
-        if (!GameTime.IsGamePaused)
-        {
-            if (InputManager.GetActionDown(InputManager.action))
+            if(InputManager.GetActionDown(InputManager.cancel))
             {
-                InteractWithInteractables();
+                if (inventoryManager.activeInHierarchy)
+                {
+                    ShowHideInventory();
+                }
+                else if (mapeditor.activeInHierarchy)
+                {
+                    ShowHideMap();
+                }
             }
-            if (InputManager.GetActionDown(InputManager.attack))
+
+            if (!GameTime.IsGamePaused)
             {
-                playerCombatTEST.Attack();
-            }
-            if (InputManager.GetActionDown(InputManager.actionAndAttack))
-            {
-                bool interactedSuccessfully = InteractWithInteractables();
-                if (!interactedSuccessfully)
+                if (InputManager.GetActionDown(InputManager.action))
+                {
+                    InteractWithInteractables();
+                }
+                if (InputManager.GetActionDown(InputManager.attack))
                 {
                     playerCombatTEST.Attack();
                 }
-            }
-        }
+                if (InputManager.GetActionDown(InputManager.actionAndAttack))
+                {
+                    bool interactedSuccessfully = InteractWithInteractables();
+                    if (!interactedSuccessfully)
+                    {
+                        playerCombatTEST.Attack();
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if(bossDefeated == true)
-            {
-                quit++;
             }
-            if (quit >= 15)
+
+            if (InputManager.GetActionDown(InputManager.cancel))
             {
-                StartCoroutine(LoadNextScene());
+                if (!Pause.activeSelf)
+                {
+                    Pause.SetActive(true);
+                    GameTime.UpdateIsGamePaused();
+                }
+                else
+                {
+                    Pause.SetActive(false);
+                    GameTime.UpdateIsGamePaused();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if(bossDefeated == true)
+                {
+                    quit++;
+                }
+                if (quit >= 15)
+                {
+                    StartCoroutine(LoadNextScene());
+                }
             }
         }
     }
