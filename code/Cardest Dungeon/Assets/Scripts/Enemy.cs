@@ -84,7 +84,10 @@ public class Enemy : MonoBehaviour
             scaleModifier += enemyStats.Magic / 30f;
             scaleModifier += enemyStats.Attack / 15f;
         }
+        Transform tempParent = transform.parent;
+        transform.parent = null;
         transform.localScale = Vector3.one * scaleModifier;
+        transform.SetParent(tempParent, true);
     }
 
     public void Initialize()

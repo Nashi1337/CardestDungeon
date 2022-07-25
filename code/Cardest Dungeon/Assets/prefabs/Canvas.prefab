@@ -2046,34 +2046,16 @@ PrefabInstance:
       value: 0.4433962
       objectReference: {fileID: 0}
     - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_Text
-      value: 'REMOVE
-
-        CARDS'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 73bb3a40a1bc4c1428916aaf9100a66d, type: 3}
-    - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 57
-      objectReference: {fileID: 0}
     - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 52
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094431498975918351, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
       propertyPath: m_FontData.m_FontStyle
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_Text
-      value: "IT'S \nMERGIN' \nTIME"
       objectReference: {fileID: 0}
     - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
       propertyPath: m_Color.b
@@ -2095,18 +2077,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 73bb3a40a1bc4c1428916aaf9100a66d, type: 3}
-    - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_FontData.m_MaxSize
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8052354907113532132, guid: 7ebb986dfef43dc4b9b31bf7023c62d8, type: 3}
       propertyPath: m_FontData.m_FontStyle
       value: 1

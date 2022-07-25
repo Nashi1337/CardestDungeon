@@ -30,7 +30,7 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private MapManager mapManager = default;
 
     //Maybe change this to something else than a static variable in MapPiece
-    private static int maxDistanceForSnapping = 100;
+    private static int maxDistanceForSnapping = 150;
     private void Start()
     {
         IsUnlocked = Debug.isDebugBuild;

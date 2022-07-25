@@ -44,7 +44,10 @@ public class MapManager : MonoBehaviour
         current = FindObjectOfType<MapManager>();
         dungeonAttributes = FindObjectOfType<DungeonAttributes>();
         //OnCollisionEnter seems to trigger before Start. So Map Pieces will not to be found before Start. "Danke, Henrik -_-"
-        FindAllMapPieces(); 
+        if (allMapPieces == null)
+        {
+            FindAllMapPieces();
+        }
     }
 
     /// <summary>
