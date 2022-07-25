@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
     DialogueManager dm;
 
+
     void Start()
     {
         //if (playerInstance == null)

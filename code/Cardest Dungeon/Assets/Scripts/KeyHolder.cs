@@ -1,17 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 /// <summary>
 /// This represents an class which is able to collect, hold and use keys. Complementary classes are KeyDoor and Key.
 /// </summary>
 public class KeyHolder : MonoBehaviour
 {
+
+
     private List<Key.KeyType> keyList;
+
+    [SerializeField]
+    private GameObject iconKeyRed;
+    [SerializeField]
+    private GameObject iconKeyBlue;
 
     private void Awake()
     {
         keyList = new List<Key.KeyType>();
+        iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0,0);
+        iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0,0);
+
     }
 
     /// <summary>
@@ -22,6 +32,14 @@ public class KeyHolder : MonoBehaviour
     {
         Debug.Log("Added key: " + keyType);
         keyList.Add(keyType);
+        if (keyType ==Key.KeyType.Blue)
+        {
+            iconKeyBlue.GetComponent<Image>().color = new Color(55, 121, 236, 255);
+        }
+        if (keyType == Key.KeyType.Red)
+        {
+            iconKeyRed.GetComponent<Image>().color = new Color(255, 0, 0, 255);
+        }
     }
 
     /// <summary>
