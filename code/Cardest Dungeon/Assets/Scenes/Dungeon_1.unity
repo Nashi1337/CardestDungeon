@@ -58908,7 +58908,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 2321450722439844200, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
       propertyPath: m_Text
       value: 'START
@@ -58937,14 +58936,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-=======
->>>>>>> origin/master
     - target: {fileID: 3139112112694156443, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3139112112694156443, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313733305231524483, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
+      propertyPath: m_Text
+      value: 'START
+
+        MERGING'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313733305231524483, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313733305231524483, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313733305231524483, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
+      propertyPath: m_FontData.m_MinSize
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4033103917030901988, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
