@@ -60,6 +60,7 @@ public class EnemyBoss2 : Enemy
         statemachine.AddTransition("SpreadShoot", "Idle", AnyToIdle);
         statemachine.AddTransition("SpawnMinions", "Idle", AnyToIdle);
         statemachine.AddTransition("Idle", "SpawnMinions", AnyToSpawnMinions);
+        statemachine.AddTransition("InitialIdle", "SpawnMinions", AnyToSpawnMinions);
 
     }
 
@@ -72,7 +73,7 @@ public class EnemyBoss2 : Enemy
     private void FixedUpdate()
     {
         statemachine.Run();
-        
+
         if(timer > 0)
         {
             timer -= Time.fixedDeltaTime;
@@ -111,8 +112,7 @@ public class EnemyBoss2 : Enemy
     {
         if (timer <= 0)
         {
-            
-            Vector2 thisToPlayer = PlayerController.Current.transform.position - transform.position;
+            Vector2 thisToPlayer = PlayerController.Current.transform.position - bulletSpawnPoint.position;
             float angleInDegree = Mathf.Atan2(thisToPlayer.y, thisToPlayer.x) * Mathf.Rad2Deg;
             GameObject fireball = Instantiate(fireballProjectile, bulletSpawnPoint.position, Quaternion.Euler(0, 0, angleInDegree));
             EvilProjectile evil = fireball.GetComponent<EvilProjectile>();
@@ -157,6 +157,7 @@ public class EnemyBoss2 : Enemy
                 evil.damage = enemyStats.Magic;
                 evil.targetDir = new Vector2(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad)).normalized;
                 evil.enemy = this;
+                fireball.GetComponent<AudioSource>().volume *= 0.25f;
             }
             
             counter++;
@@ -192,7 +193,8 @@ public class EnemyBoss2 : Enemy
 
         for (int i = 0; i < minionwaves[waveIndex].minions.Length; i++)
         {
-            Instantiate(minionwaves[waveIndex].minions[i], minionwaves[waveIndex].spawnPositions[i], Quaternion.identity);
+            GameObject minion = Instantiate(minionwaves[waveIndex].minions[i], transform.position + minionwaves[waveIndex].spawnPositions[i], Quaternion.identity);
+            minion.transform.SetParent(transform, true);
         }
 
         timer = minionwaves[waveIndex].waitingTime;
