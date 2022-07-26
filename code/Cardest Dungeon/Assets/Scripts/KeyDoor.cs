@@ -24,6 +24,7 @@ public class KeyDoor : MonoBehaviour
     /// </summary>
     public void OpenDoor()
     {
+
         gameObject.SetActive(false);
     }
 

@@ -120,4 +120,31 @@ public class DialogueManager : MonoBehaviour
         //animator noch nötig?
         dialogue2.text = "You defeated Herbert the dragon. Pick up your reward to enter the next dungeon!";
     }
+
+    public void RedKey()
+    {
+        nameText.text = "Red key";
+        animator.SetBool("IsOpen", true);
+        dialogue2.text = "You have found the red key!";
+    }
+    public void BlueKey()
+    {
+        nameText.text = "Blue key";
+        animator.SetBool("IsOpen", true);
+        dialogue2.text = "You have found the blue key!";
+    }
+
+    public void RedDoor()
+    {
+        nameText.text = "Red door";
+        animator.SetBool("IsOpen", true);
+        dialogue2.text = "You have opened the red door!";
+    }
+
+    public void BlueDoor()
+    {
+        nameText.text = "Blue door";
+        animator.SetBool("IsOpen", true);
+        dialogue2.text = "You have opened the blue door!";
+    }
 }

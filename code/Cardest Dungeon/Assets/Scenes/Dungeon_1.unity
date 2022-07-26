@@ -12239,6 +12239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door_red
       objectReference: {fileID: 0}
+    - target: {fileID: 7928375947861332436, guid: 4de00e3a99e737845af8bd0414e73c2a, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4de00e3a99e737845af8bd0414e73c2a, type: 3}
 --- !u!1 &801552031 stripped
@@ -39403,7 +39407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.018116951, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.21568628, g: 0.4745098, b: 0.9254902, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -40476,6 +40480,10 @@ PrefabInstance:
     - target: {fileID: 7928375947861332436, guid: 4de00e3a99e737845af8bd0414e73c2a, type: 3}
       propertyPath: m_Name
       value: Door_blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928375947861332436, guid: 4de00e3a99e737845af8bd0414e73c2a, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4de00e3a99e737845af8bd0414e73c2a, type: 3}
@@ -58665,7 +58673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8986982339555301386, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
       propertyPath: fireball
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8986982339555301386, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
       propertyPath: buttonOffsetWhenPressed.y
@@ -96024,6 +96032,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5203259358829741666, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: dm
+      value: 
+      objectReference: {fileID: 1682966076}
     - target: {fileID: 5203259358829741666, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: iconKeyRed
       value: 

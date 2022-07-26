@@ -20,6 +20,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         dm.StartDialogue(dialogue);
         dm.read[textnumber] = textnumber;
+        if(audioSource!=null)
         audioSource.Play();
     }
 

@@ -15,12 +15,14 @@ public class KeyHolder : MonoBehaviour
     private GameObject iconKeyRed;
     [SerializeField]
     private GameObject iconKeyBlue;
+    private DialogueManager dm;
 
     private void Awake()
     {
         keyList = new List<Key.KeyType>();
         iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0,0);
         iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0,0);
+        dm = FindObjectOfType<DialogueManager>();
 
     }
 
@@ -35,10 +37,14 @@ public class KeyHolder : MonoBehaviour
         if (keyType ==Key.KeyType.Blue)
         {
             iconKeyBlue.GetComponent<Image>().color = new Color(55, 121, 236, 255);
+            dm.BlueKey();
+            iconKeyBlue.GetComponent<Image>().color = new Color(55, 55, 236, 255);
+
         }
         if (keyType == Key.KeyType.Red)
         {
             iconKeyRed.GetComponent<Image>().color = new Color(255, 0, 0, 255);
+            dm.RedKey();
         }
     }
 
@@ -78,6 +84,18 @@ public class KeyHolder : MonoBehaviour
                 // Currently holding Key to open this door
                 Removekey(keyDoor.GetKeyType());
                 keyDoor.OpenDoor();
+
+                if (keyDoor.GetKeyType() == Key.KeyType.Blue)
+                {
+                    iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                    dm.BlueDoor();
+
+                }
+                if (keyDoor.GetKeyType() == Key.KeyType.Red)
+                {
+                    iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                    dm.RedDoor();
+                }
             }
         }
     }
