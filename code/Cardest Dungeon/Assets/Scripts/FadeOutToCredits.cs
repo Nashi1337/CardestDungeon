@@ -7,7 +7,9 @@ public class FadeOutToCredits : MonoBehaviour
 {
     public float timeToFadeOut;
 
+    private float startingMusicVolume;
     private SpriteRenderer tintPlane;
+    private AudioSource gameMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,9 @@ public class FadeOutToCredits : MonoBehaviour
         col.a = 0;
         tintPlane.color = col;
 
+        gameMusic = GameObject.Find("GameManager").GetComponent<AudioSource>();
+        startingMusicVolume = gameMusic.volume;
+
         StartCoroutine(NextGradient());
     }
 
@@ -33,9 +38,11 @@ public class FadeOutToCredits : MonoBehaviour
         }
         col.a += 0.2f / timeToFadeOut;
         tintPlane.color = col;
+        gameMusic.volume = Mathf.Max(startingMusicVolume * (1 - col.a * 2), 0);
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
 
+        Debug.Log("Temp");
         StartCoroutine(NextGradient());
     }
 }

@@ -61,6 +61,10 @@ public class Enemy : MonoBehaviour
 
     private bool isdead;
 
+    [SerializeField]
+    private GameObject fakeWifeNPC;
+    [SerializeField]
+    protected AudioClip bossMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -108,6 +112,13 @@ public class Enemy : MonoBehaviour
             {
                 if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
                 {
+                    if(!MusicLooper.Instance.IsActive)
+                    {
+                        MusicLooper.Instance.ActivateLooper(1.2f, 58.78f);
+                        MusicLooper.Instance.GameMusic.clip = bossMusic;
+                        MusicLooper.Instance.GameMusic.Play();
+                    }
+
                     ShootFireBallTowardsPlayer();
                     nextAttackTime = Time.time + 1f / fireBallCooldown;
                 }
@@ -293,9 +304,15 @@ public class Enemy : MonoBehaviour
             {
                 //spawnPosition.y += 7;
                 //Instantiate(dropBoss, new Vector3(70,83,-1), Quaternion.identity);
-                Instantiate(dropBoss, this.transform.position + new Vector3(0,0,5), Quaternion.identity);
+                EnemyBoss2 boss2 = GetComponent<EnemyBoss2>();
+                if (boss2 == null)
+                {
+                    Instantiate(dropBoss, this.transform.position + new Vector3(0, 0, 5), Quaternion.identity);
+                }
                 transform.localPosition = transform.localPosition + new Vector3(0,0,-1);
                 spriterenderer.sortingOrder = 0;
+
+                MusicLooper.Instance.FadeOutMusic();
             }
             else if (UnityEngine.Random.Range(0, 100) <= 50)
             {
@@ -338,16 +355,14 @@ public class Enemy : MonoBehaviour
             {
                 spriterenderer.sprite = defeatedBoss;
             }
-            
+            fakeWifeNPC.SetActive(true);
+
             EnemyBoss2 boss2 = GetComponent<EnemyBoss2>();
             if(boss2 != null)
             {
                 boss2.KillstateMachine();
 
-                //Initiate credits
-                GameTime.IsGamePaused = true;
-                FadeOutToCredits fff = gameObject.AddComponent<FadeOutToCredits>();
-                fff.timeToFadeOut = 5;
+                fakeWifeNPC.SetActive(true);
             }
 
             dm.NextDungeon();

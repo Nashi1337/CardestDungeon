@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRate: 2
-  detectRange: 10
+  detectRange: 100
   acceleration: 20
   distance: 0
   boss: 0
@@ -461,9 +461,13 @@ MonoBehaviour:
   dropDefense: {fileID: 0}
   dropMagic: {fileID: 0}
   dropBoss: {fileID: 0}
+  defeatedBoss: {fileID: 0}
+  zahltrigger: 0
   zahl: 0
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3
+  fakeWifeNPC: {fileID: 0}
+  bossMusic: {fileID: 0}
 --- !u!82 &3810363318576088564
 AudioSource:
   m_ObjectHideFlags: 0

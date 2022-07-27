@@ -5115,6 +5115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab4d8cc9c12b81442b7431edc3ca185a, type: 3}
+--- !u!1 &1094025843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7841050305641957230, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
+  m_PrefabInstance: {fileID: 1299127981009276161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1098011402 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4306617639015196183, guid: d9193efc685a519459eb2fc299a26857, type: 3}
@@ -20168,11 +20173,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
---- !u!1 &1330626397 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8453138619180570507, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
-  m_PrefabInstance: {fileID: 1299127981009276161}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1355105547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20764,7 +20764,6 @@ MonoBehaviour:
   gameoverpanel: {fileID: 137772461}
   restartButton: {fileID: 1229023799}
   quitButton: {fileID: 177692826}
-  continueButton: {fileID: 2118792753}
   isGameOver: 0
 --- !u!114 &1865745473
 MonoBehaviour:
@@ -20788,17 +20787,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1299127982943483778, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
   m_PrefabInstance: {fileID: 1299127981009276161}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2118792753 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2532006459181405149, guid: 7802d470c6f67e744a3abea7e5a75ec6, type: 3}
-  m_PrefabInstance: {fileID: 1299127981009276161}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1839735485 &246732886610966331
 Tilemap:
   m_ObjectHideFlags: 0
@@ -39490,7 +39478,7 @@ PrefabInstance:
     - target: {fileID: 6041061020328274171, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: Pause
       value: 
-      objectReference: {fileID: 1330626397}
+      objectReference: {fileID: 1094025843}
     - target: {fileID: 6041061020328274171, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: attackRadius
       value: 1.3

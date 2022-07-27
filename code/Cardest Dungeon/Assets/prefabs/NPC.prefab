@@ -138,6 +138,7 @@ MonoBehaviour:
   dm: {fileID: 0}
   textnumber: 1
   key: 0
+  fakeWife: {fileID: 0}
 --- !u!60 &6877424329037341959
 PolygonCollider2D:
   m_ObjectHideFlags: 0

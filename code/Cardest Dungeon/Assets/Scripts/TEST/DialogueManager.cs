@@ -89,6 +89,14 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("End of conversation");
         animator.SetBool("IsOpen", false);
         PlayerController.canMove = true;
+
+        if (read[11] == 11)
+        { 
+            //Initiate credits
+            GameTime.IsGamePaused = true;
+            FadeOutToCredits fff = gameObject.AddComponent<FadeOutToCredits>();
+            fff.timeToFadeOut = 5;
+        }
     }
 
     public void CustomDialogue(string sentence)
