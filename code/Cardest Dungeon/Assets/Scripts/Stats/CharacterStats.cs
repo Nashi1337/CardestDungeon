@@ -137,6 +137,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (gameObject.tag.Equals("Player"))
         {
+            //PlayerStats.Die();
             PlayerStats.Die();
         }
     }

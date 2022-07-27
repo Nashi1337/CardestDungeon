@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject Pause;
 
+
     //private bool attackAvailable = true;
     private Rigidbody2D rig = default;
     private Rigidbody2D rig2;
@@ -116,6 +117,9 @@ public class PlayerController : MonoBehaviour
 
         AssignInventoryManager();
         //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
+
+
+
         inventoryUI.SetActive(false);
 
 
@@ -381,7 +385,6 @@ public class PlayerController : MonoBehaviour
 
     private void AssignInventoryManager()
     {
-
         //Braucht man den noch?
         inventoryManager = InventoryManager.Current.gameObject;
         //Debug.Log(inventoryManager);

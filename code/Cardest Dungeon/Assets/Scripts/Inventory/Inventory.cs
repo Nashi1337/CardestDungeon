@@ -78,6 +78,8 @@ public class Inventory : MonoBehaviour
 
 		items.Add(item);    // Add item to list
 
+		playerStats.IncreaseHighScore(item.attackModifier + item.defenseModifier + item.magicModifier + item.hpModifier);
+
 		attackModifier += item.attackModifier;
 		defenseModifier += item.defenseModifier;
 		magicModifier += item.magicModifier;
@@ -86,11 +88,13 @@ public class Inventory : MonoBehaviour
 		if (item.fireball)
 		{
 			fireball = true;
+			playerStats.IncreaseHighScore(5);
 		}
 		if (item.heal)
 		{
 			heal = true;
 			heals = 3;
+			playerStats.IncreaseHighScore(10);
 		}
 
 		playerStats.UseMana(-item.magicModifier);

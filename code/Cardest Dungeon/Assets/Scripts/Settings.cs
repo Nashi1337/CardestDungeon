@@ -13,7 +13,8 @@ public class Settings : MonoBehaviour
     public AudioMixer audioMixer;
 
     public Dropdown resolutionDropdown;
-   
+
+    private GameObject lastSelection;
 
     Resolution[] resolutions;
 
@@ -44,6 +45,26 @@ public class Settings : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
         SetVolume(0.4f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //lastSelection = irgendwas mit ray cast?
+        }
+    }
+
+    public void SetSelectedGameObject(GameObject selected)
+    {
+        /*if(valide)
+         * {
+         * selection = valides gameobject
+        }
+        else
+        {
+            selection = lastSelection
+        }*/
     }
 
     /// <summary>

@@ -15,11 +15,14 @@ public class PlayerStats : CharacterStats
     private Text magicText;
 
     public int mana = 0;
+    private int highScore = 0;
 
     [SerializeField]
     private ManaBar manaBar;
     [SerializeField]
     private GameObject audioPlayerPrefab;
+    [SerializeField]
+    private Text highScoreText;
 
     public GameObject gameOver;
 
@@ -113,5 +116,11 @@ public class PlayerStats : CharacterStats
             UpdateStats();
         }
         StartCoroutine(RefillMana());
+    }
+
+    public void IncreaseHighScore(int value)
+    {
+        highScore = highScore + value;
+        highScoreText.text = highScore.ToString();
     }
 }

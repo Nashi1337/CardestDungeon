@@ -334,13 +334,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4108305262247056320, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
       propertyPath: m_Text
-      value: 'Dragon Artwork - Who?
+      value: 'Dragon Artwork - Lisa Benner
 
-        Doors - Cainos, Pixel Art Top Down -
-        Basic, itch.io
+        Doors - Cainos, Pixel Art Top
+        Down - Basic, itch.io
 
-        Various fire graphics - brullov, Fire Animation -
-        Pixel Art FX Sprites, itch.io
+        Various fire graphics - brullov, Fire Animation
+        - Pixel Art FX Sprites, itch.io
 
         Various Icons - Brackeys, Free 2D
         Mega Pack, Unity Asset Store
@@ -350,7 +350,7 @@ PrefabInstance:
         Second
         Boss - Yannik Stamm
 
-        Inventory - Who?'
+        Font - Rainy Hearts by Camellina dafont.com'
       objectReference: {fileID: 0}
     - target: {fileID: 4108305262247056320, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
       propertyPath: m_FontData.m_LineSpacing
@@ -793,7 +793,7 @@ PrefabInstance:
 
         McDonald''s
 
-        Royal Society for the Protection of
+        Royal Society for the Prevention of
         Birds'
       objectReference: {fileID: 0}
     - target: {fileID: 4108305262247056321, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
@@ -1958,7 +1958,15 @@ PrefabInstance:
       value: 'Item Pickup - TreasureSounds, freesound.org
 
         Bonus - Brackeys,
-        Free 2D Mega Pack, Unity Asset Store'
+        Free 2D Mega Pack, Unity Asset Store
+
+        Text Scroll D-3 3 225 by EVRetro
+        freesound.org
+
+        Item Pickup by TreasureSounds freesound.org
+
+        Stream,
+        Running Water Aviemore Scotland by BurghRecords freesound.org'
       objectReference: {fileID: 0}
     - target: {fileID: 4108305262247056321, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
       propertyPath: m_Pivot.x

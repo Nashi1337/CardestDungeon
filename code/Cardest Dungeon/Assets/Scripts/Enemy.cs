@@ -65,18 +65,19 @@ public class Enemy : MonoBehaviour
     private GameObject fakeWifeNPC;
     [SerializeField]
     protected AudioClip bossMusic;
+    private PlayerStats playerStats;
+    float scaleModifier = 0.4f;
 
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
-
+        playerStats = FindObjectOfType<PlayerStats>();
         SetScale();
     }
 
     public void SetScale()
     {
-        float scaleModifier = 0.4f;
         scaleModifier += enemyStats.Defense / 15f;
         if (enemyStats.Magic != 0)
         {
@@ -300,6 +301,8 @@ public class Enemy : MonoBehaviour
             Vector3 spawnPosition = transform.position;
             spawnPosition.z -= 1;
 
+            playerStats.IncreaseHighScore((int) scaleModifier*10);
+
             if (boss == true)
             {
                 //spawnPosition.y += 7;
@@ -311,7 +314,7 @@ public class Enemy : MonoBehaviour
                 }
                 transform.localPosition = transform.localPosition + new Vector3(0,0,-1);
                 spriterenderer.sortingOrder = 0;
-
+                playerStats.IncreaseHighScore(50);
                 MusicLooper.Instance.FadeOutMusic();
             }
             else if (UnityEngine.Random.Range(0, 100) <= 50)
