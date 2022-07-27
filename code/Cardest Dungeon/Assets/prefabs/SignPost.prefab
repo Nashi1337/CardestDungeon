@@ -129,3 +129,4 @@ MonoBehaviour:
   dm: {fileID: 0}
   textnumber: 2
   key: 0
+  fakeWife: {fileID: 21300000, guid: 779b066fe59776644a1bab0a90bafe95, type: 3}

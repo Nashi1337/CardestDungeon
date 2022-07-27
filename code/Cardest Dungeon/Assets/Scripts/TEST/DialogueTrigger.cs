@@ -10,6 +10,9 @@ public class DialogueTrigger : MonoBehaviour
     public KeyCode key;
     AudioSource audioSource;
 
+    [SerializeField]
+    private Sprite fakeWife;
+
     private void Start()
     {
         dm = FindObjectOfType<DialogueManager>();
@@ -37,7 +40,11 @@ public class DialogueTrigger : MonoBehaviour
     IEnumerator ChangeSprite()
     {
         yield return new WaitForSeconds(2.0f);
-        GetComponent<SpriteRenderer>().sprite = Resources.Load("Assets/Graphics/Test graphics/fakeWife.png") as Sprite;
+        if (fakeWife != null)
+
+        {
+            GetComponent<SpriteRenderer>().sprite = fakeWife;
+        }
 
     }
 }

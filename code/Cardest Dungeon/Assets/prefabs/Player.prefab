@@ -465,6 +465,7 @@ MonoBehaviour:
   attackPoint: {fileID: 6041061020328902811}
   rangeAttackPoint: {fileID: 6041061020516465628}
   interactionRadius: 1
+  Pause: {fileID: 0}
   walkDirectionInDegree: 0
   lookDirection: 0
   lookDirectionAsVector: {x: 0, y: 0, z: 0}
@@ -493,7 +494,6 @@ MonoBehaviour:
     m_Bits: 128
   attackFieldWidth: 0.71
   attackFieldHeight: 1.69
-  knockbackModifierForEnemies: 5
   hitSound: {fileID: 4100599485998826516}
 --- !u!82 &2578147425078939017
 AudioSource:
@@ -505,7 +505,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b24d830af66c1a343aca3286890b2f58, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a4bd889584a96c64ebbba9903b3b8164, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -639,6 +639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48253b7099e10943b30792d528cf749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconKeyRed: {fileID: 0}
+  iconKeyBlue: {fileID: 0}
 --- !u!82 &4100599485998826516
 AudioSource:
   m_ObjectHideFlags: 0

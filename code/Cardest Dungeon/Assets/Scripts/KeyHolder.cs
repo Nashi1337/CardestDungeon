@@ -20,8 +20,14 @@ public class KeyHolder : MonoBehaviour
     private void Awake()
     {
         keyList = new List<Key.KeyType>();
-        iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0,0);
-        iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0,0);
+        Color temp = iconKeyBlue.GetComponent<Image>().color;
+        temp.a = 0;
+        iconKeyBlue.GetComponent<Image>().color = temp;
+        
+        temp = iconKeyRed.GetComponent<Image>().color;
+        temp.a = 0;
+        iconKeyRed.GetComponent<Image>().color = temp;
+
         dm = FindObjectOfType<DialogueManager>();
 
     }
@@ -36,14 +42,19 @@ public class KeyHolder : MonoBehaviour
         keyList.Add(keyType);
         if (keyType ==Key.KeyType.Blue)
         {
-            iconKeyBlue.GetComponent<Image>().color = new Color(55, 121, 236, 255);
-            dm.BlueKey();
-            iconKeyBlue.GetComponent<Image>().color = new Color(55, 55, 236, 255);
+            Color temp = iconKeyBlue.GetComponent<Image>().color;
+            temp.a = 1;
+            iconKeyBlue.GetComponent<Image>().color = temp;
 
+
+            dm.BlueKey();
         }
         if (keyType == Key.KeyType.Red)
         {
-            iconKeyRed.GetComponent<Image>().color = new Color(255, 0, 0, 255);
+            Color temp = iconKeyRed.GetComponent<Image>().color;
+            temp.a = 1;
+            iconKeyRed.GetComponent<Image>().color = temp;
+
             dm.RedKey();
         }
     }

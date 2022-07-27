@@ -55,7 +55,7 @@ public class EnemyBoss2 : Enemy
         statemachine.AddState("SpawnMinions", SpawnMinions);
         statemachine.AddState("Dead", Dead);
 
-        statemachine.AddTransition("InitialIdle", "Idle", AnyToIdle);
+        statemachine.AddTransition("InitialIdle", "Idle", InitialIdleToIdle);
         statemachine.AddTransition("DoubleShoot", "Idle" ,AnyToIdle);
         statemachine.AddTransition("SpreadShoot", "Idle", AnyToIdle);
         statemachine.AddTransition("SpawnMinions", "Idle", AnyToIdle);
@@ -200,6 +200,17 @@ public class EnemyBoss2 : Enemy
         timer = minionwaves[waveIndex].waitingTime;
     }
 
+    private void InitialIdleToIdle()
+    {
+        if (!MusicLooper.Instance.IsActive)
+        {
+            MusicLooper.Instance.ActivateLooper(1.2f, 58.78f);
+            MusicLooper.Instance.GameMusic.clip = bossMusic;
+            MusicLooper.Instance.GameMusic.Play();
+        }
+
+        timer = restPhaseTime;
+    }
     private void Dead()
     {
 

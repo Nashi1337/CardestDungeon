@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //The scene should not be loaded by scene index.
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        GameTime.IsGamePaused = false;
+        SceneManager.LoadScene(2);
     }
 
     /// <summary>
@@ -24,6 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartTutorial()
     {
-        SceneManager.LoadScene(4);
+        GameTime.IsGamePaused = false;
+        SceneManager.LoadScene(1);
     }
 }
