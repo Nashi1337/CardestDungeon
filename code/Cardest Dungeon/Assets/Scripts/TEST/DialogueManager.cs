@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text dialogue;
     public Text dialogue2;
     public Animator animator;
+    public AudioSource audio;
+    public float textSpeed;
 
     PlayerController pc;
 
@@ -77,11 +79,13 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogue2.text = "";
+        audio.Play();
         foreach(char letter in sentence.ToCharArray())
         {
             dialogue2.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(textSpeed);
         }
+        audio.Stop();
     }
 
     void EndDialogue()
