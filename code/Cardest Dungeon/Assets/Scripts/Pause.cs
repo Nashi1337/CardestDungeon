@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
@@ -21,19 +23,42 @@ public class Pause : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject PauseMenu;
+    [SerializeField]
+    private GameObject PauseButton;
+    [SerializeField]
+    private AudioMixer audioMixer;
+
+    private void Start()
     {
-        
+        Debug.Log("Hallo ich bin Start von Pause");
+        Initialize();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        if (gameObject.activeInHierarchy)
-        {
-           // GameTime.UpdateIsGamePaused();
-        }
+        SetVolume(0.4f);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void CloseWindow()
+    {
+        GameTime.IsGamePaused = false;
+        PauseMenu.gameObject.SetActive(false);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
+    }
 }

@@ -14,8 +14,8 @@ public class UIManager : MonoBehaviour
     private Button restartButton;
     [SerializeField]
     private Button quitButton;
-    [SerializeField]
-    private Button continueButton;
+    //[SerializeField]
+    //private Button continueButton;
     public bool isGameOver = false;
 
     public static UIManager instance;
@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
         gameoverpanel.SetActive(false);
         restartButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
-        continueButton.gameObject.SetActive(false);
+        //continueButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
