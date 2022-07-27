@@ -20,8 +20,8 @@ public class KeyHolder : MonoBehaviour
     private void Awake()
     {
         keyList = new List<Key.KeyType>();
-        iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0,0);
-        iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0,0);
+        iconKeyBlue.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        iconKeyRed.GetComponent<Image>().color = new Color(0, 0, 0, 0);
         dm = FindObjectOfType<DialogueManager>();
 
     }

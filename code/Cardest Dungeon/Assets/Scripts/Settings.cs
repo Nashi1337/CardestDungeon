@@ -52,7 +52,7 @@ public class Settings : MonoBehaviour
     /// <param name="volume">The volume to whichthe audio will be set.</param>
     public void SetVolume(float volume)
     {
-        Debug.Log(volume);
+        //Debug.Log(volume);
         //audioMixer.SetFloat("Volume", volume);
         AudioListener.volume = volume;
     }
