@@ -21,6 +21,7 @@ public class ProjectileTEST : MonoBehaviour
 
     private void Update()
     {
+        //moves the fireball in the player's looking direction
             transform.position = new Vector3(
                 transform.position.x + (moveSpeed * Time.deltaTime * flightDirection.x),
                 transform.position.y + (moveSpeed * Time.deltaTime * flightDirection.y),
@@ -30,16 +31,14 @@ public class ProjectileTEST : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        //Debug.Log(collision.gameObject.name);
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
         //Fireball is not supposed to collide with Player
         if (collision.gameObject.tag.Equals("Projectile") || collision.gameObject.tag.Equals("Player"))
         {
-            //mach goar nix
-            Debug.Log(collision.gameObject.name + "a");
+            
         }
+        //if collided with an enemy, deal damage
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemies"))
         {
 
@@ -47,16 +46,19 @@ public class ProjectileTEST : MonoBehaviour
             {
                 enemy.TakeDamage(damage, player.PlayerStats);
             }
-            Debug.Log(collision.gameObject.name + "b");
             Destroy(gameObject);
         }
+        //if collided with a wall, disappear
         if (collision.gameObject.tag.Equals("DungeonWall"))
         {
-            Debug.Log(collision.gameObject.name + "c");
             Destroy(gameObject);
         }        
     }
 
+    /// <summary>
+    /// destroys the fireball after 3 seconds
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ProjectileLifespan()
     {
         yield return new WaitForSeconds(3f);

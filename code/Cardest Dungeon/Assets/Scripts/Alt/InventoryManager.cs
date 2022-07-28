@@ -15,8 +15,7 @@ public class InventoryManager : MonoBehaviour
                 current = FindObjectOfType<InventoryManager>();
                 if(current == null)
                 {
-                    //Die Meldung kommt ständig weil kein InventoryManager in der Szene ist... aber man braucht keinen? weird
-                    //Debug.LogError("Could not find an InventoryManager. Did you forget to add one to your scene?");
+
                 }
             }
             return current;
@@ -30,11 +29,9 @@ public class InventoryManager : MonoBehaviour
         {
             current = this;
             DontDestroyOnLoad(gameObject);
-            //Debug.Log("Awake if");
         }
         else
         {
-            //Debug.Log("Awake else");
             Destroy(gameObject);
         }
     }

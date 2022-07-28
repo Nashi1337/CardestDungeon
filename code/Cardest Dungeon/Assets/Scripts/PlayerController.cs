@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
             return current;
         }
     }
-
+    /// <summary>
+    /// inventorysize is set in the editor. By default 10 and was never changed during development, but the possibility exists.
+    /// </summary>
     public int InventorySize
     {
         get { return inventorySize; }
@@ -53,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private GameObject Pause;
 
 
-    //private bool attackAvailable = true;
     private Rigidbody2D rig = default;
     private Rigidbody2D rig2;
     private SpriteRenderer spriterRenderer;
@@ -61,9 +62,7 @@ public class PlayerController : MonoBehaviour
     private GameObject inventoryManager = default;
     private GameObject inventoryUI = default;
     private PlayerCombatTEST playerCombatTEST = null;
-    //private Transform[] allchildrenofmap = default;
-    //private Transform[] allchildrenofinventory = default;
-    //private Item[] inventoryItems = default;
+
 
     public static bool canMove = true;
     public static Vector2 currentPosition = new Vector2(-10, -140);
@@ -75,12 +74,8 @@ public class PlayerController : MonoBehaviour
 
 
     private static PlayerController current = null;
-    private static PlayerController playerInstance;
 
     int quit = 0;
-
-    DialogueManager dm;
-
 
     void Start()
     {
@@ -93,27 +88,21 @@ public class PlayerController : MonoBehaviour
 
         currentPosition = transform.position;
 
-
-        //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
-
+        //MapManager and InventoryManager must be found before they will be deactivated.
         AssignMapManager();
         mapeditor.SetActive(false);
 
         AssignInventoryManager();
         inventoryUI.SetActive(false);
 
-
-        dm = FindObjectOfType<DialogueManager>();
-        if (dm != null)
-        {
-            //dm.Tutorial1();
-        }
-
+        //Pause Menu must be deactivated before the first frame as well.
         if (Pause != null)
         {
             Pause.SetActive(false);
         }
 
+        //When the first dungeon is loaded, the current highscore, which is carried over through all scenes,
+        //will be set to the same value but negated, therefore set to 0
         Scene scene = SceneManager.GetActiveScene();
         string sceneName = scene.name;
         Debug.Log(SceneManager.GetActiveScene().name);
@@ -124,19 +113,25 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //checks if the player can currently move, usually disabled by open menus.
         if (canMove)
         {
+            //In the InputManager, when using WASD, arrow keys or the controller stick, the walkdirection will be saved as a vector
             Vector2 walkDirectionAsVector = InputManager.CalculateInputDirection();
 
+            //Using advanced mathematic skills we were able to calculate the walking direction in degree from a vector.
             walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
+            //if the walking direction is > 0
             if (walkDirectionAsVector.magnitude > 0)
             {
-                //Update important variables
+                //first the current walkDirection will be saved as the lookDirection. This is important for the animator and the direction in which fireballs will be shot
                 lookDirection = walkDirectionInDegree;
+                //the melee hitbox and the spawn position of fireballs must move with the player accordingly
                 attackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
                 rangeAttackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
                 lookDirectionAsVector = walkDirectionAsVector;
             }
+            //"Hold shift to run"
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 rig.velocity = walkDirectionAsVector * runningSpeed;
@@ -155,30 +150,35 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-
+            //M opens the map menu
             if (InputManager.GetActionDown(InputManager.map))
             {
+                //if no mapeditor was assigned by now, it will try again
                 if (mapeditor == null)
                 {
                     AssignMapManager();
                 }
+                //if the inventory is currently not open, it opens the map
                 if (!inventoryManager.activeInHierarchy)
                 {
                     ShowHideMap();
                 }
             }
+            //I opens the inventory
             if (InputManager.GetActionDown(InputManager.inventory))
             {
+                //if no inventorymanager is assigned it will try again
                 if (inventoryManager == null)
                 {
                     AssignInventoryManager();
                 }
+                //if the map menu is not open, it opens the inventory
                 if (!mapeditor.activeInHierarchy)
                 {
                     ShowHideInventory();
                 }
             }
-
+            //ESC closes currently open windows
             if(InputManager.GetActionDown(InputManager.cancel))
             {
                 if (inventoryManager.activeInHierarchy)
@@ -190,17 +190,20 @@ public class PlayerController : MonoBehaviour
                     ShowHideMap();
                 }
             }
-
+            //if the game is currently not paused (through menus or dialogue)
             if (!GameTime.IsGamePaused)
             {
+                //if E is pressed, it will check if something to interact is nearby
                 if (InputManager.GetActionDown(InputManager.action))
                 {
                     InteractWithInteractables();
                 }
+                //if space mouse is pressed, an attack will be executed
                 if (InputManager.GetActionDown(InputManager.attack))
                 {
                     playerCombatTEST.Attack();
                 }
+                //left mouse interacts and attacks at the same time
                 if (InputManager.GetActionDown(InputManager.actionAndAttack))
                 {
                     bool interactedSuccessfully = InteractWithInteractables();
@@ -211,7 +214,7 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
-
+            //ESC also opens the pause menu
             if (InputManager.GetActionDown(InputManager.cancel))
             {
                 if (!Pause.activeSelf)
@@ -223,18 +226,6 @@ public class PlayerController : MonoBehaviour
                 {
                     Pause.SetActive(false);
                     GameTime.UpdateIsGamePaused();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if(bossDefeated == true)
-                {
-                    quit++;
-                }
-                if (quit >= 15)
-                {
-                    StartCoroutine(LoadNextScene());
                 }
             }
         }
@@ -310,11 +301,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //this determines what map piece the player is on, so that it can't be dragged in the map menu 
         if (MapManager.Current != null)
         {
             MapPiece collidedWith = MapManager.Current.SearchMapPiece(collision.gameObject);
             if (collidedWith != null)
             {
+                //the second dungeon has elemental elements that will be indicated by a border in the map menu and a camera tint
                 Element element = MapManager.Current.FindElementOfMapPiece(collidedWith);
 
                 CameraTintScript.Instance.SwitchColor(element);
@@ -325,9 +318,9 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Will be called if the player is hit by an enemy attack
     /// </summary>
-    /// <param name="attackValue"></param>
+    /// <param name="attackValue">the attack value of the attacker</param>
     /// <returns>Actual damage Taken</returns>
     public int TakeDamage(int attackValue, CharacterStats attacker)
     {
@@ -335,6 +328,9 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// If the player's HP reach 0, the game over screen will be loaded
+    /// </summary>
     public static void Die()
     {
         UIManager.instance.isGameOver = true;
@@ -358,6 +354,9 @@ public class PlayerController : MonoBehaviour
         GameTime.UpdateIsGamePaused();
     }
 
+    /// <summary>
+    /// Sets the inventory to the opposite state (open vs closed) and resets the merge and remove buttons
+    /// </summary>
     private void ShowHideInventory()
     {
         if(inventoryUI.activeInHierarchy)
@@ -376,22 +375,12 @@ public class PlayerController : MonoBehaviour
 
     private void AssignInventoryManager()
     {
-        //Braucht man den noch?
         inventoryManager = InventoryManager.Current.gameObject;
-        //Debug.Log(inventoryManager);
-        //inventoryManager = FindObjectOfType<InventoryManager>().gameObject;
 
         InventoryUI temp = FindObjectOfType<InventoryUI>();
         inventoryUI = temp.gameObject;
 
         Inventory.instance.Initialize();
         temp.Initialize();
-    }
-    
-    public IEnumerator LoadNextScene()
-    {
-        yield return new WaitForSeconds(5);
-        Inventory.instance.SaveInventoryToPlayerStats();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

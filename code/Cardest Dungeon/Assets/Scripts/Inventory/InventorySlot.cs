@@ -14,6 +14,10 @@ public class InventorySlot : MonoBehaviour
     public
     Item item;
 
+    /// <summary>
+    /// Adds picked up item into the first empty slot of the inventory
+    /// </summary>
+    /// <param name="newItem"></param>
     public void AddItem(Item newItem)
     {
         item = newItem;
@@ -22,12 +26,14 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = true;
     }
 
+    /// <summary>
+    /// Clears item slots by removing or merging them
+    /// </summary>
     public void ClearSlot()
     {
         item = null;
 
         icon.sprite = defaultIcon;
-        //icon.enabled = false;
     }
 
     /// <summary>

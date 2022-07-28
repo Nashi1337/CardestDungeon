@@ -10,6 +10,9 @@ public class Key : MonoBehaviour
 
     [SerializeField]
     private KeyType keyType;
+    /// <summary>
+    /// keys have different codes as well as doors
+    /// </summary>
     public enum KeyType
     {
         Red,
