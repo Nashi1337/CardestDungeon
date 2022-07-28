@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class animates the player icon on the map
+/// </summary>
 public class PlayerIcon : MonoBehaviour
 {
     public static PlayerIcon Instance

@@ -458,6 +458,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4108305262247056321, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
   m_PrefabInstance: {fileID: 352693649}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &445605024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3174570708238801904, guid: 77920d6494b687a4ca83db147ce67391, type: 3}
+  m_PrefabInstance: {fileID: 610204732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &449901964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,17 +901,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3174570708238801905, guid: 77920d6494b687a4ca83db147ce67391, type: 3}
   m_PrefabInstance: {fileID: 610204732}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &610204734 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3174570708238801904, guid: 77920d6494b687a4ca83db147ce67391, type: 3}
-  m_PrefabInstance: {fileID: 610204732}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &662287498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -918,8 +918,8 @@ PrefabInstance:
 
         McDonald''s
 
-        The
-        Royal Society for the Prevention of Birds'
+        Royal
+        Society for the Prevention of Birds'
       objectReference: {fileID: 0}
     - target: {fileID: 4108305262247056321, guid: f88ce0ade75990c48afb6844995a9298, type: 3}
       propertyPath: m_Pivot.x
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scroller: {fileID: 1562607784}
-  highscore: {fileID: 610204734}
+  highscore: {fileID: 445605024}
   scrollingSpeed: 65
   stopAfterUnits: 5490
 --- !u!1 &1458088012
