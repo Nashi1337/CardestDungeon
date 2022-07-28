@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,11 @@ public class Inventory : MonoBehaviour
 		hpModifier = 0;
 
 		LoadInventoryFromPlayerStats();
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+			Debug.Log("Highscore gefunden: " + PlayerPrefs.GetString("HighScore"));
+			playerStats.IncreaseHighScore(int.Parse(PlayerPrefs.GetString("HighScore")));
+        }
 	}
 
 	public bool Add(Item item)
@@ -389,7 +395,7 @@ public class Inventory : MonoBehaviour
 			Item.SERIALIZABLE_Item si = item.CreateSERIALIZABLE_Item();
 			data += JsonUtility.ToJson(si) + "#";
 		}
-
+		PlayerPrefs.SetString("HighScore", JsonConvert.SerializeObject(playerStats.highScore));
 		PlayerPrefs.SetString("Inventory", data);
 	}
 

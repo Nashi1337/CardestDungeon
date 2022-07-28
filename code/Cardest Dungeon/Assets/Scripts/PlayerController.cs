@@ -133,6 +133,12 @@ public class PlayerController : MonoBehaviour
         {
             Pause.SetActive(false);
         }
+
+        Scene scene = SceneManager.GetActiveScene();
+        string sceneName = scene.name;
+        Debug.Log(SceneManager.GetActiveScene().name);
+        if (sceneName == "Dungeon_1");
+            playerStats.IncreaseHighScore(-playerStats.highScore);
     }
 
     // Update is called once per frame
