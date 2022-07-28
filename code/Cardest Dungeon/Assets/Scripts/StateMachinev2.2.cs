@@ -5,7 +5,9 @@ using System.Linq;
 
 namespace MethodStateMachine
 {
-
+    /// <summary>
+    /// Not directly programmed for this project but for fun.
+    /// </summary>
     public class StateMachine
     {
         private int numberOfStates = 0;

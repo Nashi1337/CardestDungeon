@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unused
+/// </summary>
 public class PlayerSlashScript : MonoBehaviour
 {
     private Animator animator;

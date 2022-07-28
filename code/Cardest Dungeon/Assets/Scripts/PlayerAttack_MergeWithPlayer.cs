@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unused. Please do not use.
+/// </summary>
 public class PlayerAttack_MergeWithPlayer : MonoBehaviour
 {
     [SerializeField]

@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-/// <summary>
-/// This class handles ingame settings like audio volume and screen resolution.
-/// </summary>
 public class Settings : MonoBehaviour
 {
 
@@ -55,26 +52,12 @@ public class Settings : MonoBehaviour
         }
     }
 
-    public void SetSelectedGameObject(GameObject selected)
-    {
-        /*if(valide)
-         * {
-         * selection = valides gameobject
-        }
-        else
-        {
-            selection = lastSelection
-        }*/
-    }
-
     /// <summary>
     /// Sets the volume of audio
     /// </summary>
     /// <param name="volume">The volume to whichthe audio will be set.</param>
     public void SetVolume(float volume)
-    {
-        //Debug.Log(volume);
-        //audioMixer.SetFloat("Volume", volume);
+    { 
         AudioListener.volume = volume;
     }
 

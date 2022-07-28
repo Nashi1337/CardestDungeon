@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// This is the script which handles everything regarding the player in the dungeon scene. It is NOT used in the battle scene.
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Current
@@ -87,17 +84,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //if (playerInstance == null)
-        //{
-        //    playerInstance = this;
-        //    canMove = true;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //    canMove = true;
-        //}
-
         rig = GetComponent<Rigidbody2D>();
         spriterRenderer = GetComponent<SpriteRenderer>();
 
@@ -105,21 +91,15 @@ public class PlayerController : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         playerCombatTEST = GetComponent<PlayerCombatTEST>();
 
-        //inventoryItems = new Item[inventorySize];
         currentPosition = transform.position;
 
 
         //Displays first Tutorial message right on game start. Check Message @DialogueManager Script
 
         AssignMapManager();
-        //allchildrenofmap = mapeditor.GetComponentsInChildren<Transform>();
         mapeditor.SetActive(false);
 
         AssignInventoryManager();
-        //allchildrenofinventory = inventoryManager.GetComponentsInChildren<RectTransform>();
-
-
-
         inventoryUI.SetActive(false);
 
 
@@ -142,7 +122,6 @@ public class PlayerController : MonoBehaviour
             playerStats.IncreaseHighScore(-playerStats.highScore);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (canMove)
@@ -152,10 +131,9 @@ public class PlayerController : MonoBehaviour
             walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
             if (walkDirectionAsVector.magnitude > 0)
             {
+                //Update important variables
                 lookDirection = walkDirectionInDegree;
-                //Debug.Log("Meine Guckrichtung ist: " + lookDirection);
                 attackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
-                //Debug.Log(walkDirectionAsVector);
                 rangeAttackPoint.transform.position = this.transform.position + new Vector3(walkDirectionAsVector.x, walkDirectionAsVector.y, 0);
                 lookDirectionAsVector = walkDirectionAsVector;
             }
@@ -169,8 +147,6 @@ public class PlayerController : MonoBehaviour
             }
             animator.SetFloat("walkDirection", walkDirectionInDegree);
             animator.SetFloat("lookDirection", lookDirection);
-            //Debug.Log("Ich laufe in Richtung: " + walkDirectionInDegree);
-            //a_speed is the parameter that determines wether the walking animation should be played
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
         }
     }
@@ -264,13 +240,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks for interactables in range and interacts with them. Does nothing if nothing happens
+    /// </summary>
+    /// <returns>returns true, if successfully interacted, else false.</returns>
     private bool InteractWithInteractables()
     {
+        //Find colliders in range
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D contactFilter = new ContactFilter2D();
 
         Physics2D.OverlapCircle(gameObject.transform.position, interactionRadius, contactFilter.NoFilter(), results);
         bool interactedSuccessfully = false;
+
+        //Sort out all noninteractables
         foreach (Collider2D collider in results)
         {
             if (collider.tag.Equals("Interactable"))
@@ -285,6 +268,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        //interact with the first interactable
         foreach (Collider2D collider in results)
         {
             if (collider.tag.Equals("Interactable"))
@@ -404,12 +388,6 @@ public class PlayerController : MonoBehaviour
         temp.Initialize();
     }
     
-    private IEnumerator StartAttackCooldown()
-    {
-        yield return new WaitForSeconds(attackRate);
-        //attackAvailable = true;
-    }
-
     public IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(5);
