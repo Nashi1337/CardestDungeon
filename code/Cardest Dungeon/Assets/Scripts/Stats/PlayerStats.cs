@@ -15,7 +15,7 @@ public class PlayerStats : CharacterStats
     private Text magicText;
 
     public int mana = 0;
-    private int highScore = 0;
+    public int highScore = 0;
 
     [SerializeField]
     private ManaBar manaBar;
@@ -40,6 +40,8 @@ public class PlayerStats : CharacterStats
         audio = GetComponent<AudioSource>();
 
         animator = GetComponent<Animator>();
+
+
     }
 
     void Update()
@@ -121,6 +123,7 @@ public class PlayerStats : CharacterStats
     public void IncreaseHighScore(int value)
     {
         highScore = highScore + value;
-        highScoreText.text = highScore.ToString();
+        if(highScoreText!=null)
+            highScoreText.text = highScore.ToString();
     }
 }
