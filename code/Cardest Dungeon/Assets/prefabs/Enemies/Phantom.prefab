@@ -227,9 +227,14 @@ MonoBehaviour:
   dropAttack: {fileID: 4952849357784073315, guid: d9193efc685a519459eb2fc299a26857, type: 3}
   dropDefense: {fileID: 4375338151345387569, guid: ab4d8cc9c12b81442b7431edc3ca185a, type: 3}
   dropMagic: {fileID: 7664108723397186347, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
+  dropBoss: {fileID: 0}
+  defeatedBoss: {fileID: 0}
+  zahltrigger: 0
   zahl: 0
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3
+  fakeWifeNPC: {fileID: 0}
+  bossMusic: {fileID: 0}
   moveRadius: 20
   ice_Behaviour:
     moveTime: 5
@@ -403,7 +408,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b24d830af66c1a343aca3286890b2f58, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 82da69b27a615e24fb610c64d61806b4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
