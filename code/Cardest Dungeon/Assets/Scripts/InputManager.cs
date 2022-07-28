@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This class is used for anything input related. It especially maps different buttons to  more abstract actions.
-/// It is unclear at the moment how much this class is actually used. Therefore it's existence should be up to debate.
+///Handles most important inputs. All keys are mapped to more abtract actions. This class also offers methods
+///in order to work with these eactions.
 /// </summary>
 public class InputManager : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="action">Use static variables from Inputmanager for that. (e.g. inventory, map,...)</param>
+    /// <param name="action">Use static variables from Inputmanager for this. (e.g. inventory, map,...)</param>
     /// <returns>Returns true, if a button for a certain action got pressed down. Else, false.</returns>
     public static bool GetAction(KeyCode[] action)
     {
@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="action">Use static variables from Inputmanager for that. (e.g. inventory, map,...)</param>
+    /// <param name="action">Use static variables from Inputmanager for this. (e.g. inventory, map,...)</param>
     /// <returns>Returns true, if a button for a certain action was released. Else, false.</returns>
     public static bool GetActionDown(KeyCode[] action)
     {
@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="action">Use static variables from Inputmanager for that. (e.g. inventory, map,...)</param>
+    /// <param name="action">Use static variables from Inputmanager for this. (e.g. inventory, map,...)</param>
     /// <returns>Returns true, if a button for a certain action is pressed. Else, false.</returns>
     public static bool GetActionUp(KeyCode[] action)
     {

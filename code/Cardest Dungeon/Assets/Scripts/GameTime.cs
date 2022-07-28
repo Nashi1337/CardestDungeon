@@ -27,6 +27,7 @@ public class GameTime : MonoBehaviour
     /// Checks the following conditions. If any of these are true the game will be paused and GameTime.IsGamePaused will be set to true. Else the game will continue and GameTime.IsGamePaused will be set to false:
     /// -Is the inventory Menu opened?
     /// -Is the map menu opened?
+    /// -Is the pause menu opened?
     /// </summary>
     public static void UpdateIsGamePaused()
     {

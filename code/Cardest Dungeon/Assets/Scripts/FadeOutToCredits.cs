@@ -23,6 +23,7 @@ public class FadeOutToCredits : MonoBehaviour
         col.a = 0;
         tintPlane.color = col;
 
+        //is no good line either.
         gameMusic = GameObject.Find("GameManager").GetComponent<AudioSource>();
         startingMusicVolume = gameMusic.volume;
 
@@ -34,6 +35,7 @@ public class FadeOutToCredits : MonoBehaviour
         Color col = tintPlane.color;
         if (col.a >= 1)
         {
+            //if fully faded out
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         col.a += 0.2f / timeToFadeOut;
@@ -42,7 +44,6 @@ public class FadeOutToCredits : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.2f);
 
-        Debug.Log("Temp");
         StartCoroutine(NextGradient());
     }
 }

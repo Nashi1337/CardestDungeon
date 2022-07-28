@@ -56,6 +56,9 @@ public class Inventory : MonoBehaviour
 	// Current list of items in inventory
 	public List<Item> items = new List<Item>();
 
+	/// <summary>
+	/// Initializes the inventory. This method needs to be called before the inventory is used.
+	/// </summary>
 	public void Initialize()
 	{
 		playerStats = FindObjectOfType<PlayerStats>();
@@ -67,6 +70,11 @@ public class Inventory : MonoBehaviour
 		LoadInventoryFromPlayerStats();
 	}
 
+	/// <summary>
+	/// Adds an item to the inventory if there is enough space. Else it will do nothing
+	/// </summary>
+	/// <param name="item">The item to add</param>
+	/// <returns>True if item was added, else false.</returns>
 	public bool Add(Item item)
 	{
 		// Check if out of space
@@ -110,7 +118,10 @@ public class Inventory : MonoBehaviour
 		return true;
 	}
 
-	// Remove an item
+	/// <summary>
+	/// Removes the given item from the inventory. If the item is not in the inventory, nothing happens.
+	/// </summary>
+	/// <param name="item">The item that will be removed</param>
 	public void Remove(Item item)
 	{
 		items.Remove(item);     // Remove item from list
@@ -138,11 +149,11 @@ public class Inventory : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Sums up each the attack, defence and magic modifier. The returned card will only have the effect with the highest sum. If an effect Item is added the returned card will have a special effect
+	/// Sums up each the attack, defence and magic modifier. The returned card will only have the effect with the highest sum.
 	/// </summary>
-	/// <param name="items"></param>
-	/// <param name="effectItem"></param>
-	/// <returns></returns>
+	/// <param name="items">the items that are going to merged. They will be removed from the inventory</param>
+	/// <param name="effectItem">Unused. Value does not matter.</param>
+	/// <returns>the new item</returns>
 	private Item MergeItem(Item[] items, Item effectItem = null)
 	{
 		int attack = 0, defence = 0, magic = 0, hpPlus = 0;
@@ -225,6 +236,12 @@ public class Inventory : MonoBehaviour
 		return mergedItem;
 	}
 
+	/// <summary>
+	/// Returns the given value floored to the values in possibleCardStrengthValuesASCENDING
+	/// </summary>
+	/// <param name="value">The value that will be floored.</param>
+	/// <returns>The floored value </returns>
+	/// <exception cref="System.Exception"></exception>
 	private int ReturningClosestStrengthValues(int value)
 	{
 
@@ -239,9 +256,14 @@ public class Inventory : MonoBehaviour
 		throw new System.Exception("Lol was ist hier passiert");
 	}
 
+	/// <summary>
+	/// Toggles the inventory behaviour.
+	/// </summary>
 	public void OnMergeButtonPress()
 	{
 		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
+
+		//Start selection phase
 		if (!merge_canCardsBeSelected && !remove_canCardsBeSelected)
 		{
 			merge_canCardsBeSelected = true;
@@ -255,7 +277,7 @@ public class Inventory : MonoBehaviour
 				}
 			}
 		}
-		else
+		else //End selection phase and merge selected items
 		{
 			List<Item> allSelectedItems = new List<Item>();
 			Item effectItem = null;
@@ -299,14 +321,18 @@ public class Inventory : MonoBehaviour
 		playerStats.UpdateStats();
 	}
 
+	/// <summary>
+	/// Toggles the inventory behaviour.
+	/// </summary>
 	public void OnRemoveButtonPress()
 	{
+		//Start selection phase
 		if (!remove_canCardsBeSelected && !merge_canCardsBeSelected)
 		{
 			remove_canCardsBeSelected = true;
 			removeButtonText.text = "REMOVE\nSELECTED\nCARDS";
 		}
-		else
+		else //End selection phase and remove selected cards
 		{
 			InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
 			List<Item> allSelectedItems = new List<Item>();
@@ -335,6 +361,9 @@ public class Inventory : MonoBehaviour
 		playerStats.UpdateStats();
 	}
 
+	/// <summary>
+	/// Toggles merge and remove button into their default state.
+	/// </summary>
 	public void ResetButtons()
 	{
 		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();

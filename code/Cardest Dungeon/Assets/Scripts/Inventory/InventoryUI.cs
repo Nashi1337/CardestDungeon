@@ -15,6 +15,9 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
 
+    /// <summary>
+    /// Initializes the InventoryUI. This method needs to be called before the inventoryUI is used.
+    /// </summary>
     public void Initialize()
     {
         inventory = Inventory.instance;

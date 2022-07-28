@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Creates an appearance effect and starts the enemy regularly afterwards.
+/// </summary>
 public class EnemyAppears : MonoBehaviour
 {
     private static float timeInSeconds = 1;

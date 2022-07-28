@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>
-/// represents a piece on the map and of the map of a dungeon. It has a reference on its corresponding actual dungeonPart.
-/// </summary>
 public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public bool IsUnlocked
@@ -33,8 +30,8 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private static int maxDistanceForSnapping = 150;
     private void Start()
     {
-        IsUnlocked = Debug.isDebugBuild;
-        Debug.LogWarning("All MapPieces are unlocked in Debug builds. Remove this line before release!!");
+        //IsUnlocked = Debug.isDebugBuild;
+        //Debug.LogWarning("All MapPieces are unlocked in Debug builds. Remove this line before release!!");
 
         positionBeforeDrag = transform.position;
         dungeonPiecePosition = dungeonPart.transform.position;
@@ -81,6 +78,9 @@ public class MapPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         dungeonPiecePosition = newDungeonPosition;
     }
 
+    /// <summary>
+    /// Moves this mapPiece back to its position before it was dragged. Nothing happens if it is not dragged.
+    /// </summary>
     public void ResetWithoutSwap()
     {
         transform.position = positionBeforeDrag;

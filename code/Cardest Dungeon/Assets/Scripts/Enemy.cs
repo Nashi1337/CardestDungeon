@@ -12,15 +12,15 @@ public class Enemy : MonoBehaviour
 
     private bool attackAvailable = true;
     [SerializeField]
-    private float attackRate;
+    private float attackRate; //Time after which the enem will attack again.
     [SerializeField]
-    protected float detectRange;
+    protected float detectRange; //Area in which the player will be detected.
     [SerializeField]
     private float acceleration;
     [SerializeField]
-    private float distance;
+    private float distance; //distance to the player at which ranged enemies will move back
     [SerializeField]
-    protected bool boss;
+    protected bool boss; //is this enemy a boss enemy?
     private float accelerationfactor = 1;
     [SerializeField]
     private AudioSource grindSound;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     private Sprite defeatedBoss;
 
     [SerializeField]
-    private int zahltrigger;
+    private int zahltrigger; //Please help
 
     private Vector3 directionToPlayer;
 
@@ -50,10 +50,10 @@ public class Enemy : MonoBehaviour
 
     private DialogueManager dm;
 
-    public int zahl = 0;
+    public int zahl = 0; //please help
 
     public GameObject fireballProjectile;
-    public float fireBallCooldown = 3f;
+    public float fireBallCooldown = 3f; //This is the frequency at which fireballs are shot
     private float nextAttackTime = 0f;
  
 
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
     private bool isdead;
 
     [SerializeField]
-    private GameObject fakeWifeNPC;
+    private GameObject fakeWifeNPC; //fakeWife that is spawned after first boss
     [SerializeField]
     protected AudioClip bossMusic;
     private PlayerStats playerStats;
@@ -76,6 +76,9 @@ public class Enemy : MonoBehaviour
         SetScale();
     }
 
+    /// <summary>
+    /// Adjusts the scale of the enemy to its strength. The stronger the bigger
+    /// </summary>
     public void SetScale()
     {
         scaleModifier += enemyStats.Defense / 15f;
@@ -95,6 +98,9 @@ public class Enemy : MonoBehaviour
         transform.SetParent(tempParent, true);
     }
 
+    /// <summary>
+    /// Initializes an enemy object. This needs to be done before any other use of this script.
+    /// </summary>
     public void Initialize()
     {
         animator = GetComponent<Animator>();
@@ -113,6 +119,7 @@ public class Enemy : MonoBehaviour
             {
                 if (Vector2.Distance(PlayerController.Current.transform.position, transform.position) <= detectRange)
                 {
+                    //If bossmusic not playing yet, activate it if player is in reach
                     if(!MusicLooper.Instance.IsActive)
                     {
                         MusicLooper.Instance.ActivateLooper(1.2f, 58.78f);

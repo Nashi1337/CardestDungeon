@@ -8,12 +8,14 @@ public class DungeonAttributes : MonoBehaviour
 
     public int DungeonWidth { get { return dungeonWidth; } }
     public int DungeonHeight { get { return dungeonHeight; } }
+    
     public Element[,] Elements
     {
         get
         {
             if (elements2DArray == null)
             {
+                //This conversion is necessary because unity doesn't support 2D arrays in the inspector.
                 elements2DArray = new Element[dungeonWidth, dungeonHeight];
                 int index = 0;
 

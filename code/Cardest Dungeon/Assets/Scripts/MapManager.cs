@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// This class manages everything that has to do with changinge the dungeon layout and controlling the visual map.
-/// </summary>
 public class MapManager : MonoBehaviour
 {
     public static MapManager Current
@@ -226,6 +223,7 @@ public class MapManager : MonoBehaviour
                 }
             }
 
+            //Update water
             WaterScript[] oldSources = allSources.ToArray();
             foreach(WaterScript source in oldSources)
             {
@@ -233,6 +231,7 @@ public class MapManager : MonoBehaviour
                 allSources.Add(source.TrackNewPath());
             }
 
+            //Trigger OnDungeonSwap method
             foreach(Transform child in piece1.dungeonPart.transform)
             {
                 IDungeonSwapMessage reciever = child.GetComponent<IDungeonSwapMessage>();

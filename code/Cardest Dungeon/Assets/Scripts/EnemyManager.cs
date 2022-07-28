@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This script manages all enemies in the dungeon and their spawning.
+/// Unused
 /// </summary>
 public class EnemyManager : MonoBehaviour
 {

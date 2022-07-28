@@ -15,7 +15,7 @@ public class WaterScript : MonoBehaviour
     private bool isSource = false;
     [SerializeField]
     private AudioSource waterSound;
-    public int isFlowing = 1;
+    public int isFlowing = 1; //Flowing modifier.
     private float unitsPerSecond; //How many percent of the default sprite size one unity unit equals
     private Vector2 spriteSize;
     private Vector3 startingPosition;
@@ -40,10 +40,11 @@ public class WaterScript : MonoBehaviour
     {
         if (isFlowing != 0)
         {
-            if (isFlowing == -1)
+            if (isFlowing == -1) //if drying out
             {
                 if (Mathf.Abs(transform.localScale.x) < 0.5f)
                 {
+                    //Destroy self and tell all children to dry out.
                     Destroy(gameObject);
                     if (children != null && children.Length != 0)
                     {
@@ -56,6 +57,8 @@ public class WaterScript : MonoBehaviour
             }
             if (waterSound != null && !waterSound.isPlaying)
                 waterSound.Play();
+            
+            //flow
             float addedScale = unitsPerSecond * Time.deltaTime * isFlowing;
             transform.localScale += new Vector3(addedScale, 0, 0);
             float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
@@ -80,6 +83,7 @@ public class WaterScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Ignore origin
         if(pointOfOrigin == collision.gameObject || isFlowing < 0)
         {
             return;

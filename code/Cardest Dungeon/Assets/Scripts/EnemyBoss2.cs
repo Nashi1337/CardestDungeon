@@ -122,6 +122,7 @@ public class EnemyBoss2 : Enemy
             evil.enemy = this;
             doubleShoot_shotBullets++;
             
+            //If both shots for a double shot were shot
             if(doubleShoot_shotBullets == 2)
             {
                 doubleShoot_shotBullets = 0;
@@ -149,6 +150,7 @@ public class EnemyBoss2 : Enemy
             Vector2 thisToPlayer = PlayerController.Current.transform.position - transform.position;
             float angleInDegree = Mathf.Atan2(thisToPlayer.y, thisToPlayer.x) * Mathf.Rad2Deg;
 
+            //Shoot bulletsPerShot bullets equally distributed from -angleDelta to +angleDelta towards the player
             for (int i = 0; i < spreadShoots_BulletsPerShot; i++)
             {
                 float bulletAngle = angleInDegree - ((spreadShoots_BulletsPerShot - 1) / 2f) * spreadShoots_angleDelta + spreadShoots_angleDelta * i;

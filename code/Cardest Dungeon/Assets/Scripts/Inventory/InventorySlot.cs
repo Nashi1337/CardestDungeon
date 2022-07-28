@@ -30,6 +30,9 @@ public class InventorySlot : MonoBehaviour
         //icon.enabled = false;
     }
 
+    /// <summary>
+    /// Add the is-selected-border if not there, yet and vice versa
+    /// </summary>
     public void SwitchSelected()
     {
         if (((Inventory.instance.merge_canCardsBeSelected && item.isMergable) || Inventory.instance.remove_canCardsBeSelected) && item != null)

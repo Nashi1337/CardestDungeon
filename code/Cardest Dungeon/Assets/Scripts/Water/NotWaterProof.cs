@@ -2,25 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Add this script to an object in order to let it destroy itself when it touches an Object
+/// with the WaterScript.
+/// </summary>
 public class NotWaterProof : MonoBehaviour
 {
 
-    void Start()
-    {
-        
-    }
-
- 
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
-        Debug.Log("Ich bin " + this.name + " und bin mit " + collision.gameObject.name + " kollidiert");
         if(collision.gameObject.GetComponent<WaterScript>() != null)
         {
             if(collision.gameObject.GetComponent<WaterScript>().isFlowing > 0)

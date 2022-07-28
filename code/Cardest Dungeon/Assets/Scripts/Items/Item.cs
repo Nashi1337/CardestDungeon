@@ -6,6 +6,9 @@
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
+	/// <summary>
+	/// unused
+	/// </summary>
 	public enum Effect
 	{
 		NONE
@@ -23,7 +26,6 @@ public class Item : ScriptableObject
 	public bool heal;
 	public bool isMergable;
 	public Effect effect;
-
 
 	public SERIALIZABLE_Item CreateSERIALIZABLE_Item()
 	{

@@ -69,7 +69,7 @@ public class EnemyPhantom : Enemy
         stateMachine.AddTransition("RetreatFromPlayer", "Idle", Fire_ToIdle);
 
         ApplyStatsToEnemyStats(normal_Stats);
-        active_Behaviour =normal_Behaviour;
+        active_Behaviour = normal_Behaviour;
 
         UpdateMainState();
 
@@ -93,13 +93,15 @@ public class EnemyPhantom : Enemy
         string activeState = stateMachine.GetActiveStateName();
         if (!activeState.Equals("AttackPlayer")
             && !activeState.Equals("RetreatFromPlayer")
-            && IsPlayerInSight()
-            )
+            && IsPlayerInSight())
         {
             stateMachine.TransitionToState("AttackPlayer");
         }
     }
 
+    /// <summary>
+    /// Checks the current element area it is in and switches its behaviour accordingly.
+    /// </summary>
     public void UpdateMainState()
     {
         Element newState = MapManager.Current.FindElementOfMapPiece(homeArea);
@@ -136,6 +138,7 @@ public class EnemyPhantom : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //If player was attacked
         if(mainState != Element.ICE && stateMachine.GetActiveStateName().Equals("AttackPlayer") && collision.gameObject.tag.Equals("Player"))
         {
             stateMachine.TransitionToState("RetreatFromPlayer");
@@ -249,6 +252,9 @@ public class EnemyPhantom : Enemy
         UpdateScaleToStats();
     }
 
+    /// <summary>
+    /// Updates the scale according to its current behaviour.
+    /// </summary>
     private void UpdateScaleToStats()
     {
         float scaleModifier = 0.4f;

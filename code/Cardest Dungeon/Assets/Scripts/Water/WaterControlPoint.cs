@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Changes the direction of the water and splits it if more than one direction is specified.
+/// If none are specified the water will be stopped.
+/// </summary>
 public class WaterControlPoint : MonoBehaviour
 {
 

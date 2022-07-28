@@ -26,7 +26,7 @@ public class CameraTintScript : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject tintPlane;
+    private GameObject tintPlane; //The rectangle in front of the camera that will be tinted.
     [SerializeField]
     private Color defaultTint;
     [SerializeField]
@@ -47,8 +47,6 @@ public class CameraTintScript : MonoBehaviour
         stateMachine.AddState("TintingRed", TintingRed);
         stateMachine.AddState("TintingBlue", TintingBlue);
         stateMachine.AddState("TintingIdle", TintingIdle);
-
-
     }
 
     private void FixedUpdate()
@@ -106,6 +104,10 @@ public class CameraTintScript : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// Switches the tint to a color corresponding to the given element.
+    /// </summary>
+    /// <param name="element">FIRE = red, ICE = blue, NONE = idle</param>
     public void SwitchColor(Element element)
     {
         switch(element)

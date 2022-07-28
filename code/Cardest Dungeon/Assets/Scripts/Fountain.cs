@@ -19,6 +19,9 @@ public class Fountain : MonoBehaviour, IDungeonSwapMessage
         ChangeSprite();
     }
 
+    /// <summary>
+    /// Disappears in NONE element, switches to blue in ICE and to red in FIRE area
+    /// </summary>
     private void ChangeSprite()
     {
         Element newElement = MapManager.Current.FindElementOfMapPiece(homeArea);

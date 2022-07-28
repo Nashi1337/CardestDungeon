@@ -18,12 +18,11 @@ public class Interactable : MonoBehaviour
 	/// <returns>true if the interaction was successfull. Else, false.</returns>
 	public virtual bool Interact()
 	{
-		//Debug.Log("Interacting with " + transform.name);
 		return false;
 	}
 
 
-	// Draw our radius in the editor
+	// Draw the radius in the editor
 	void OnDrawGizmosSelected()
 	{
 		if (interactionTransform == null)
