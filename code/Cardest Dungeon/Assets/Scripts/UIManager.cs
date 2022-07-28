@@ -14,8 +14,6 @@ public class UIManager : MonoBehaviour
     private Button restartButton;
     [SerializeField]
     private Button quitButton;
-    //[SerializeField]
-    //private Button continueButton;
     public bool isGameOver = false;
 
     public static UIManager instance;
@@ -26,34 +24,22 @@ public class UIManager : MonoBehaviour
         gameoverpanel.SetActive(false);
         restartButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
-        //continueButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-/*        if(Input.GetKeyDown(KeyCode.G) && !isGameOver)
-        {
-            isGameOver = true;
-        }*/
-
         if (isGameOver)
         {
             StartCoroutine(GameOverSequence());
-/*            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                print("Application Quit");
-                Application.Quit();
-            }*/
         }
     }
 
-        
+    /// <summary>
+    /// When the player's health reaches 0, this Method will be called.
+    /// It actives the game over panel, and after 3 seconds displays options to restart or to quit the game.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator GameOverSequence()
     {
         

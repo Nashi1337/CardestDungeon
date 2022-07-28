@@ -56,9 +56,6 @@ public class Enemy : MonoBehaviour
     public float fireBallCooldown = 3f; //This is the frequency at which fireballs are shot
     private float nextAttackTime = 0f;
  
-
-    //public bool Loading = true;
-
     private bool isdead;
 
     [SerializeField]
