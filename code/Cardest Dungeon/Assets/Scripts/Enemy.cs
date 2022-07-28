@@ -72,7 +72,6 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         Initialize();
-        playerStats = FindObjectOfType<PlayerStats>();
         SetScale();
     }
 
@@ -108,6 +107,7 @@ public class Enemy : MonoBehaviour
         spriterenderer = GetComponent<SpriteRenderer>();
         enemyStats = GetComponent<EnemyStats>();
         dm = FindObjectOfType<DialogueManager>();
+        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -371,8 +371,6 @@ public class Enemy : MonoBehaviour
             if(boss2 != null)
             {
                 boss2.KillstateMachine();
-
-                fakeWifeNPC.SetActive(true);
             }
 
             dm.NextDungeon();
