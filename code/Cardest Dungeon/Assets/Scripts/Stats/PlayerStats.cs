@@ -32,7 +32,10 @@ public class PlayerStats : CharacterStats
 
     void Start()
     {
+        //This calls the Initialize function of the parent class, CharacterStats.
+        //It sets the current Health to max Health, then sets the health bar to the maximum value.
         Initialize();
+        //Only the player has mana. The current as well as the max mana is always equal to the magic value.
         mana = magic;
         manaBar.SetMaxMana(mana);
         StartCoroutine(RefillMana());
@@ -43,21 +46,28 @@ public class PlayerStats : CharacterStats
 
 
     }
-
+    /// <summary>
+    /// Is only used for debugging. 
+    /// It was used to check if taking damage works and to refill the mana manually.
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             //TakeDamage(10, 0);
-            UseMana(1);
+            //UseMana(1);
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            UseMana(-1);
+            //UseMana(-1);
         }
     }
 
     //Do not Use this except if you are the PlayerController. Else use either the SetStats or the UpdateStats of player controller
+    /// <summary>
+    /// Updates the hidden numeric values of attack, defense and magic,
+    /// as well as the mana bar and, through characterstats, the healthbar
+    /// </summary>
     public override void UpdateStats()
     {
         attackText.text = (Attack + Inventory.instance.GetAttackModifier()).ToString();
@@ -69,12 +79,23 @@ public class PlayerStats : CharacterStats
         base.UpdateStats();
     }
 
+    /// <summary>
+    /// Will be called when shooting fireballs or healing. 
+    /// Removes either 1 oder 2 from the player's mana.
+    /// </summary>
+    /// <param name="used"></param>
     public void UseMana(int used)
     {
         mana = mana - used;
         UpdateStats();
     }
-
+    /// <summary>
+    /// Used to remove health from the player upon being the victim of an attack.
+    /// If currHealth <= 0, the player dies
+    /// </summary>
+    /// <param name="attackValue">The value of the attack that hit the player</param>
+    /// <param name="attacker">Unused. Value is ignored</param>
+    /// <returns></returns>
     public override int TakeDamage(int attackValue, CharacterStats attacker)
     {
         if (attackValue > Defense)
@@ -82,7 +103,7 @@ public class PlayerStats : CharacterStats
             animator.SetTrigger("isHurt");
             GameObject audioPlayer = Instantiate(audioPlayerPrefab);
             audioPlayer.GetComponent<AudioSource>().clip = audio.clip;
-            //audio.Play();
+            audio.Play();
         }
         if (CurrHealth <= 0)
         {
@@ -90,28 +111,30 @@ public class PlayerStats : CharacterStats
         }
         return base.TakeDamage(attackValue, Defense + Inventory.instance.GetDefenseModifier(), attacker);
     }
-
+    /// <summary>
+    /// Calls the CheckHealth function from characterStats.
+    /// It checks wether the currenthealth are exceeding the maximum or are less/equal than 0
+    /// </summary>
     public override void CheckHealth()
     {
         base.CheckHealth();
     }
-
+    /// <summary>
+    /// Player is unable to move and calls the Die function from PlayerController, 
+    /// that opens the game over panel.
+    /// </summary>
     public static void Die()
     {
-        //base.Die();
-        //Debug.Log("Du bist tot. Hier sollte jetzt etwas passieren.");
         PlayerController.canMove = false;
         PlayerController.Die();
     }
-
-    public ManaBar GetManaBar()
-    {
-        return manaBar;
-    }
-
+    /// <summary>
+    /// Refills one mana every 12 seconds.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator RefillMana()
     {
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(12);
         if (mana < magic)
         {
             mana++;
@@ -119,7 +142,10 @@ public class PlayerStats : CharacterStats
         }
         StartCoroutine(RefillMana());
     }
-
+    /// <summary>
+    /// increases high score value and updates text in pause menu.
+    /// </summary>
+    /// <param name="value"></param>
     public void IncreaseHighScore(int value)
     {
         highScore = highScore + value;

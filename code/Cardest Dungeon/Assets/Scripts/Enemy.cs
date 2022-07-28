@@ -56,9 +56,6 @@ public class Enemy : MonoBehaviour
     public float fireBallCooldown = 3f;
     private float nextAttackTime = 0f;
  
-
-    //public bool Loading = true;
-
     private bool isdead;
 
     [SerializeField]
@@ -75,7 +72,9 @@ public class Enemy : MonoBehaviour
         playerStats = FindObjectOfType<PlayerStats>();
         SetScale();
     }
-
+    /// <summary>
+    /// Determines the size of the enemy object
+    /// </summary>
     public void SetScale()
     {
         scaleModifier += enemyStats.Defense / 15f;

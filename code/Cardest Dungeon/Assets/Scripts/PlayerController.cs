@@ -137,7 +137,8 @@ public class PlayerController : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         string sceneName = scene.name;
         Debug.Log(SceneManager.GetActiveScene().name);
-        if (sceneName == "Dungeon_1");
+        Debug.Log(canMove);
+        if (sceneName == "Dungeon_1")
             playerStats.IncreaseHighScore(-playerStats.highScore);
     }
 

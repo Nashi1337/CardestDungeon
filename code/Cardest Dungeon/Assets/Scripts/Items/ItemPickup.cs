@@ -29,6 +29,7 @@ public class ItemPickup : Interactable
             GameObject audioPlayer = Instantiate(audioPlayerPrefab);
             audioPlayer.GetComponent<AudioSource>().clip = bossItemPickup.clip;
             StartCoroutine(LoadNextScene());
+            PlayerController.canMove = true;
             return wasPickedUp;
         }
         else if (tutorialItem && wasPickedUp)
