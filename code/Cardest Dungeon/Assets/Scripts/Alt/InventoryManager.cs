@@ -23,7 +23,7 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    private void Awake()
+/*    private void Awake()
     {
         if (current == null)
         {
@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 
 
     public void Start()

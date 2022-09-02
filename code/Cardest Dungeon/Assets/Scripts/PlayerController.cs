@@ -109,6 +109,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log(canMove);
         if (sceneName == "Dungeon_1")
             playerStats.IncreaseHighScore(-playerStats.highScore);
+
+        canMove = true;
     }
 
     void FixedUpdate()
