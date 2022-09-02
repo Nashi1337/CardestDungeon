@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     /// <summary>
-    /// Starts the scene with the main gameplay. 
+    /// loads the first dungeon
     /// </summary>
     public void PlayGame()
     {
-        //The scene should not be loaded by scene index.
         GameTime.IsGamePaused = false;
         SceneManager.LoadScene(2);
     }
@@ -22,7 +21,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Jemand hat Quit geklickt");
         Application.Quit();
     }
-
+    /// <summary>
+    /// loads the tutorial scene
+    /// </summary>
     public void StartTutorial()
     {
         GameTime.IsGamePaused = false;

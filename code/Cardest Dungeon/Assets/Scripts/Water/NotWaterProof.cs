@@ -8,7 +8,10 @@ using UnityEngine;
 /// </summary>
 public class NotWaterProof : MonoBehaviour
 {
-
+    /// <summary>
+    /// certain objects will be destroyed when touching water
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.GetComponent<WaterScript>() != null)

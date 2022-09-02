@@ -273,8 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 1048749668780036870}
-  PauseButton: {fileID: 6377129973837507326}
-  audioMixer: {fileID: 0}
 --- !u!1 &1109736928724723931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4186,7 +4184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847255533138772643, guid: e4d1abbe290febd4bbe77b23e552aee1, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 5847255533138772643, guid: e4d1abbe290febd4bbe77b23e552aee1, type: 3}
       propertyPath: m_SizeDelta.y

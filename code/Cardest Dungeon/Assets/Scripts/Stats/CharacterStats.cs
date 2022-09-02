@@ -38,40 +38,23 @@ public class CharacterStats : MonoBehaviour
     public void Initialize()
     {
         CurrHealth = MaxHealth;
-
-        //mana = magic;
         healthBar.SetMaxHealth(maxHealth);
-        //manaBar.SetMaxMana(mana);
-        //StartCoroutine(RefillMana());
         UpdateStats();
-    }
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    //TakeDamage(10, 0);
-        //    UseMana(1);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    UseMana(-1);
-        //}
     }
 
     /// <summary>
-    /// 
+    /// base TakeDamage function for all characters, player and enemy
     /// </summary>
-    /// <param name="attackValue"></param>
+    /// <param name="attackValue">attack value of the attacker</param>
     /// <returns>Actual Damge taken.</returns>
     protected int TakeDamage(int attackValue, int defenseValue, CharacterStats attacker)
     {
-        //alte Berechnung
+        //attack value will be reduced by the defenders defense value
         attackValue -= defenseValue;
+        //attack value can't be < 0 of course, otherwise it would heal the defender
         attackValue = Mathf.Max(attackValue, 0);
 
-        //NeueBerechnung
-        //attackValue = Mathf.RoundToInt((attackValue - (float)defenseValue) / 3 + attackValue / (float)defenseValue);
-
+        //health of the defender will be reduced by the new attack value
         CurrHealth -= attackValue;
 
         //Knockback Calculation
@@ -85,17 +68,15 @@ public class CharacterStats : MonoBehaviour
         return attackValue;
     }
 
-    //public void UseMana(int used)
-    //{
-    //    mana = mana - used;
-    //    UpdateStats();
-    //}
-
     public virtual int TakeDamage(int attackValue, CharacterStats attacker)
     {
         return TakeDamage(attackValue, Defense, attacker);
     }
 
+    /// <summary>
+    /// Heals used by the player refill the health by the magicvalue * 2
+    /// </summary>
+    /// <param name="magicValue"></param>
     public void Heal(int magicValue)
     {
         CurrHealth += magicValue*2;
@@ -116,8 +97,6 @@ public class CharacterStats : MonoBehaviour
             healthBar.SetMaxHealth(maxHealth);
         }
         healthBar.SetHealth(currHealth);
-        //manaBar.SetMaxMana(magic);
-        //manaBar.SetMana(mana);
     }
 
     public virtual void CheckHealth()
@@ -137,7 +116,6 @@ public class CharacterStats : MonoBehaviour
     {
         if (gameObject.tag.Equals("Player"))
         {
-            //PlayerStats.Die();
             PlayerStats.Die();
         }
     }
@@ -146,22 +124,6 @@ public class CharacterStats : MonoBehaviour
     {
         return healthBar;
     }
-
-    //public ManaBar GetManaBar()
-    //{
-    //    return manaBar;
-    //}
-
-    //IEnumerator RefillMana()
-    //{
-    //    yield return new WaitForSeconds(15);
-    //    if (mana < magic)
-    //    {
-    //        mana++;
-    //        UpdateStats();
-    //    }
-    //    StartCoroutine(RefillMana());
-    //}
 
     public void UpdateMaxHealth()
     {
