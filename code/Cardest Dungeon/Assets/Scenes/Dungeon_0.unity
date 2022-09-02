@@ -4789,7 +4789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: boss
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: dropBoss
