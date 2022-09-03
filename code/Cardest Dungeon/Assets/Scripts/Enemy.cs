@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
 {
     public EnemyStats EnemyStats { get { return enemyStats; } }
 
-    private bool attackAvailable = true;
     [SerializeField]
     private float attackRate; //Time after which the enem will attack again.
     [SerializeField]
@@ -204,13 +203,6 @@ public class Enemy : MonoBehaviour
     {
         directionToPlayer = (PlayerController.Current.transform.position - this.transform.position).normalized;
         rb.AddForce(directionToPlayer * acceleration * accelerationfactor);
-
-        //Attack should not happen in MoveEnemy. This needs to be moved somewhere else
-        //CharacterStats targetStats = player.GetComponent<CharacterStats>();
-        //if (targetStats != null)
-        //{
-        //    combat.Attack(targetStats);
-        //}
     }
 
     private void LateUpdate()
@@ -219,25 +211,15 @@ public class Enemy : MonoBehaviour
         enemyStats.GetHealthBar().transform.localScale = healthbarScale;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (attackAvailable && tag != "Obstacle" && collision.tag == "Player")
+        Debug.LogWarning("Obstacles should not be enemies!!!!!!");
+        if (tag != "Obstacle" && collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack, enemyStats);
-            attackAvailable = false;
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage(enemyStats.Attack, enemyStats);
             StartCoroutine(AttackCooldown());
         }
     }
-
-    //public int GetIndex()
-    //   {
-    //       return enemyIndex;
-    //   }
-
-    //public int GetHealth()
-    //{
-    //    return health;
-    //}
 
     /// <summary>
     /// 
@@ -251,7 +233,6 @@ public class Enemy : MonoBehaviour
         {
             actualDamage = 1;
         }
-        //animator.SetBool("Hurt", true);
 
         if (animator != null)
         {
@@ -278,7 +259,6 @@ public class Enemy : MonoBehaviour
     {
         if (this.tag == "Obstacle")
         {
-            //Debug.Log("Die Die Methode wird so oft aufgerufen");
             StartCoroutine(DeactivateObjectAfterWait());
         }
         else
@@ -402,7 +382,6 @@ public class Enemy : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(attackRate);
-        attackAvailable = true;
     }
 
     private void OnDrawGizmosSelected()

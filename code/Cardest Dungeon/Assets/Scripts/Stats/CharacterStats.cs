@@ -28,7 +28,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
 	private HealthBar healthBar;
 
-    private float knockbackModifier = 5;
+    protected float knockbackModifier = 5;
 
     void Start()
     {
@@ -56,11 +56,6 @@ public class CharacterStats : MonoBehaviour
 
         //health of the defender will be reduced by the new attack value
         CurrHealth -= attackValue;
-
-        //Knockback Calculation
-        float knockbackForce = knockbackModifier * attackValue;
-        Vector2 knockbackDirection = (transform.position - attacker.transform.position).normalized;
-        GetComponent<Rigidbody2D>().AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
 
         UpdateStats();
         CheckHealth();

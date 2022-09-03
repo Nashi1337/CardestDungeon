@@ -104,6 +104,12 @@ public class PlayerStats : CharacterStats
             GameObject audioPlayer = Instantiate(audioPlayerPrefab);
             audioPlayer.GetComponent<AudioSource>().clip = audio.clip;
             audio.Play();
+
+            //Knockback Calculation
+            float knockbackForce = knockbackModifier * attackValue;
+            Vector2 knockbackDirection = (transform.position - attacker.transform.position).normalized;
+            PlayerController.Current.AddKnockback(knockbackDirection * knockbackForce);
+
         }
         if (CurrHealth <= 0)
         {
