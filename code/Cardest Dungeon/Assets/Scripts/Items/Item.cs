@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 /* The base item class. All items should derive from this. */
 
@@ -17,6 +18,7 @@ public class Item : ScriptableObject
 
 	new public string name = "New Item";    // Name of the item
 	public Sprite icon = null;              // Item icon
+	public Image mergePreview;
 
 	public int defenseModifier;
 	public int attackModifier;

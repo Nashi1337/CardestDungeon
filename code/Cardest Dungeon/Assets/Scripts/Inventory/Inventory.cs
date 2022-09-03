@@ -52,6 +52,8 @@ public class Inventory : MonoBehaviour
 	public GameObject isSelectedPrefab;
 	public GameObject isNotMergablePrefab;
 
+	public GameObject mergePreview;
+
 	public int space;  // Amount of slots in inventory, set via SerializeField in Scene(default 10)
 
 	// Current list of items in inventory
@@ -308,6 +310,8 @@ public class Inventory : MonoBehaviour
 			mergeButtonText.text = "START\nMERGING";
 			merge_canCardsBeSelected = false; //Diese Zeile muss immer nach slot.SwitchSelected() stehen
 
+			mergePreview.GetComponent<InventorySlot>().icon.sprite = mergePreview.GetComponent<InventorySlot>().defaultIcon;
+
 			if (allSelectedItems.Count > 1)
 			{
 				Item mergedItem = MergeItem(allSelectedItems.ToArray(), effectItem);
@@ -460,5 +464,32 @@ public class Inventory : MonoBehaviour
 		return items;
 	}
 
+	public void ShowPreview()
+    {
+		InventorySlot[] allItems = GetComponentsInChildren<InventorySlot>();
+		Item effectItem = null;
+		List<Item> allSelectedItems = new List<Item>();
 
+		allSelectedItems.Clear();
+
+		foreach (InventorySlot slot in allItems)
+		{
+			if (slot.Item != null && slot.selectedEffect != null)
+			{
+				allSelectedItems.Add(slot.Item);
+			}
+		}
+
+		if (allSelectedItems.Count > 1)
+		{
+			Debug.Log("Hallo2)");
+			Item mergedItem = MergeItem(allSelectedItems.ToArray(), effectItem);
+			mergePreview.GetComponent<InventorySlot>().icon.sprite = mergedItem.icon;
+		}
+        else
+        {
+			Debug.Log("ned genug selected");
+			mergePreview.GetComponent<InventorySlot>().icon.sprite = mergePreview.GetComponent<InventorySlot>().defaultIcon;
+		}
+	}
 }

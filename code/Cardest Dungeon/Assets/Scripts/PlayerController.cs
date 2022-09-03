@@ -107,10 +107,13 @@ public class PlayerController : MonoBehaviour
         //will be set to the same value but negated, therefore set to 0
         Scene scene = SceneManager.GetActiveScene();
         string sceneName = scene.name;
-        Debug.Log(SceneManager.GetActiveScene().name);
-        Debug.Log(canMove);
+/*        Debug.Log(SceneManager.GetActiveScene().name);
+        Debug.Log(canMove);*/
         if (sceneName == "Dungeon_1")
+        {
             playerStats.IncreaseHighScore(-playerStats.highScore);
+            //PlayerPrefs.DeleteKey("Inventory");
+        }
 
         canMove = true;
     }

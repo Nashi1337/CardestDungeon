@@ -70,6 +70,6 @@ public class ItemPickup : Interactable
     {
         yield return new WaitForSeconds(3);
         Inventory.instance.SaveInventoryToPlayerStats();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(0);
     }
 }

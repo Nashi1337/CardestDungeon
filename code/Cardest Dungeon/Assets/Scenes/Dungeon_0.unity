@@ -4789,12 +4789,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: boss
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: dropBoss
       value: 
       objectReference: {fileID: 8720144048032529123, guid: 740de4bfcf44ec942b6354080934d1f9, type: 3}
+    - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
+      propertyPath: bossMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: a7d2af7c5b5bcae42a8fd03c5989be69, type: 3}
     - target: {fileID: 3509598710220247197, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
       propertyPath: detectRange
       value: 10

@@ -11,8 +11,7 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public Sprite defaultIcon;
 
-    public
-    Item item;
+    public Item item;
 
     /// <summary>
     /// Adds picked up item into the first empty slot of the inventory
@@ -50,7 +49,10 @@ public class InventorySlot : MonoBehaviour
             else
             {
                 Destroy(selectedEffect);
+                selectedEffect = null;
             }
+
+            Inventory.instance.ShowPreview();
         }
     }
 

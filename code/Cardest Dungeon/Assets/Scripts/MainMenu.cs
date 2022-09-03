@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     {
         GameTime.IsGamePaused = false;
         SceneManager.LoadScene(2);
+        PlayerPrefs.DeleteKey("Inventory");
     }
 
     /// <summary>
