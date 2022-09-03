@@ -247,7 +247,7 @@ public class Enemy : MonoBehaviour
     public int TakeDamage(int attackValue, CharacterStats attacker)
     {
         int actualDamage = enemyStats.TakeDamage(attackValue, attacker);
-        if(actualDamage < 0)
+        if(actualDamage <= 0)
         {
             actualDamage = 1;
         }

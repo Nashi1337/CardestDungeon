@@ -31,6 +31,9 @@ public class GameTime : MonoBehaviour
     /// </summary>
     public static void UpdateIsGamePaused()
     {
+        Debug.Log(Inventory.instance);
+        Debug.Log(MapManager.Current);
+        Debug.Log(Pause.instance);
         isGamePaused = Inventory.instance.gameObject.activeInHierarchy 
                     || MapManager.Current.gameObject.activeInHierarchy
                     || Pause.instance.gameObject.activeInHierarchy;
