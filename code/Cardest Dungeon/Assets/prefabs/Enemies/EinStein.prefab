@@ -217,9 +217,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.9, y: 1.5}
-  m_Direction: 1
+  m_Offset: {x: 0, y: -0.14}
+  m_Size: {x: 0.61, y: 1.23}
+  m_Direction: 0
 --- !u!114 &3509598710220247192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,9 +261,12 @@ MonoBehaviour:
   dropMagic: {fileID: 7664108723397186347, guid: 7cdc7fb51b0a2454c870e697e739fcbc, type: 3}
   dropBoss: {fileID: 0}
   defeatedBoss: {fileID: 0}
+  zahltrigger: 0
   zahl: 0
   fireballProjectile: {fileID: 0}
   fireBallCooldown: 3
+  fakeWifeNPC: {fileID: 0}
+  bossMusic: {fileID: 0}
 --- !u!82 &4619496375356567814
 AudioSource:
   m_ObjectHideFlags: 0

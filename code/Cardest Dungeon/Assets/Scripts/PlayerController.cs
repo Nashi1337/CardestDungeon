@@ -42,25 +42,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float runningSpeed;
     [SerializeField]
+    private float interactionRadius;
+    [SerializeField]
+    private float maxKnockbackVelocity;
+    [SerializeField]
+    private float knockBackDamping;
+    [SerializeField]
     private Animator animator; //animator Variable um für den Player Animationen zu steuern
     [SerializeField]
     private Transform attackPoint;
     [SerializeField]
     private Transform rangeAttackPoint;
     [SerializeField]
-    private float interactionRadius;
-    private PlayerStats playerStats;
-
-    [SerializeField]
     private GameObject Pause;
 
-
+    private Vector3 knockbackForce;
     private Rigidbody2D rig = default;
-    private Rigidbody2D rig2;
     private SpriteRenderer spriterRenderer;
     private GameObject mapeditor = default;
     private GameObject inventoryManager = default;
     private GameObject inventoryUI = default;
+    private PlayerStats playerStats;
     private PlayerCombatTEST playerCombatTEST = null;
 
 
@@ -115,13 +117,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 velocity = Vector3.zero;
+
         //checks if the player can currently move, usually disabled by open menus.
         if (canMove)
         {
             //In the InputManager, when using WASD, arrow keys or the controller stick, the walkdirection will be saved as a vector
             Vector2 walkDirectionAsVector = InputManager.CalculateInputDirection();
 
-            //Using advanced mathematic skills we were able to calculate the walking direction in degree from a vector.
             walkDirectionInDegree = Mathf.Atan2(walkDirectionAsVector.y, walkDirectionAsVector.x) * Mathf.Rad2Deg;
             //if the walking direction is > 0
             if (walkDirectionAsVector.magnitude > 0)
@@ -136,16 +139,30 @@ public class PlayerController : MonoBehaviour
             //"Hold shift to run"
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                rig.velocity = walkDirectionAsVector * runningSpeed;
+                velocity = walkDirectionAsVector * runningSpeed;
             }
             else
             {
-                rig.velocity = walkDirectionAsVector * speed;
+                velocity = walkDirectionAsVector * speed;
             }
             animator.SetFloat("walkDirection", walkDirectionInDegree);
             animator.SetFloat("lookDirection", lookDirection);
             animator.SetFloat("a_Speed", rig.velocity.magnitude);
         }
+
+        //KnockbackCalculation
+        if (knockbackForce.magnitude > 0.01f)
+        {
+            knockbackForce -= knockbackForce.normalized * Time.fixedDeltaTime * knockBackDamping;
+        }
+        else
+        {
+            knockbackForce = Vector3.zero;
+        }
+
+        velocity += knockbackForce;
+
+        rig.velocity = velocity;
     }
 
     private void Update()
@@ -316,6 +333,20 @@ public class PlayerController : MonoBehaviour
 
                 MapManager.Current.UpdatePlayerPosition(collidedWith);
             }
+        }
+    }
+
+    public void AddKnockback(Vector3 knockbackVelocity)
+    {
+        if(knockbackVelocity.magnitude > maxKnockbackVelocity)
+        {
+            knockbackVelocity = knockbackVelocity.normalized * maxKnockbackVelocity;
+        }
+        knockbackForce = knockbackForce + knockbackVelocity;
+        
+        if (knockbackForce.magnitude > maxKnockbackVelocity)
+        {
+            knockbackForce = knockbackForce.normalized * maxKnockbackVelocity;
         }
     }
 
