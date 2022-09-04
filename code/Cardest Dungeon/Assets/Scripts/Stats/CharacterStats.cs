@@ -27,6 +27,7 @@ public class CharacterStats : MonoBehaviour
 
     [SerializeField]
 	private HealthBar healthBar;
+    [SerializeField] private StatusCard healthCard;
 
     protected float knockbackModifier = 5;
 
@@ -39,6 +40,7 @@ public class CharacterStats : MonoBehaviour
     {
         CurrHealth = MaxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        if (gameObject.CompareTag("Player")) healthCard.SetStatMax(maxHealth);
         UpdateStats();
     }
 
@@ -90,6 +92,8 @@ public class CharacterStats : MonoBehaviour
             magic = 5 + Inventory.instance.GetMagicModifier();
             maxHealth = 20 + Inventory.instance.GetHPModifier();
             healthBar.SetMaxHealth(maxHealth);
+            healthCard.SetStatMax(maxHealth);
+            healthCard.SetStat(currHealth);
         }
         healthBar.SetHealth(currHealth);
     }
@@ -123,6 +127,7 @@ public class CharacterStats : MonoBehaviour
     public void UpdateMaxHealth()
     {
         healthBar.SetMaxHealth(maxHealth);
+        if (gameObject.CompareTag("Player")) healthCard.SetStatMax(maxHealth);
         UpdateStats();
     }
 }

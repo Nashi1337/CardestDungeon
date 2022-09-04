@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 950e29cbea2e4ce4b8698a9b1502a303, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8bc4525016bb914197cf7dbdf278f96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   interactionTransform: {fileID: 467265075571611799}
   item: {fileID: 0}
   bossItem: 0
+  tutorialItem: 0
   audioPlayerPrefab: {fileID: 0}
   itemPickup: {fileID: 0}
   bossItemPickup: {fileID: 0}
@@ -117,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.02726841, y: 0.0045446157}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 2}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1.5, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2}
+  m_Size: {x: 1.0637074, y: 1.8818376}
   m_EdgeRadius: 0
 --- !u!82 &662390312647438106
 AudioSource:

@@ -19,6 +19,8 @@ public class PlayerStats : CharacterStats
 
     [SerializeField]
     private ManaBar manaBar;
+    [SerializeField] private StatusCard manaCard;
+
     [SerializeField]
     private GameObject audioPlayerPrefab;
     [SerializeField]
@@ -38,6 +40,7 @@ public class PlayerStats : CharacterStats
         //Only the player has mana. The current as well as the max mana is always equal to the magic value.
         mana = magic;
         manaBar.SetMaxMana(mana);
+        manaCard.SetStatMax(mana);
         StartCoroutine(RefillMana());
 
         audio = GetComponent<AudioSource>();
@@ -75,7 +78,9 @@ public class PlayerStats : CharacterStats
         magicText.text = Magic.ToString();
         healthText.text = CurrHealth.ToString();
         manaBar.SetMaxMana(magic);
+        manaCard.SetStatMax(magic);
         manaBar.SetMana(mana);
+        manaCard.SetStat(mana);
         base.UpdateStats();
     }
 
