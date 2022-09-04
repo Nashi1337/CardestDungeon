@@ -26,6 +26,7 @@ public class Pause : MonoBehaviour
     [SerializeField]
     private GameObject PauseMenu;
     [SerializeField]
+    private DialogueManager dm;
 
     private void Start()
     {
@@ -75,5 +76,10 @@ public class Pause : MonoBehaviour
     public void SetVolume(float volume)
     {
         AudioListener.volume = volume;
+    }
+
+    public void SetTextSpeed(float textSpeed)
+    {
+        dm.SetTextSpeed(textSpeed);
     }
 }

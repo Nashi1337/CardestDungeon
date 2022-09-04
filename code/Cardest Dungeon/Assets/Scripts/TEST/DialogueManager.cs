@@ -167,4 +167,9 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", true);
         dialogueText.text = "You have opened the blue door!";
     }
+
+    public void SetTextSpeed(float speed)
+    {
+        textSpeed = 1.0f - speed;
+    }
 }

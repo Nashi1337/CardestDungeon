@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
 		magicModifier = 0;
 		hpModifier = 0;
 
-		LoadInventoryFromPlayerStats();
+		//LoadInventoryFromPlayerStats();
         if (PlayerPrefs.HasKey("HighScore"))
         {
 			Debug.Log("Highscore gefunden: " + PlayerPrefs.GetString("HighScore"));
