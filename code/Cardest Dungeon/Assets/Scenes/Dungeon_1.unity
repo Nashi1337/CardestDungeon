@@ -95460,10 +95460,6 @@ PrefabInstance:
       propertyPath: highScoreText
       value: 
       objectReference: {fileID: 1878698604}
-    - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
-      propertyPath: audioPlayerPrefab
-      value: 
-      objectReference: {fileID: 5570049455034958939, guid: bf6ad27e9aa84af45abd76e716f227c8, type: 3}
     m_RemovedComponents:
     - {fileID: 4717784383527550452, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}

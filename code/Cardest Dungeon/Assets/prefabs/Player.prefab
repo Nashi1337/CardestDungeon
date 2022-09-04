@@ -403,6 +403,7 @@ MonoBehaviour:
   defense: 2
   magic: 5
   healthBar: {fileID: 0}
+  healthCard: {fileID: 0}
   attackText: {fileID: 0}
   defenseText: {fileID: 0}
   healthText: {fileID: 0}
@@ -410,6 +411,7 @@ MonoBehaviour:
   mana: 0
   highScore: 0
   manaBar: {fileID: 0}
+  manaCard: {fileID: 0}
   audioPlayerPrefab: {fileID: 5570049455034958939, guid: bf6ad27e9aa84af45abd76e716f227c8, type: 3}
   highScoreText: {fileID: 0}
   gameOver: {fileID: 0}
@@ -430,7 +432,7 @@ MonoBehaviour:
   speed: 5
   runningSpeed: 10
   interactionRadius: 1
-  maxKnockbackVelocity: 10
+  maxKnockbackVelocity: 1
   knockBackDamping: 0.7
   animator: {fileID: 6041061020328274174}
   attackPoint: {fileID: 6041061020328902811}
