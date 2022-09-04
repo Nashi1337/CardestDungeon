@@ -133758,6 +133758,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1048749668780036870, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2226120871617465442, guid: 6817db26352c031499d13d71a4625f17, type: 3}
       propertyPath: fireball
       value: 1
@@ -133978,20 +133982,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5317823328062425331, guid: 6817db26352c031499d13d71a4625f17, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 4606869130348468421, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5317823328062425331, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317823328062425331, guid: 6817db26352c031499d13d71a4625f17, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317823328311758051, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6171232577109466252, guid: 6817db26352c031499d13d71a4625f17, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6171232577109466252, guid: 6817db26352c031499d13d71a4625f17, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270240314992571156, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762002614161002924, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8096214243766772716, guid: 6817db26352c031499d13d71a4625f17, type: 3}
@@ -134102,6 +134122,10 @@ PrefabInstance:
       propertyPath: dungeonPart
       value: 
       objectReference: {fileID: 4729212505974723449}
+    - target: {fileID: 8096214245589558468, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8620974037198137891, guid: 6817db26352c031499d13d71a4625f17, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
