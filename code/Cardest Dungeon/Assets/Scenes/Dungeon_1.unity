@@ -11186,6 +11186,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 905c181a4801e614cb05cfe7be1d3196, type: 3}
+--- !u!114 &328447974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4606869130348468420, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+  m_PrefabInstance: {fileID: 8096214245724952937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a0f7fc603230744b6d1b9baff2f30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &333615146
 GameObject:
   m_ObjectHideFlags: 0
@@ -12931,6 +12942,7 @@ MonoBehaviour:
   defense: 100
   magic: 0
   healthBar: {fileID: 0}
+  healthCard: {fileID: 0}
 --- !u!114 &998173505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33384,6 +33396,7 @@ MonoBehaviour:
   defense: 100
   magic: 0
   healthBar: {fileID: 0}
+  healthCard: {fileID: 0}
 --- !u!82 &1363829639
 AudioSource:
   m_ObjectHideFlags: 0
@@ -38651,6 +38664,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47c852657f5fafa49bcfa79dabe126ac, type: 3}
+--- !u!114 &1599184752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6270240314992571157, guid: 6817db26352c031499d13d71a4625f17, type: 3}
+  m_PrefabInstance: {fileID: 8096214245724952937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a0f7fc603230744b6d1b9baff2f30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1605700604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95405,6 +95429,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3068558514172492992}
     - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: manaCard
+      value: 
+      objectReference: {fileID: 1599184752}
+    - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1796530265}
@@ -95416,6 +95444,10 @@ PrefabInstance:
       propertyPath: attackText
       value: 
       objectReference: {fileID: 545400261}
+    - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
+      propertyPath: healthCard
+      value: 
+      objectReference: {fileID: 328447974}
     - target: {fileID: 6041061020328274175, guid: 6615328ef20ed8942a4ac3d7c69e436b, type: 3}
       propertyPath: healthText
       value: 
@@ -134358,6 +134390,7 @@ MonoBehaviour:
   defense: 5
   magic: 6
   healthBar: {fileID: 8455820372579728862}
+  healthCard: {fileID: 0}
 --- !u!114 &8455820371055547502
 MonoBehaviour:
   m_ObjectHideFlags: 0
